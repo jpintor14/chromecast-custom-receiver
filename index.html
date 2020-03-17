@@ -8,7 +8,35 @@
 <body>
   <cast-media-player></cast-media-player>
   <script>
-    cast.framework.CastReceiverContext.getInstance().start();
+    //cast.framework.CastReceiverContext.getInstance().start();
+
+    const context = cast.framework.CastReceiverContext.getInstance();
+    const CUSTOM_CHANNEL = 'urn:x-cast:com.orangetv.ospanh';
+
+    var senderId = null;
+    context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
+      if(customEvent.data) {
+          switch(customEvent.data.command) {
+              case 'launchPlayer':
+                  launchPlayer(customEvent.data.params.url, customEvent.data.params.licenseUrl, customEvent.data.params.type)
+                  break;
+              case 'play':
+                  play();
+                  break;
+              case 'pause':
+                  pause();
+                  break;
+              case 'seek':
+                  seek(customEvent.data.params.seekTime);
+                  break;
+              case 'registerId':
+                  senderId = customEvent.senderId;
+              case 'message':
+                  alert("message: " + customEvent.data.params.message)
+          }
+      }
+    });
+    context.start(options);
   </script>
 </body>
 </html>
