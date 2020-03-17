@@ -17,6 +17,7 @@
     context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
       if(customEvent.data) {
           switch(customEvent.data.command) {
+            /*
               case 'launchPlayer':
                   launchPlayer(customEvent.data.params.url, customEvent.data.params.licenseUrl, customEvent.data.params.type)
                   break;
@@ -31,12 +32,14 @@
                   break;
               case 'registerId':
                   senderId = customEvent.senderId;
+                  */
               case 'message':
                   alert("message: " + customEvent.data.params.message)
           }
       }
     });
-    context.start(options);
+    //context.start(options);
+    context.start();
   </script>
 </body>
 </html>
