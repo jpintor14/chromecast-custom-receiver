@@ -1,0 +1,328 @@
+<html>
+<head>
+</head>
+<body>
+
+    <cast-media-player id="player"></cast-media-player>
+
+    <style>
+        #player {
+            --theme-hue: 210;
+            --splash-image: url("images/splash_viaccess.png");
+            --splash-size: contain;
+        }
+    </style>
+
+    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>
+
+    <script>
+
+        const SQP_COMMUNICATION_CHANNEL_URN = 'urn:x-cast:com.viaccess.voplayer';
+        const context = cast.framework.CastReceiverContext.getInstance();
+        const playerManager = context.getPlayerManager();
+        var cookies=[];
+
+        // Update playback config licenseUrl according to provided value in load request.
+        playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
+            if (loadRequest.media.customData) {
+                if (loadRequest.media.customData.licenseUrl) {
+                    playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
+                }
+                if (loadRequest.media.customData.protectionSystem) {
+                    if (loadRequest.media.customData.protectionSystem === "WIDEVINE") {
+                        playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
+                    } else
+                        if (loadRequest.media.customData.protectionSystem === "PLAYREADY"){
+                            playbackConfig.protectionSystem = cast.framework.ContentProtection.PLAYREADY;
+                        }
+                }
+                if (loadRequest.media.customData.cookies) {
+                    cookies = loadRequest.media.customData.cookies;
+                }
+                if (loadRequest.media.customData.licenseCustomData) {
+                    playbackConfig.licenseCustomData = loadRequest.media.customData.licenseCustomData;
+                }
+            }
+
+
+            return playbackConfig;
+        });
+
+        // interceptors
+        playerManager.setMessageInterceptor(
+            cast.framework.messages.MessageType.MEDIA_STATUS, mediaStatus => {
+                console.log("on Message MEDIA_STATUS: " + mediaStatus.playerState);
+                return mediaStatus;
+            });
+
+        playerManager.setMessageInterceptor(
+            cast.framework.messages.MessageType.EDIT_AUDIO_TRACKS, request => {
+                console.log("on Message EDIT_AUDIO_TRACKS");
+                return request;
+            });
+
+        playerManager.setMessageInterceptor(
+            cast.framework.messages.MessageType.EDIT_TRACKS_INFO, request => {
+                console.log("on Message EDIT_TRACKS_INFO");
+                return request;
+            });
+
+        playerManager.setMessageInterceptor(
+            cast.framework.messages.MessageType.GET_STATUS, getStatusRequestData => {
+                console.log("on Message GET_STATUS");
+                return getStatusRequestData;
+            });
+
+        playerManager.setMessageInterceptor(
+            cast.framework.messages.MessageType.LOAD, loadRequestData => {
+                console.log("on Message LOAD");
+                return loadRequestData;
+            });
+
+        playerManager.addEventListener(cast.framework.events.EventType.MEDIA_STATUS,
+            event => {
+                console.log("on MEDIA_STATUS: " + event.mediaStatus.playerState);
+                if (event.mediaStatus.activeTrackIds) {
+                    console.log("on MEDIA_STATUS: number of active track " + event.mediaStatus.activeTrackIds.length);
+                    if (event.mediaStatus.activeTrackIds.length >= 1) {
+                        console.log("on MEDIA_STATUS: first trackId " + event.mediaStatus.activeTrackIds[0]);
+                        if (event.mediaStatus.activeTrackIds.length == 2) {
+                            console.log("on MEDIA_STATUS: second trackId " + event.mediaStatus.activeTrackIds[1]);
+                        }
+                    }
+                }
+            }
+        );
+
+        playerManager.addEventListener(cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
+            event => {
+
+                console.log("on PLAYER_LOAD_COMPLETE: contentId " + event.media.contentId);
+
+                for (var i = 0; i < event.media.tracks.length; i++) {
+
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].language " + event.media.tracks[i].language);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].name: " + event.media.tracks[i].name);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].subtype: " + event.media.tracks[i].subtype);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentId: " + event.media.tracks[i].trackContentId);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
+                }
+            }
+        );
+
+
+        /* For error code description */
+        /* event.detailedErrorCode: https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.events#.DetailedErrorCode */
+        /* mpl errors: https://developers.google.com/cast/docs/mpl_error_codes */
+        /* shaka errors: https://shaka-player-demo.appspot.com/docs/api/shaka.util.Error.html */
+        playerManager.addEventListener(cast.framework.events.EventType.ERROR,
+            event => {
+                var errorCodeAsStr = "";
+                var errorCodeExtentionAsStr = "";
+
+                switch (event.detailedErrorCode) {
+                    case cast.framework.events.DetailedErrorCode.MEDIA_UNKNOWN:
+                        errorCodeAsStr = "MEDIA_UNKNOWN";
+                        if ( (event.error !== undefined) && (event.error.shakaErrorCode !== undefined) )
+                            errorCodeExtentionAsStr = "ShakaPlayer error code = " + event.error.shakaErrorCode +
+                                                    " MediaError code from the video element = " + event.error.shakaErrorData[0] +
+                                                    " Description is " + event.error.shakaErrorData[2];
+
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MEDIA_ABORTED:
+                        errorCodeAsStr = "MEDIA_ABORTED";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MEDIA_DECODE:
+                        errorCodeAsStr = "MEDIA_DECODE";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MEDIA_NETWORK:
+                        errorCodeAsStr = "MEDIA_NETWORK";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MEDIA_SRC_NOT_SUPPORTED:
+                        errorCodeAsStr = "MEDIA_SRC_NOT_SUPPORTED";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.SOURCE_BUFFER_FAILURE:
+                        errorCodeAsStr = "SOURCE_BUFFER_FAILURE";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MEDIAKEYS_UNKNOWN:
+                        errorCodeAsStr = "MEDIAKEYS_UNKNOWN";
+                        if ( (event.error !== undefined) && (event.error.shakaErrorCode !== undefined) )
+                            errorCodeExtentionAsStr = "ShakaPlayer error code = " + event.error.shakaErrorCode;
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MEDIAKEYS_NETWORK:
+                        errorCodeAsStr = "MEDIAKEYS_NETWORK";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MEDIAKEYS_UNSUPPORTED:
+                        errorCodeAsStr = "MEDIAKEYS_UNSUPPORTED";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MEDIAKEYS_WEBCRYPTO:
+                        errorCodeAsStr = "MEDIAKEYS_WEBCRYPTO";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.NETWORK_UNKNOWN:
+                        errorCodeAsStr = "NETWORK_UNKNOWN";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.SEGMENT_NETWORK:
+                        errorCodeAsStr = "SEGMENT_NETWORK";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.HLS_NETWORK_MASTER_PLAYLIST:
+                        errorCodeAsStr = "HLS_NETWORK_MASTER_PLAYLIST";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.HLS_NETWORK_PLAYLIST:
+                        errorCodeAsStr = "HLS_NETWORK_PLAYLIST";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.HLS_NETWORK_NO_KEY_RESPONSE:
+                        errorCodeAsStr = "HLS_NETWORK_NO_KEY_RESPONSE";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.HLS_NETWORK_KEY_LOAD:
+                        errorCodeAsStr = "HLS_NETWORK_KEY_LOAD";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.HLS_NETWORK_INVALID_SEGMENT:
+                        errorCodeAsStr = "HLS_NETWORK_INVALID_SEGMENT";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.HLS_SEGMENT_PARSING:
+                        errorCodeAsStr = "HLS_SEGMENT_PARSING";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.DASH_NETWORK:
+                        errorCodeAsStr = "DASH_NETWORK";
+                        if ( (event.error !== undefined) && (event.error.shakaErrorCode !== undefined) )
+                            errorCodeExtentionAsStr = "ShakaPlayer error code = " + event.error.shakaErrorCode +
+                                " url = " + event.error.shakaErrorData[0];
+                        break;
+                    case cast.framework.events.DetailedErrorCode.DASH_NO_INIT:
+                        errorCodeAsStr = "DASH_NO_INIT";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.SMOOTH_NETWORK:
+                        errorCodeAsStr = "SMOOTH_NETWORK";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.SMOOTH_NO_MEDIA_DATA:
+                        errorCodeAsStr = "SMOOTH_NO_MEDIA_DATA";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MANIFEST_UNKNOWN:
+                        errorCodeAsStr = "MANIFEST_UNKNOWN";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.HLS_MANIFEST_MASTER:
+                        errorCodeAsStr = "HLS_MANIFEST_MASTER";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.HLS_MANIFEST_PLAYLIST:
+                        errorCodeAsStr = "HLS_MANIFEST_PLAYLIST";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.DASH_MANIFEST_UNKNOWN:
+                        errorCodeAsStr = "DASH_MANIFEST_UNKNOWN";
+                        if ( (event.error !== undefined) && (event.error.shakaErrorCode !== undefined) )
+                            errorCodeExtentionAsStr = "ShakaPlayer error code = " + event.error.shakaErrorCode;
+                        break;
+                    case cast.framework.events.DetailedErrorCode.DASH_MANIFEST_NO_PERIODS:
+                        errorCodeAsStr = "MEDIA_UNKNOWN";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MEDIA_UNKNOWN:
+                        errorCodeAsStr = "DASH_MANIFEST_NO_PERIODS";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.DASH_MANIFEST_NO_MIMETYPE:
+                        errorCodeAsStr = "DASH_MANIFEST_NO_MIMETYPE";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.DASH_INVALID_SEGMENT_INFO:
+                        errorCodeAsStr = "DASH_INVALID_SEGMENT_INFO";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.SMOOTH_MANIFEST:
+                        errorCodeAsStr = "SMOOTH_MANIFEST";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.SEGMENT_UNKNOWN:
+                        errorCodeAsStr = "SEGMENT_UNKNOWN";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.TEXT_UNKNOWN:
+                        errorCodeAsStr = "TEXT_UNKNOWN";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.APP:
+                        errorCodeAsStr = "APP";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.BREAK_CLIP_LOADING_ERROR:
+                        errorCodeAsStr = "BREAK_CLIP_LOADING_ERROR";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.BREAK_SEEK_INTERCEPTOR_ERROR:
+                        errorCodeAsStr = "BREAK_SEEK_INTERCEPTOR_ERROR";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.IMAGE_ERROR:
+                        errorCodeAsStr = "IMAGE_ERROR";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.LOAD_INTERRUPTED:
+                        errorCodeAsStr = "LOAD_INTERRUPTED";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.LOAD_FAILED:
+                        errorCodeAsStr = "LOAD_FAILED";
+                        break;
+                    case cast.framework.events.DetailedErrorCode.MEDIA_ERROR_MESSAGE:
+                        errorCodeAsStr = "MEDIA_ERROR_MESSAGE";
+                        if (event.error.requestId !== undefined)
+                            console.log("error.requestId: " + event.error.requestId);
+                        if (event.error.type !== undefined)
+                            console.log("error.type: " + event.error.type);
+                        break;
+                    case cast.framework.events.DetailedErrorCode.GENERIC:
+                        errorCodeAsStr = "GENERIC";
+                        break;
+                    default:
+                        errorCodeAsStr = "Unexpected error code" ;
+                        break;
+
+                }
+                console.log("on ERROR: " + errorCodeAsStr + "(" + errorCodeExtentionAsStr + ")");
+
+                // report the error to the device
+                var errorMsg = {type: 'playbackerror'};
+                errorMsg.errorCode = event.detailedErrorCode;
+                errorMsg.errorCodeAsStr = errorCodeAsStr + ". " + errorCodeExtentionAsStr;
+                context.sendCustomMessage(SQP_COMMUNICATION_CHANNEL_URN,undefined,errorMsg);
+
+                // stop the player
+                if ( playerManager.getPlayerState() !== cast.framework.messages.PlayerState.IDLE ) {
+                    playerManager.stop();
+                }
+
+                // stop the session
+                context.stop();
+            }
+        );
+
+        context.addEventListener(cast.framework.system.EventType.SENDER_DISCONNECTED, event => {
+            console.log("on SENDER_DISCONNECTED: " + event.type);
+        });
+
+        const playbackConfig = new cast.framework.PlaybackConfig();
+        playbackConfig.autoResumeDuration = 5;
+
+        // A hook on the license request url
+        playbackConfig.licenseRequestHandler = requestInfo => {
+            console.log("licenseRequestHandler: " + requestInfo.url);
+
+            if (cookies.length != 0) {
+                cookies.forEach(value => {
+                    cookieName = value.split("=")[0];
+                    cookieValue = value.split("=")[1];
+                    requestInfo.headers[cookieName] = cookieValue;
+                });
+            }
+
+            return requestInfo;
+        };
+        // A hook on the manifest when downloaded and parsed
+        playbackConfig.manifestHandler = manifest => {
+            console.log("manifestHandler: " + manifest);
+            return manifest;
+        };
+        // A hook on the manifest request url
+        playbackConfig.manifestRequestHandler = networkRequestInfo => {
+            console.log("manifestRequestHandler: " + networkRequestInfo.url);
+            return networkRequestInfo;
+        };
+
+        context.addCustomMessageListener(SQP_COMMUNICATION_CHANNEL_URN, customEvent => {
+            console.log("addCustomMessageListener: " + customEvent);
+        });
+
+        context.start({playbackConfig: playbackConfig});
+
+    </script>
+</body>
+</html>
