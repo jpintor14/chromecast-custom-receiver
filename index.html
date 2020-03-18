@@ -26,8 +26,11 @@
           switch(customEvent.data.command) {
             
               case 'launchPlayer':
+                  console.log("url: " + customEvent.data.params.url)
+                  console.log("license: " + customEvent.data.params.licenseUrl)
+                  console.log("type: " + customEvent.data.params.type)
                   launchPlayer(customEvent.data.params.url, customEvent.data.params.licenseUrl, customEvent.data.params.type);
-                  print("launchPlayer")
+                  console.log("launchPlayer")
                   break;
               case 'play':
                   play();
