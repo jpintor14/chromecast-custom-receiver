@@ -34,7 +34,8 @@
         playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
             if (loadRequest.media.customData) {
                 if (loadRequest.media.customData.licenseUrl) {
-                    playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
+                    //playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
+                    playbackConfig.licenseUrl = licenseServerUrl;
                 }
                 if (loadRequest.media.customData.protectionSystem) {
                     if (loadRequest.media.customData.protectionSystem === "WIDEVINE") {
@@ -48,7 +49,8 @@
                     cookies = loadRequest.media.customData.cookies;
                 }
                 if (loadRequest.media.customData.licenseCustomData) {
-                    playbackConfig.licenseCustomData = loadRequest.media.customData.licenseCustomData;
+                    //playbackConfig.licenseCustomData = loadRequest.media.customData.licenseCustomData;
+                    playbackConfig.licenseCustomData = getLivePlayingInfoOrangeSeries()
                 }
             }
 
@@ -436,6 +438,37 @@
             
             initPlaybackConfig()
         }
+    }
+
+
+    function getLivePlayingInfoOrangeSeries(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=1000&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", false);
+        xhttp.withCredentials = true
+        xhttp.send();
+
+        /*
+        xhttp.onreadystatechange = function() {
+            console.log("------------------------------------")
+            console.log("------------------------------------")
+            console.log("------------------------------------")
+            console.log("------------------------------------")
+            console.log("getLivePlayingInfo");
+            var response = JSON.parse(xhttp.responseText)["response"];
+            casToken = response["casToken"]
+            playingUrl = response["playingUrl"]
+            console.log("response " + xhttp.responseText );
+            console.log("------------------------------------")
+            console.log("------------------------------------")
+            console.log("------------------------------------")
+            console.log("------------------------------------")
+            console.log("------------------------------------")
+            
+            initPlaybackConfig()
+        }
+        */
+
+        return casToken
     }
     
     function initPlaybackConfig(){
