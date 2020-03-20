@@ -29,8 +29,7 @@
         var licenseServerUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
         var persoUrl = "https://orangetv.orange.es/Personalization";
 
-
-        /*
+        
         // Update playback config licenseUrl according to provided value in load request.
         playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
             if (loadRequest.media.customData) {
@@ -292,18 +291,18 @@
                 context.stop();
             }
         );
-
-        /*
         context.addEventListener(cast.framework.system.EventType.SENDER_DISCONNECTED, event => {
             console.log("on SENDER_DISCONNECTED: " + event.type);
         });
-        */
+        
 
         var playbackConfig = new cast.framework.PlaybackConfig();
         playbackConfig.autoResumeDuration = 5;
 
+        playbackConfig.licenseUrl = licenseServerUrl;
+        playbackConfig.protectionSystem = cast.framework.ContentProtection.PLAYREADY;
+
         // A hook on the license request url
-        /*
         playbackConfig.licenseRequestHandler = requestInfo => {
             console.log("licenseRequestHandler: " + requestInfo.url);
 
@@ -317,13 +316,8 @@
 
             return requestInfo;
         };
-        */
+        
 
-
-        playbackConfig.licenseUrl = licenseServerUrl;
-        playbackConfig.protectionSystem = cast.framework.ContentProtection.PLAYREADY;
-
-        /*
         // A hook on the manifest when downloaded and parsed
         playbackConfig.manifestHandler = manifest => {
             console.log("manifestHandler: " + manifest);
@@ -339,7 +333,7 @@
         context.addCustomMessageListener(SQP_COMMUNICATION_CHANNEL_URN, customEvent => {
             console.log("addCustomMessageListener: " + customEvent);
         });
-        */
+        
 
         context.start({playbackConfig: playbackConfig});
 
@@ -465,16 +459,23 @@
         };
         */
 
+        /*
         playbackConfig.licenseRequestHandler = requestInfo => {
             console.log("licenseRequestHandler: " + requestInfo.url);
                     requestInfo.headers["token"] = casToken;
 
             return requestInfo;
         };
+        */
 
-        var mediaInfo = new cast.framework.MediaInfo(playingUrl, "PLAYREADY");
-        mediaInfo.customData = {'token': casToken}
+        /*
+        playbackConfig.licenseUrl = licenseServerUrl
+
+        var mediaInfo = new cast.framework.MediaInfo(playingUrl, cast.framework.ContentProtection.PLAYREADY);
+        mediaInfo.customData = casToken
         playerManager.load(mediaInfo)
+        playerManager.play()
+        */
     }
     </script>
 </body>
