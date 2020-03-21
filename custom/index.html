@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+    <cast-media-player id="player"></cast-media-player>
+
+    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>
+
+    <script>
+
+    const channel = 'urn:x-cast:com.optm.anhplayer';
+    const context = cast.framework.CastReceiverContext.getInstance();
+    const playerManager = context.getPlayerManager();
+    const licenseServerUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
+    var cookies = [];
+
+    console.log("context getInstance()")
+
+
+    // Update playback config licenseUrl according to provided value in load request.
+    playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
+        if (loadRequest.media.customData) {
+            if (loadRequest.media.customData.licenseUrl) {
+                //playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
+                playbackConfig.licenseUrl = licenseServerUrl;
+            }
+            if (loadRequest.media.customData.protectionSystem) {
+                if (loadRequest.media.customData.protectionSystem === "WIDEVINE") {
+                    playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
+                } else
+                    if (loadRequest.media.customData.protectionSystem === "PLAYREADY"){
+                        playbackConfig.protectionSystem = cast.framework.ContentProtection.PLAYREADY;
+                    }
+            }
+            if (loadRequest.media.customData.cookies) {
+                cookies = loadRequest.media.customData.cookies;
+            }
+            if (loadRequest.media.customData.licenseCustomData) {
+                playbackConfig.licenseCustomData = loadRequest.media.customData.licenseCustomData;
+                //playbackConfig.licenseCustomData = getLivePlayingInfoOrangeSeries()
+            }
+        }
+
+        return playbackConfig;
+    });
+
+
+
+    const playbackConfig = new cast.framework.PlaybackConfig();
+            playbackConfig.autoResumeDuration = 5;
+
+            // A hook on the license request url
+            playbackConfig.licenseRequestHandler = requestInfo => {
+                console.log("licenseRequestHandler: " + requestInfo.url);
+
+                if (cookies.length != 0) {
+                    cookies.forEach(value => {
+                        cookieName = value.split("=")[0];
+                        cookieValue = value.split("=")[1];
+                        requestInfo.headers[cookieName] = cookieValue;
+                    });
+                }
+
+                return requestInfo;
+            };
+            // A hook on the manifest when downloaded and parsed
+            playbackConfig.manifestHandler = manifest => {
+                console.log("manifestHandler: " + manifest);
+                return manifest;
+            };
+            // A hook on the manifest request url
+            playbackConfig.manifestRequestHandler = networkRequestInfo => {
+                console.log("manifestRequestHandler: " + networkRequestInfo.url);
+                return networkRequestInfo;
+            };
+
+            context.addCustomMessageListener(SQP_COMMUNICATION_CHANNEL_URN, customEvent => {
+                console.log("addCustomMessageListener: " + customEvent);
+            });
+
+            context.start({playbackConfig: playbackConfig});
+    </script>
+
+
+</body>
+</html>
