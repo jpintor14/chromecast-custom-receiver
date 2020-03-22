@@ -159,7 +159,8 @@
                 addToLog("loginWithProfile")
                 addToLog("response " + xhttpLoginProfile.responseText )
                 addToLog("response " + JSON.parse(xhttpLoginProfile.responseText)["response"] )
-                getLivePlayingInfo()
+                //getLivePlayingInfo()
+                getVideoPlatingInfo()
             }
         }
 
@@ -188,10 +189,10 @@
     }
 
 
-    /*
-    function getLivePlayingInfoOrangeSeries(){
+    
+    function getVideoPlatingInfo(){
         var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=1000&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
+        xhttp.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetVideoPlayingInfo?model_external_id=Chromecast&video_external_id=PRG_0000061190HD_DUPLICATED&client=json&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
         xhttp.withCredentials = true
         xhttp.send();
 
@@ -209,7 +210,7 @@
 
         return casToken
     }
-    */
+    
 
     function initPlaybackConfig(){
         
