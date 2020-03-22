@@ -4,7 +4,18 @@
 </head>
 <body>
 
-    <cast-media-player id="player"></cast-media-player>
+    <table>
+        <tr>
+            <td>
+                <div id="log" style="color: red; z-index: 9999; position: absolute">Log: </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <cast-media-player id="player"></cast-media-player>
+            </td>
+        </tr>
+    </table>
 
     <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>
     <script>
@@ -16,6 +27,7 @@
         var cookies = [];
 
         console.log("context getInstance()")
+        addToLog("context getInstance()");
 
 
         // Update playback config licenseUrl according to provided value in load request.
@@ -24,8 +36,10 @@
                 if (loadRequest.media.customData.licenseUrl) {
                     //playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
                     playbackConfig.licenseUrl = licenseServerUrl;
+                    addToLog("licenseUrl: " + loadRequest.media.customData.licenseUrl);
                 }
                 if (loadRequest.media.customData.protectionSystem) {
+                    addToLog("protectionSystem: " + loadRequest.media.customData.protectionSystem);
                     if (loadRequest.media.customData.protectionSystem === "WIDEVINE") {
                         playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
                     } else
@@ -34,9 +48,11 @@
                         }
                 }
                 if (loadRequest.media.customData.cookies) {
+                    addToLog("cookies: " + loadRequest.media.customData.cookies);
                     cookies = loadRequest.media.customData.cookies;
                 }
                 if (loadRequest.media.customData.licenseCustomData) {
+                    addToLog("licenseCustomData: " + loadRequest.media.customData.licenseCustomData);
                     playbackConfig.licenseCustomData = loadRequest.media.customData.licenseCustomData;
                     //playbackConfig.licenseCustomData = getLivePlayingInfoOrangeSeries()
                 }
@@ -53,12 +69,14 @@
         // A hook on the license request url
         playbackConfig.licenseRequestHandler = requestInfo => {
             console.log("licenseRequestHandler: " + requestInfo.url);
+            addToLog("licenseRequestHandler: " + requestInfo.url);
 
             if (cookies.length != 0) {
                 cookies.forEach(value => {
                     cookieName = value.split("=")[0];
                     cookieValue = value.split("=")[1];
                     requestInfo.headers[cookieName] = cookieValue;
+                    addToLog("cookieName: " + cookieName);
                 });
             }
 
@@ -67,19 +85,29 @@
         // A hook on the manifest when downloaded and parsed
         playbackConfig.manifestHandler = manifest => {
             console.log("manifestHandler: " + manifest);
+            addToLog("manifestHandler: " + manifest)
             return manifest;
         };
         // A hook on the manifest request url
         playbackConfig.manifestRequestHandler = networkRequestInfo => {
             console.log("manifestRequestHandler: " + networkRequestInfo.url);
+            addToLog("manifestRequestHandler: " + networkRequestInfo.url)
             return networkRequestInfo;
         };
 
         context.addCustomMessageListener(channel, customEvent => {
             console.log("addCustomMessageListener: " + customEvent);
+            addToLog("addCustomMessageListener: " + customEvent)
         });
 
         context.start({playbackConfig: playbackConfig});
+
+        addToLog("context started")
+
+
+        function addToLog(message){
+            document.getElementById("log").innerHTML += "<br>" + message
+        }
     </script>
 
 
