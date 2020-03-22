@@ -72,11 +72,12 @@
 
 
                 var xhttpLivePlaying = new XMLHttpRequest();
-                xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=11002&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
+                xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=11002&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", false);
                 xhttpLivePlaying.withCredentials = true
                 xhttpLivePlaying.send();
 
 
+                /*
                 xhttpLivePlaying.onreadystatechange = function() {
 
                     if (this.readyState == 4 && this.status == 200) {
@@ -91,6 +92,14 @@
                         playbackConfig.licenseCustomData = casToken
                     }
                 }
+                */
+
+                addToLog("getLivePlayingInfo");
+                var response = JSON.parse(xhttpLivePlaying.responseText)["response"];
+                casToken = response["casToken"]
+                playingUrl = response["playingUrl"]
+                addToLog("response " + xhttpLivePlaying.responseText );
+                playbackConfig.licenseCustomData = casToken
 
 
                 return loadRequestData;
