@@ -38,8 +38,8 @@
             if (loadRequest.media.customData) {
                 addToLog("setMediaPlaybackInfoHandler customData: " + customData);
                 if (loadRequest.media.customData.licenseUrl) {
-                    playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
-                    //playbackConfig.licenseUrl = licenseServerUrl;
+                    //playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
+                    playbackConfig.licenseUrl = licenseServerUrl;
                     addToLog("licenseUrl: " + loadRequest.media.customData.licenseUrl);
                 }
                 if (loadRequest.media.customData.protectionSystem) {
