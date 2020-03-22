@@ -110,6 +110,152 @@
         function addToLog(message){
             document.getElementById("log").innerHTML += "<br>      " + message
         }
+
+
+    function postLogin(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "https://orangetv.orange.es/pc/api/rtv/v1/Login?client=json", true);
+        xhttp.withCredentials = true
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("username=410000345&password=aaaa1111");
+
+
+
+
+        xhttp.onreadystatechange = function() {
+
+            if (this.readyState == 4 && this.status == 200) {
+                addToLog("postLogin")
+                addToLog("response: " + xhttp.responseText )
+                var status = JSON.parse(xhttp.responseText)["response"]["status"] 
+                addToLog("response: " + status )
+                if (status == "SUCCESS"){
+                    loginWithProfile()
+                }
+            }
+
+
+            /*
+            if(this.readyState == this.HEADERS_RECEIVED) {
+
+            // Get the raw header string
+            var headers = xhttp.getAllResponseHeaders();
+            console.log(headers)
+            }
+            */
+        }
+    }
+
+
+    function loginWithProfile(xhttp){
+        var xhttpLoginProfile = new XMLHttpRequest();
+        xhttpLoginProfile.open("GET", "https://orangetv.orange.es/pc/api/reco/v1/Login?client=json&profile_id=2597776", true);
+        xhttpLoginProfile.withCredentials = true
+        xhttpLoginProfile.send();
+
+
+        xhttpLoginProfile.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                addToLog("loginWithProfile")
+                addToLog("response " + xhttpLoginProfile.responseText )
+                addToLog("response " + JSON.parse(xhttpLoginProfile.responseText)["response"] )
+                getLivePlayingInfo()
+            }
+        }
+
+    }
+
+
+    function getLivePlayingInfo(){
+        var xhttpLivePlaying = new XMLHttpRequest();
+        xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=1000&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
+        xhttpLivePlaying.withCredentials = true
+        xhttpLivePlaying.send();
+
+
+        xhttpLivePlaying.onreadystatechange = function() {
+
+            if (this.readyState == 4 && this.status == 200) {
+                addToLog("getLivePlayingInfo");
+                var response = JSON.parse(xhttpLivePlaying.responseText)["response"];
+                casToken = response["casToken"]
+                playingUrl = response["playingUrl"]
+                addToLog("response " + xhttpLivePlaying.responseText );
+                
+                initPlaybackConfig()
+            }
+        }
+    }
+
+
+    /*
+    function getLivePlayingInfoOrangeSeries(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=1000&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
+        xhttp.withCredentials = true
+        xhttp.send();
+
+        
+        xhttp.onreadystatechange = function() {
+            addToLog("getLivePlayingInfo");
+            var response = JSON.parse(xhttp.responseText)["response"];
+            casToken = response["casToken"]
+            playingUrl = response["playingUrl"]
+            addToLog("response " + xhttp.responseText );
+            
+            initPlaybackConfig()
+        }
+        
+
+        return casToken
+    }
+    */
+
+    function initPlaybackConfig(){
+        
+        addToLog("initPlaybackConfig");
+
+        playbackConfig.licenseCustomData = casToken
+
+
+        addToLog("play");
+        
+        playerManager.play()
+
+
+        addToLog("played");
+
+        /*
+        playbackConfig.licenseRequestHandler = requestInfo => {
+            requestInfo.withCredentials = true;
+            requestInfo.headers = {
+                'token': casToken
+            };
+        };
+        */
+
+        /*
+        playbackConfig.licenseRequestHandler = requestInfo => {
+            console.log("licenseRequestHandler: " + requestInfo.url);
+                    requestInfo.headers["token"] = casToken;
+
+            return requestInfo;
+        };
+        */
+
+        /*
+        playbackConfig.licenseUrl = licenseServerUrl
+
+        var mediaInfo = new cast.framework.MediaInfo(playingUrl, cast.framework.ContentProtection.PLAYREADY);
+        mediaInfo.customData = casToken
+        playerManager.load(mediaInfo)
+        playerManager.play()
+        */
+    }
+
+    </script>
+    <script>
+        postLogin()
     </script>
 
 
