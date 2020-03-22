@@ -200,8 +200,8 @@
         xhttp.onreadystatechange = function() {
             addToLog("getLivePlayingInfo");
             var response = JSON.parse(xhttp.responseText)["response"];
-            casToken = response["casToken"]
-            playingUrl = response["playingUrl"]
+            casToken = response["token"]
+            playingUrl = response["url"]
             addToLog("response " + xhttp.responseText );
             
             initPlaybackConfig()
