@@ -96,7 +96,6 @@
         playbackConfig.manifestHandler = manifest => {
             console.log("manifestHandler: " + manifest);
             addToLog("manifestHandler: " + manifest)
-            getLivePlayingInfo()
             return manifest;
         };
         // A hook on the manifest request url
@@ -117,7 +116,7 @@
 
 
         function addToLog(message){
-            document.getElementById("log").innerHTML += "<br>                   " + message
+            document.getElementById("log").innerHTML += "<br>--------------------" + message
         }
 
 
@@ -127,9 +126,6 @@
         xhttp.withCredentials = true
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("username=410000345&password=aaaa1111");
-
-
-
 
         xhttp.onreadystatechange = function() {
 
@@ -168,7 +164,7 @@
                 addToLog("loginWithProfile")
                 addToLog("response " + xhttpLoginProfile.responseText )
                 addToLog("response " + JSON.parse(xhttpLoginProfile.responseText)["response"] )
-                //getLivePlayingInfo()
+                getLivePlayingInfo()
             }
         }
 
@@ -177,7 +173,7 @@
 
     function getLivePlayingInfo(){
         var xhttpLivePlaying = new XMLHttpRequest();
-        xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=11002&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
+        xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=10002&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
         xhttpLivePlaying.withCredentials = true
         xhttpLivePlaying.send();
 
@@ -191,9 +187,7 @@
                 playingUrl = response["playingUrl"]
                 addToLog("response " + xhttpLivePlaying.responseText );
                 
-                //initPlaybackConfig()
-
-                playbackConfig.licenseCustomData = casToken
+                initPlaybackConfig()
             }
         }
     }
