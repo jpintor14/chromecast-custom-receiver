@@ -96,16 +96,16 @@
             addToLog("manifestRequestHandler: " + networkRequestInfo.url)
 
             //getLivePlayingInfo()
-            getLivePlayingInfoSync()
+            getVideoPlatingInfo
 
             return networkRequestInfo;
         };
 
-        context.addCustomMessageListener(channel, customEvent => {
+        context.addCustomMessageListener(channel, function(customEvent) {
             console.log("addCustomMessageListener: " + customEvent);
             addToLog("addCustomMessageListener: " + customEvent)
         });
-
+    
         context.start({playbackConfig: playbackConfig});
 
         addToLog("context started")
@@ -191,40 +191,6 @@
             }
         }
     }
-
-
-    function getLivePlayingInfoSync(){
-        var xhttpLivePlaying = new XMLHttpRequest();
-        xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=1000&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", false);
-        xhttpLivePlaying.withCredentials = true
-        xhttpLivePlaying.send();
-
-        addToLog("getLivePlayingInfo");
-        var response = JSON.parse(xhttpLivePlaying.responseText)["response"];
-        casToken = response["casToken"]
-        playingUrl = response["playingUrl"]
-        addToLog("response " + xhttpLivePlaying.responseText );
-        playbackConfig.licenseCustomData = casToken
-        addToLog("play");
-        //playerManager.play()
-
-        /*
-        xhttpLivePlaying.onreadystatechange = function() {
-
-            if (this.readyState == 4 && this.status == 200) {
-                addToLog("getLivePlayingInfo");
-                var response = JSON.parse(xhttpLivePlaying.responseText)["response"];
-                casToken = response["casToken"]
-                playingUrl = response["playingUrl"]
-                addToLog("response " + xhttpLivePlaying.responseText );
-                
-                initPlaybackConfig()
-            }
-        }
-        */
-
-    }
-
 
     
     function getVideoPlatingInfo(){
