@@ -33,7 +33,10 @@
 
         // Update playback config licenseUrl according to provided value in load request.
         playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
+
+            addToLog("setMediaPlaybackInfoHandler: ");
             if (loadRequest.media.customData) {
+                addToLog("setMediaPlaybackInfoHandler customData: " + customData);
                 if (loadRequest.media.customData.licenseUrl) {
                     //playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
                     playbackConfig.licenseUrl = licenseServerUrl;
@@ -62,7 +65,12 @@
             return playbackConfig;
         });
 
-
+        playerManager.setMessageInterceptor(
+            cast.framework.messages.MessageType.LOAD, loadRequestData => {
+                addToLog("setMessageInterceptor LOAD");
+                console.log("on Message LOAD");
+                return loadRequestData;
+            });
 
         const playbackConfig = new cast.framework.PlaybackConfig();
         playbackConfig.autoResumeDuration = 5;
@@ -224,33 +232,6 @@
 
 
         addToLog("played");
-
-        /*
-        playbackConfig.licenseRequestHandler = requestInfo => {
-            requestInfo.withCredentials = true;
-            requestInfo.headers = {
-                'token': casToken
-            };
-        };
-        */
-
-        /*
-        playbackConfig.licenseRequestHandler = requestInfo => {
-            console.log("licenseRequestHandler: " + requestInfo.url);
-                    requestInfo.headers["token"] = casToken;
-
-            return requestInfo;
-        };
-        */
-
-        /*
-        playbackConfig.licenseUrl = licenseServerUrl
-
-        var mediaInfo = new cast.framework.MediaInfo(playingUrl, cast.framework.ContentProtection.PLAYREADY);
-        mediaInfo.customData = casToken
-        playerManager.load(mediaInfo)
-        playerManager.play()
-        */
     }
 
     </script>
