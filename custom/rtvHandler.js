@@ -64,6 +64,7 @@ class rtvHandler {
     loginWithData(username, password, profile, logMethod){
         var url = this.apiUrl + this.loginUri + this.clientJson
         var params = { "username": username, "password": password}
+        /*
         $.post(url, params, function(result){
             logMethod("response: " + JSON.stringify(result) )
             var status = result["response"]["status"] 
@@ -72,15 +73,46 @@ class rtvHandler {
             }
         }, "json").then((response) => { 
             this.loginWithProfile(profile, logMethod);
-          });;
+          });
+          */
+
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: params,
+            dataType: "json",
+            xhrFields: { withCredentials: true },
+            success: function(result) {
+                logMethod("response: " + JSON.stringify(result) )
+                var status = result["response"]["status"] 
+                if (status == "SUCCESS"){
+                    logMethod("SUCCESS")
+                };
+            }
+        }).then((response) => { 
+            this.loginWithProfile(profile, logMethod);
+        });
     }
 
     loginWithProfile(profileId, logMethod){
         var url = this.apiUrl + this.loginUri + this.clientJson + "&profile_id=" + profileId;
-        logMethod("url" + url);
+        logMethod("url: " + url);
+
+        /*
         $.get(url, function(result){
             logMethod("response: " + JSON.stringify(result) )
         }, "json");
+        */
+
+        $.ajax({
+            url: url,
+            method: "GET",
+            dataType: "json",
+            xhrFields: { withCredentials: true },
+            success: function(result) {
+                logMethod("response: " + JSON.stringify(result) )
+            }
+        });
 
     }
     
