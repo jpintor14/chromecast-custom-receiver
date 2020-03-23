@@ -118,13 +118,18 @@
             var message = customEvent.data
             var command = message.command
             var params = message.params
-            var text = params.text
-            var log = "Message received from " + 
-                        "[" +  customEvent.senderId +  "],  " +
-                        " command: " + command + 
-                        " text: " + text
-            addToLog(log);
-            console.log(log);
+            
+            if (command == "switchLive"){
+                switchLiveChannel(params);
+            }else{
+                var text = params.text
+                var log = "Message received from " + 
+                            "[" +  customEvent.senderId +  "],  " +
+                            " command: " + command + 
+                            " text: " + text;
+                addToLog(log);
+            }
+
           });
 
 
@@ -135,12 +140,18 @@
 
 
         function addToLog(message){
-            document.getElementById("log").innerHTML += "<br>      " + message
+            document.getElementById("log").innerHTML += "<br> >>>" + message
         }
 
 
         function clearLog(){
             document.getElementById("log").innerHTML = ""
+        }
+
+        function switchLiveChannel(params){
+            channel_external_id = params.channelExternalId
+            addToLog("channel_external_id: " + channel_external_id)
+            getLivePlayingInfo()
         }
 
 
