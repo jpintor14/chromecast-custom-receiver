@@ -198,9 +198,9 @@ function setCustomMessage(){
   //session.sendMessage("urn:x-cast:com.optm.anhplayer", "TESTAAAAAAAA", success, failure)
 
   session.sendMessage("urn:x-cast:com.optm.anhplayer", {
-    command: "log",
+    command: "switchLive",
     params: { 
-      text : "aaaaaa"
+      channelExternalId : "1234"
     }
   });
 }
