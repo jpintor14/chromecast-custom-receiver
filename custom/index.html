@@ -102,6 +102,7 @@
         };
 
         context.addCustomMessageListener(channel, function(customEvent) {
+            addToLog("addCustomMessageListener");
             var message = customEvent.data
             var log = "Message received from " + 
                         "[" +  customEvent.senderId +  "] " +
