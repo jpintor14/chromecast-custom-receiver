@@ -113,23 +113,22 @@
         };
 
         context.addCustomMessageListener(channel, function(customEvent) {
+            clearLog();
             addToLog("addCustomMessageListener");
-            var message = customEvent.data
-            var command = message.command
-            var params = message.params
+            var message = customEvent.data;
+            var command = message.command;
+            var params = message.params;
 
             if (command == "switchLive"){
-                switchLiveChannel(params)
+                switchLiveChannel(params);
+            }else{
+                var text = params.text
+                var log = "Message received from " + 
+                            "[" +  customEvent.senderId +  "],  " +
+                            " command: " + command + 
+                            " text: " + text;
+                addToLog(log);
             }
-            /*
-            var text = params.text
-            var log = "Message received from " + 
-                        "[" +  customEvent.senderId +  "],  " +
-                        " command: " + command + 
-                        " text: " + text;
-            addToLog(log);
-            console.log(log);
-            */
           });
 
 
@@ -139,8 +138,12 @@
         addToLog("context started")
 
 
+        function clearLog(){
+            document.getElementById("log").innerHTML += ""
+        }
+
         function addToLog(message){
-            document.getElementById("log").innerHTML += "<br>      " + message
+            document.getElementById("log").innerHTML += "<br> >>>" + message
         }
 
         function switchLiveChannel(params){
