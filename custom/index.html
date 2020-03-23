@@ -45,7 +45,7 @@
         // Update playback config licenseUrl according to provided value in load request.
         playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
             addToLog("setMediaPlaybackInfoHandler: ");
-            addToLog("customData: " + customData);
+            addToLog("customData: " + JSON.stringify(loadRequest.media.customData));
             if (loadRequest.media.customData) {
                 if (loadRequest.media.customData.licenseUrl) {
                     //playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
