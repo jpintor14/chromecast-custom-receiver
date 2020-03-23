@@ -12,6 +12,30 @@ class rtvHandler {
         this.profile = "";
         this.casToken = "";
         this.playingUrl = "";
+
+        this.setUpAjax()
+    }
+
+    setUpAjax(){
+        $.ajaxSetup({
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            xhrFields: {
+               withCredentials: true
+            },
+            crossDomain: true
+        });
+
+        $.ajaxSetup({
+            type: "POST",
+            data: {},
+            dataType: 'json',
+            xhrFields: {
+               withCredentials: true
+            },
+            crossDomain: true
+        });
     }
 
 
@@ -61,11 +85,29 @@ class rtvHandler {
     }
     
 
+    /*
+    loginWithProfile(){		
+        var xhttpLoginProfile = new XMLHttpRequest();		
+        xhttpLoginProfile.open("GET", "https://orangetv.orange.es/pc/api/reco/v1/Login?client=json&profile_id=2597776", true);		
+        xhttpLoginProfile.withCredentials = true		
+        xhttpLoginProfile.send();		
+
+
+         xhttpLoginProfile.onreadystatechange = function() {		
+            if (this.readyState == 4 && this.status == 200) {		
+                addToLog("loginWithProfile")		
+                addToLog("response " + xhttpLoginProfile.responseText )		
+                addToLog("response " + JSON.parse(xhttpLoginProfile.responseText)["response"] )	
+            }		
+        }		
+
+     }
+     */
 
 
     getLivePlayingInfo(channel, logMethod, playingMethod){
         var url = this.apiUrl + this.liveUri + this.clientJson + "&include_cas_token=true&serial_number=FD0DADFF0D46E7D656500EDAA91C264E&channel_external_id=" + channel
-        $.get(url, function(result){
+        $.get(url, null, function(result){
             logMethod("response: " + JSON.stringify(result) )
             this.casToken = result["response"]["casToken"]
             this.playingUrl = result["response"]["playingUrl"]
