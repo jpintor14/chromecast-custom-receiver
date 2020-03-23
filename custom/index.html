@@ -25,6 +25,7 @@
         const playerManager = context.getPlayerManager();
         const licenseServerUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
         var cookies = [];
+        var channel_external_id = "1000"
 
         console.log("context getInstance()")
         addToLog("---------------------------------------------------")
@@ -112,6 +113,7 @@
         };
 
         context.addCustomMessageListener(channel, function(customEvent) {
+            clearLog();
             addToLog("addCustomMessageListener");
             var message = customEvent.data
             var command = message.command
@@ -135,6 +137,12 @@
         function addToLog(message){
             document.getElementById("log").innerHTML += "<br>      " + message
         }
+
+
+        function clearLog(){
+            document.getElementById("log").innerHTML = ""
+        }
+
 
 
     function postLogin(){
@@ -194,7 +202,7 @@
 
     function getLivePlayingInfo(){
         var xhttpLivePlaying = new XMLHttpRequest();
-        xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=1000&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
+        xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=" + channel_external_id + "&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
         xhttpLivePlaying.withCredentials = true
         xhttpLivePlaying.send();
 
