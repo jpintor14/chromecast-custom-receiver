@@ -31,7 +31,7 @@
         addToLog("context getInstance()");
 
 
-        const options = cast.framework.CastReceiverOptions();
+        const options = new cast.framework.CastReceiverOptions();
         options.customNamespaces = {
             [channel]: cast.framework.system.MessageType.JSON
         };
@@ -126,7 +126,9 @@
             console.log(log);
           });
 
-        context.start({playbackConfig: playbackConfig});
+
+        options.playbackConfig = playbackConfig
+        context.start(options);
 
         addToLog("context started")
 
