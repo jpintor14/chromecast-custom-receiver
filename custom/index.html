@@ -247,10 +247,19 @@
         addToLog("played");
 
 
+        /*
         context.sendCustomMessage(channel, {
             type: 'status',
             message: 'Playing'
         });
+        */
+
+        var sender = context.getSenders()
+        sender.forEach(printSender)
+    }
+
+    function printSender(item, index) {
+        addToLog(item.id)
     }
 
     </script>
