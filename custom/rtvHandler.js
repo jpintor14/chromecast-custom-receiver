@@ -63,6 +63,7 @@ class rtvHandler {
   
     loginWithData(username, password, profile, logMethod){
         var url = this.apiUrl + this.loginUri + this.clientJson
+        var urlProfile = this.apiUrl + this.loginUri + this.clientJson + "&profile_id=" + profile;
         var params = { "username": username, "password": password}
         /*
         $.post(url, params, function(result){
@@ -76,6 +77,7 @@ class rtvHandler {
           });
           */
 
+        /*
         $.ajax({
             url: url,
             method: "POST",
@@ -92,6 +94,44 @@ class rtvHandler {
         }).then((response) => { 
             this.loginWithProfile(profile, logMethod);
         });
+        */
+
+
+       var xhttp = new XMLHttpRequest();		
+       xhttp.open("POST", "https://orangetv.orange.es/pc/api/rtv/v1/Login?client=json", true);		
+       xhttp.withCredentials = true		
+       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");		
+       xhttp.send("username=410000345&password=aaaa1111");		
+
+
+
+
+        xhttp.onreadystatechange = function() {		
+
+            if (this.readyState == 4 && this.status == 200) {	
+               logMethod("response: " + xhttp.responseText )		
+               var status = JSON.parse(xhttp.responseText)["response"]["status"] 	
+                if (status == "SUCCESS"){		
+                    logMethod("loginWithProfile: ")		
+                    
+                    logMethod("url: " + urlProfile);
+                    var xhttpLoginProfile = new XMLHttpRequest();		
+                    xhttpLoginProfile.open("GET", urlProfile, true);		
+                    xhttpLoginProfile.withCredentials = true		
+                    xhttpLoginProfile.send();		
+            
+            
+                    xhttpLoginProfile.onreadystatechange = function() {		
+                       if (this.readyState == 4 && this.status == 200) {		
+                           logMethod("response " + JSON.stringify(JSON.parse(xhttpLoginProfile.responseText)["response"]) )	
+                       }		
+                   }	
+
+                }		
+                //this.loginWithProfile()	
+           }		
+		
+       }
     }
 
     loginWithProfile(profileId, logMethod){
@@ -104,6 +144,7 @@ class rtvHandler {
         }, "json");
         */
 
+        /*
         $.ajax({
             url: url,
             method: "GET",
@@ -113,6 +154,19 @@ class rtvHandler {
                 logMethod("response: " + JSON.stringify(result) )
             }
         });
+        */
+
+       var xhttpLoginProfile = new XMLHttpRequest();		
+       xhttpLoginProfile.open("GET", url, true);		
+       xhttpLoginProfile.withCredentials = true		
+       xhttpLoginProfile.send();		
+
+
+        xhttpLoginProfile.onreadystatechange = function() {		
+           if (this.readyState == 4 && this.status == 200) {		
+               logMethod("response " + JSON.parse(xhttpLoginProfile.responseText)["response"] )	
+           }		
+       }		
 
     }
     
