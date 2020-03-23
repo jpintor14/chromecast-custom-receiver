@@ -31,7 +31,7 @@
         addToLog("context getInstance()");
 
 
-        const options = new cast.framework.CastReceiverOptions();
+        const options = cast.framework.CastReceiverOptions();
         options.customNamespaces = {
             [channel]: cast.framework.system.MessageType.JSON
         };
@@ -110,8 +110,8 @@
             console.log("manifestRequestHandler: " + networkRequestInfo.url);
             addToLog("manifestRequestHandler: " + networkRequestInfo.url)
 
-            //getLivePlayingInfo()
-            getVideoPlatingInfo
+            getLivePlayingInfo()
+            //getVideoPlatingInfo
 
             return networkRequestInfo;
         };
