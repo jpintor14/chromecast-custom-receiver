@@ -32,9 +32,13 @@
 
 
         const options = new cast.framework.CastReceiverOptions();
+        /*
         options.customNamespaces = {
             [channel]: cast.framework.system.MessageType.JSON
         };
+        */
+        options.customNamespaces = Object.assign({});
+        options.customNamespaces[channel] = cast.framework.system.MessageType.JSON;
         //context.start(options);
 
         /*
