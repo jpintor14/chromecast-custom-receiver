@@ -113,13 +113,13 @@
         };
 
         context.addCustomMessageListener(channel, function(customEvent) {
-            clearLog();
             addToLog("addCustomMessageListener");
             var message = customEvent.data
             var command = message.command
             var params = message.params
             
             if (command == "switchLive"){
+                clearLog();
                 switchLiveChannel(params);
             }else{
                 var text = params.text
