@@ -13,7 +13,7 @@ class rtvHandler {
         this.casToken = "";
         this.playingUrl = "";
 
-        this.setUpAjax()
+        //this.setUpAjax()
     }
 
     setUpAjax(){
