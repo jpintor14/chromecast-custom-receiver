@@ -31,6 +31,22 @@
         addToLog("context getInstance()");
 
 
+        const options = new cast.framework.CastReceiverOptions();
+        const options = cast.framework.CastReceiverOptions();
+        options.customNamespaces = {
+            [channel]: cast.framework.system.MessageType.JSON
+        };
+        context.start(options);
+
+        /*
+        context.sendCustomMessage(CUSTOM_NS, {
+            type: 'status',
+            message: 'Playing'
+        });
+        */
+
+
+
         // Update playback config licenseUrl according to provided value in load request.
         playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
             if (loadRequest.media.customData) {
@@ -110,7 +126,7 @@
             addToLog(log);
             console.log(log);
           });
-    
+
         context.start({playbackConfig: playbackConfig});
 
         addToLog("context started")
