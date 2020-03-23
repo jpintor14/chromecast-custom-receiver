@@ -102,8 +102,9 @@
         };
 
         context.addCustomMessageListener(channel, function(customEvent) {
+            addToLog("addCustomMessageListener: 1")
             console.log("addCustomMessageListener: " + customEvent);
-            addToLog("addCustomMessageListener: " + customEvent)
+            addToLog("addCustomMessageListener: 2")
         });
     
         context.start({playbackConfig: playbackConfig});
