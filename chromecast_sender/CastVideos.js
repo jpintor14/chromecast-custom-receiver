@@ -168,13 +168,15 @@ CastPlayer.prototype.initializeCastPlayer = function () {
   // Set the receiver application ID to your own (created in the
   // Google Cast Developer Console), or optionally
   // use the chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID
-  options.receiverApplicationId = 'EEB4DF09';
+  options.receiverApplicationId = 'D5329A19';
 
   // Auto join policy can be one of the following three:
   // ORIGIN_SCOPED - Auto connect from same appId and page origin
   // TAB_AND_ORIGIN_SCOPED - Auto connect from same appId, page origin, and tab
   // PAGE_SCOPED - No auto connect
   options.autoJoinPolicy = chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED;
+
+  const channel = 'urn:x-cast:com.optm.anhplayer';
 
   cast.framework.CastContext.getInstance().setOptions(options);
 
@@ -187,6 +189,29 @@ CastPlayer.prototype.initializeCastPlayer = function () {
     }.bind(this)
   );
 };
+
+
+function setCustomMessage(){
+  console.log("setCustomMessage");
+  var session = cast.framework.CastContext.getInstance().getCurrentSession();
+  console.log("session: " + session);
+  //session.sendMessage("urn:x-cast:com.optm.anhplayer", "TESTAAAAAAAA", success, failure)
+
+  session.sendMessage("urn:x-cast:com.optm.anhplayer", {
+    command: "log",
+    params: { 
+      text : "aaaaaa"
+    }
+  });
+}
+
+function success(){
+  console.log("completion");
+}
+
+function failure(){
+  console.log("error");
+}
 
 /**
  * Switch between the remote and local players.
@@ -265,6 +290,8 @@ var PlayerHandler = function (castPlayer) {
     castPlayer.playerState = PLAYER_STATE.PAUSED;
     document.getElementById('play').style.display = 'block';
     document.getElementById('pause').style.display = 'none';
+
+    setCustomMessage()
   };
 
   this.stop = function () {

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+	<script>
+
+        var appId = "'D5329A19'"
+        var channel = "urn:x-cast:com.optm.anhplayer"
+
+		var cast = {};
+		window['__onGCastApiAvailable'] = function (isAvailable) {
+			if (isAvailable) {
+                print("isAvailable")
+				initializeCastApi();
+			}
+		};
+		initializeCastApi = function () {
+​
+			console.log('initializing cast api');
+			var sessionRequest = new chrome.cast.SessionRequest(appId);
+			console.log(sessionRequest);
+			var apiConfig = new chrome.cast.ApiConfig(sessionRequest,
+				function (session) {
+					cast.session = session
+					cast.session.sendMessage(channel, {
+						command: 'registerId',
+						params: null
+					});
+					cast.session.addMessageListener(channel, function (ns, message) {
+						var msg = JSON.parse(JSON.parse(message));
+						document.getElementById('ended').innerHTML = msg.videoHasEnded;
+						document.getElementById('progress').innerHTML = msg.videoProgress;
+						document.getElementById('duration').innerHTML = msg.videoDuration;
+					});			
+				},
+				function receiverListener(e) {
+					if (e === chrome.cast.ReceiverAvailability.AVAILABLE) {
+						console.log('receiver is available')
+					}
+				})
+​
+			chrome.cast.initialize(apiConfig, function () {
+				console.log('got initSuccess')
+			},
+				function (gotError) {
+					console.log('gotError', gotError)
+				});
+		};
+​
+		window.onload = function() {
+			const msgBt = document.getElementById('launchPlayer');
+			msgBt.addEventListener("click", function () {
+			if (cast.session) {
+				cast.session.sendMessage(channel, {
+						command: 'launchPlayer',
+						params: {
+							url: document.getElementById('inputUrl').value,
+							licenseUrl: document.getElementById('licenseUrl').value,
+							type: document.getElementById('type').value
+						}
+					});
+				}
+			});
+​
+			const playButton = document.getElementById('playButton');
+			playButton.addEventListener("click", function () {
+			if (cast.session) {
+				cast.session.sendMessage(channel, {
+						command: 'play',
+						params: null
+					});
+				}
+			});
+​
+			const pauseButton = document.getElementById('pauseButton');
+			pauseButton.addEventListener("click", function () {
+			if (cast.session) {
+				cast.session.sendMessage(channel, {
+						command: 'pause',
+						params: null
+					});
+				}
+			});
+​
+​
+			const seekButton = document.getElementById('seekButton');
+			seekButton.addEventListener("click", function () {
+			if (cast.session) {
+				cast.session.sendMessage(channel, {
+						command: 'seek',
+						params: {
+							seekTime: document.getElementById('seek').value
+						}
+					});
+				}
+			});
+​
+			const closeButton = document.getElementById('closeButton');
+			closeButton.addEventListener("click", function () {
+			if (cast.session) {
+				cast.session.sendMessage(channel, {
+						command: 'close',
+						params: null
+					});
+				}
+			});
+		}
+	</script>
+</head>
+​
+<body>
+	<input type="text" id="inputUrl" placeholder="url">
+	<input type="text" id="licenseUrl" placeholder="license">
+	<input type="text" id="type" placeholder="type"> 
+	<!-- TYPE: Values dash+widevine -->
+	<button id="launchPlayer">Launch player</button><br>
+	<button id="playButton">Play</button><br>
+	<button id="pauseButton">Pause</button><br>
+	<input type="text" id="seek" placeholder="seek"> 
+	<button id="seekButton">Seek(seconds)</button><br>
+	<button id="closeButton">Close receiver app</button><br>
+	<div>videoEnded: </div><span id="ended"></span>
+	<div>videoProgress: </div><span id="progress"></span>
+	<div>videoDuration: </div><span id="duration"></span>
+</body>
+</html>
