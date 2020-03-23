@@ -165,7 +165,7 @@
 
         function postLogin(){		
          var xhttp = new XMLHttpRequest();		
-         xhttp.open("POST", "https://orangetv.orange.es/pc/api/rtv/v1/Login?client=json", true);		
+         xhttp.open("POST", "https://orangetv.orange.es/mob/api/rtv/v1/Login?client=json", true);		
          xhttp.withCredentials = true		
          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");		
          xhttp.send("username=410000345&password=aaaa1111");		
@@ -200,7 +200,7 @@
  
       function loginWithProfile(xhttp){		
          var xhttpLoginProfile = new XMLHttpRequest();		
-         xhttpLoginProfile.open("GET", "https://orangetv.orange.es/pc/api/reco/v1/Login?client=json&profile_id=2597776", true);		
+         xhttpLoginProfile.open("GET", "https://orangetv.orange.es/mob/api/reco/v1/Login?client=json&profile_id=2597776", true);		
          xhttpLoginProfile.withCredentials = true		
          xhttpLoginProfile.send();		
 
@@ -234,7 +234,7 @@
                  playingUrl = response["playingUrl"]		
                  addToLog("response " + xhttpLivePlaying.responseText );		
 
-                  initPlaybackConfig()		
+                initPlaybackConfig()		
              }		
          }		
      }		
@@ -263,37 +263,15 @@
     */
 
     function initPlaybackConfig(){
-        
         addToLog("initPlaybackConfig");
-
         playbackConfig.licenseCustomData = casToken
-
-
         addToLog("play");
-        
         playerManager.play()
-
-
         addToLog("played");
-
-
-        /*
-        context.sendCustomMessage(channel, {
-            type: 'status',
-            message: 'Playing'
-        });
-        */
-
-        var sender = context.getSenders()
-        sender.forEach(printSender)
-    }
-
-    function printSender(item, index) {
-        addToLog(item.id)
     }
 
 
-
+    /*
     var log = function printLog(message){
         document.getElementById("log").innerHTML += "<br> >>>" + message
     }
@@ -307,8 +285,9 @@
     }
 
 
-    //var rtv = new rtvHandler();
-    //rtv.loginWithData("410000345", "aaaa1111", "2597776", log );
+    var rtv = new rtvHandler();
+    rtv.loginWithData("410000345", "aaaa1111", "2597776", log );
+    */
 
     postLogin()
 
