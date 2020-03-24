@@ -25,7 +25,7 @@
         const playerManager = context.getPlayerManager();
         const licenseServerUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
         var cookies = [];
-        var channel_external_id = "1000"
+        var channel_external_id = ""
 
         console.log("context getInstance()")
         addToLog("---------------------------------------------------")
@@ -53,6 +53,8 @@
 
                 playbackConfig.licenseCustomData = loadRequest.media.customData
 
+
+                /*
                 if (loadRequest.media.customData.licenseUrl) {
                     //playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
                     playbackConfig.licenseUrl = licenseServerUrl;
@@ -74,8 +76,8 @@
                 if (loadRequest.media.customData.licenseCustomData) {
                     addToLog("licenseCustomData: " + loadRequest.media.customData.licenseCustomData);
                     playbackConfig.licenseCustomData = loadRequest.media.customData.licenseCustomData;
-                    //playbackConfig.licenseCustomData = getLivePlayingInfoOrangeSeries()
                 }
+                */
             }
 
             return playbackConfig;
@@ -86,6 +88,9 @@
             request => {
                 addToLog("----- LOAD -----");
                 // Resolve entity to content id
+
+                addToLog("----- LOAD ----- media: " + JSON.stringify(request.media));
+
                 if (request.media.entity && !request.media.contentId) {
                     addToLog("----- LOAD ----- contentId " + request.media.contentId);
                     return getMediaByEntity(request.media.entity).then(
@@ -281,24 +286,10 @@
 
         playbackConfig.licenseCustomData = casToken
 
-
         addToLog("play");
         
         //playerManager.play()
-
-
         //addToLog("played");
-
-
-        /*
-        context.sendCustomMessage(channel, {
-            type: 'status',
-            message: 'Playing'
-        });
-        */
-
-        //var sender = context.getSenders()
-        //sender.forEach(printSender)
     }
 
     function printSender(item, index) {
