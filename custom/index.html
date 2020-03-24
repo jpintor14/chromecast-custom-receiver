@@ -49,6 +49,10 @@
             addToLog("setMediaPlaybackInfoHandler - customData: " + JSON.stringify(loadRequest.media.customData));
 
             if (loadRequest.media.customData) {
+
+
+                playbackConfig.licenseCustomData = loadRequest.media.customData
+
                 if (loadRequest.media.customData.licenseUrl) {
                     //playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
                     playbackConfig.licenseUrl = licenseServerUrl;
@@ -126,7 +130,7 @@
             console.log("manifestRequestHandler: " + networkRequestInfo.url);
             addToLog("manifestRequestHandler: " + networkRequestInfo.url)
 
-            getLivePlayingInfo()
+            //getLivePlayingInfo()
             //getVideoPlatingInfo
 
             return networkRequestInfo;
