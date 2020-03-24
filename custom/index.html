@@ -23,7 +23,7 @@
         const channel = 'urn:x-cast:com.optm.anhplayer';
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
-        const licenseServerUrl = "https://orangetv.orange.es/stv/api/rtv/v1/drm";
+        const licenseServerUrl = "https://orangetv.orange.es/pc/api/rtv/v1/drm";
         var cookies = [];
         var channel_external_id = ""
 
@@ -190,7 +190,7 @@
 
     function postLogin(){
         var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "https://orangetv.orange.es/stv/api/rtv/v1/Login?client=json", true);
+        xhttp.open("POST", "https://orangetv.orange.es/pc/api/rtv/v1/Login?client=json", true);
         xhttp.withCredentials = true
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("username=410000345&password=aaaa1111");
@@ -225,7 +225,7 @@
 
     function loginWithProfile(xhttp){
         var xhttpLoginProfile = new XMLHttpRequest();
-        xhttpLoginProfile.open("GET", "https://orangetv.orange.es/stv/api/reco/v1/Login?client=json&profile_id=2597776", true);
+        xhttpLoginProfile.open("GET", "https://orangetv.orange.es/pc/api/reco/v1/Login?client=json&profile_id=2597776", true);
         xhttpLoginProfile.withCredentials = true
         xhttpLoginProfile.send();
 
