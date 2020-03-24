@@ -196,10 +196,7 @@
             xhttp.open("POST", "https://orangetv.orange.es/mob/api/rtv/v1/Login?client=json", true);
             xhttp.withCredentials = true
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("username=410000345&password=aaaa1111");
-
-
-
+            xhttp.send("username=" + username +"&password=" + password);
 
             xhttp.onreadystatechange = function() {
 
@@ -208,17 +205,18 @@
                     addToLog("response: " + xhttp.responseText )
                     var status = JSON.parse(xhttp.responseText)["response"]["status"] 
                     addToLog("response: " + status )
-                    if (status == "SUCCESS"){
-                        loginWithProfile()
-                    }
+                    //if (status == "SUCCESS"){
+                        //loginWithProfile()
+                    //}
                 }
             }
         }
 
 
+        /*
         function loginWithProfile(){
             var xhttpLoginProfile = new XMLHttpRequest();
-            xhttpLoginProfile.open("GET", "https://orangetv.orange.es/mob/api/reco/v1/Login?client=json&profile_id=2597776", true);
+            xhttpLoginProfile.open("GET", "https://orangetv.orange.es/mob/api/reco/v1/Login?client=json&profile_id=" + profileId, true);
             xhttpLoginProfile.withCredentials = true
             xhttpLoginProfile.send();
 
@@ -231,6 +229,7 @@
             }
 
         }
+        */
 
 
         /*
