@@ -205,9 +205,26 @@
                     addToLog("response: " + xhttp.responseText )
                     var status = JSON.parse(xhttp.responseText)["response"]["status"] 
                     addToLog("response: " + status )
+                    orderVideo()
                     //if (status == "SUCCESS"){
                         //loginWithProfile()
                     //}
+                }
+            }
+        }
+
+        function orderVideo(){
+            var xhttpLivePlaying = new XMLHttpRequest();
+            xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/OrderVideo?pricing_id=8779&viewing_method=streaming&client=json&subscription=true&external_video_id=PRG_0000043974HD_DUPLICATED", true);
+            xhttpLivePlaying.withCredentials = true
+            xhttpLivePlaying.send();
+
+
+            xhttpLivePlaying.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+                    addToLog("orderVideo");
+                    var response = JSON.parse(xhttpLivePlaying.responseText)["response"];
                 }
             }
         }
