@@ -46,7 +46,7 @@
         playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
 
 
-            addToLog("setMediaPlaybackInfoHandler - customData: " + JSON.stringify(customData));
+            addToLog("setMediaPlaybackInfoHandler - customData: " + JSON.stringify(loadRequest.media.customData));
 
             if (loadRequest.media.customData) {
                 if (loadRequest.media.customData.licenseUrl) {
