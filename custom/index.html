@@ -77,6 +77,22 @@
             return playbackConfig;
         });
 
+        playerManager.setMessageInterceptor(
+            cast.framework.messages.MessageType.LOAD,
+            request => {
+                addToLog("----- LOAD -----");
+                // Resolve entity to content id
+                if (request.media.entity && !request.media.contentId) {
+                    addToLog("----- LOAD ----- contentId " + request.media.contentId);
+                    return getMediaByEntity(request.media.entity).then(
+                        media => {
+                        request.media.contentId = media.url;
+                        return request;
+                        });
+            }
+            return request;
+        });
+
 
 
         const playbackConfig = new cast.framework.PlaybackConfig();
