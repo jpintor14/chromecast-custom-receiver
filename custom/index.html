@@ -91,6 +91,13 @@
 
                 addToLog("----- LOAD ----- media: " + JSON.stringify(request.media));
 
+
+                for (var prop in request.media) {
+                    if (Object.prototype.hasOwnProperty.call(request.media, prop)) {
+                        addToLog("prop: " + prop + " - " + request.media[prop])
+                    }
+                }
+
                 if (request.media.entity && !request.media.contentId) {
                     addToLog("----- LOAD ----- contentId " + request.media.contentId);
                     return getMediaByEntity(request.media.entity).then(
