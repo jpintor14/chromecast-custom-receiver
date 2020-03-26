@@ -156,6 +156,24 @@
 
             return requestInfo;
         };
+
+
+
+        playerManager.addEventListener(cast.framework.events.EventType.MEDIA_STATUS,
+            event => {
+                console.log("on MEDIA_STATUS: " + event.mediaStatus.playerState);
+                if (event.mediaStatus.activeTrackIds) {
+                    console.log("on MEDIA_STATUS: number of active track " + event.mediaStatus.activeTrackIds.length);
+                    if (event.mediaStatus.activeTrackIds.length >= 1) {
+                        console.log("on MEDIA_STATUS: first trackId " + event.mediaStatus.activeTrackIds[0]);
+                        if (event.mediaStatus.activeTrackIds.length == 2) {
+                            console.log("on MEDIA_STATUS: second trackId " + event.mediaStatus.activeTrackIds[1]);
+                        }
+                    }
+                }
+            }
+        );
+
         // A hook on the manifest when downloaded and parsed
         playbackConfig.manifestHandler = manifest => {
             console.log("manifestHandler: " + manifest);
