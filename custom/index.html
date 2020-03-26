@@ -84,6 +84,25 @@
             return playbackConfig;
         });
 
+
+        playerManager.addEventListener(cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
+            event => {
+
+                addToLog("on PLAYER_LOAD_COMPLETE: contentId " + event.media.contentId);
+
+                for (var i = 0; i < event.media.tracks.length; i++) {
+
+                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].language " + event.media.tracks[i].language);
+                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].name: " + event.media.tracks[i].name);
+                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].subtype: " + event.media.tracks[i].subtype);
+                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentId: " + event.media.tracks[i].trackContentId);
+                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
+                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
+                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
+                }
+            }
+        );
+
         playerManager.setMessageInterceptor(
             cast.framework.messages.MessageType.LOAD,
             request => {
