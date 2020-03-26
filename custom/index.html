@@ -27,7 +27,6 @@
         var cookies = [];
         var username = ""
         var password = ""
-        var profileId = ""
 
         console.log("context getInstance()")
         addToLog("---------------------------------------------------")
@@ -91,6 +90,8 @@
                 addToLog("----- LOAD -----");
                 // Resolve entity to content id
 
+
+                /*
                 addToLog("----- LOAD ----- media: " + JSON.stringify(request.media));
 
 
@@ -99,6 +100,7 @@
                         addToLog("prop: " + prop + " - " + request.media[prop])
                     }
                 }
+                */
 
                 if (request.media.entity && !request.media.contentId) {
                     addToLog("----- LOAD ----- contentId " + request.media.contentId);
@@ -187,7 +189,6 @@
         function loginWithParams(params){
             username = params.username
             password = params.password
-            profileId = params.profileId
             postLogin()
         }
 
@@ -205,7 +206,7 @@
                     addToLog("response: " + xhttp.responseText )
                     var status = JSON.parse(xhttp.responseText)["response"]["status"] 
                     addToLog("response: " + status )
-                    orderVideo()
+                    //orderVideo()
                     //if (status == "SUCCESS"){
                         //loginWithProfile()
                     //}
@@ -213,6 +214,8 @@
             }
         }
 
+
+        /*
         function orderVideo(){
             var xhttpLivePlaying = new XMLHttpRequest();
             xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/OrderVideo?pricing_id=8779&viewing_method=streaming&client=json&subscription=true&external_video_id=PRG_0000043974HD_DUPLICATED", true);
@@ -229,8 +232,6 @@
             }
         }
 
-
-        /*
         function loginWithProfile(){
             var xhttpLoginProfile = new XMLHttpRequest();
             xhttpLoginProfile.open("GET", "https://orangetv.orange.es/mob/api/reco/v1/Login?client=json&profile_id=" + profileId, true);
