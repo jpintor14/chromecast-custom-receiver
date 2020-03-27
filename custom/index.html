@@ -104,6 +104,8 @@
                     addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
                     addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
                     addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
+
+                    playerManager.play()
                 }
             }
         );
