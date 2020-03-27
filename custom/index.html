@@ -422,8 +422,16 @@
                     //if (status == "SUCCESS"){
                         //loginWithProfile()
                     //}
+
+                    setInterval(tryPlay, 5000)
                 }
             }
+        }
+
+        function tryPlay(){
+            addToLog("try play start")
+            playerManager.play()
+            addToLog("try play end")
         }
 
 
