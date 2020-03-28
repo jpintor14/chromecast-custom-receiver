@@ -427,17 +427,17 @@
         }
 
         function postLogin(){
-            addToLog("postLogin")
+            debugger;
             var xhttp = new XMLHttpRequest();
             xhttp.open("POST", "https://orangetv.orange.es/mob/api/rtv/v1/Login?client=json", true);
             xhttp.withCredentials = true
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            //xhttp.send("username=" + username +"&password=" + password);
-            xhttp.send("username=410000345&password=aaaa1111");		
+            xhttp.send("username=" + username +"&password=" + password);
 
             xhttp.onreadystatechange = function() {
 
                 if (this.readyState == 4 && this.status == 200) {
+                    addToLog("postLogin")
                     addToLog("response: " + xhttp.responseText )
                     var status = JSON.parse(xhttp.responseText)["response"]["status"] 
                     addToLog("response: " + status )
@@ -446,59 +446,6 @@
                         //loginWithProfile()
                     //}
 
-                    getTrailer()
-
-                }
-            }
-        }
-
-        function getTrailer(){
-            var xhttpLivePlaying = new XMLHttpRequest();
-            xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetAttachmentPlayingInfo?external_page_id=MFO_0000027988_PAGE_HD&attachment_name=TRAILER_1&model_external_id=Chromecast&client=json", true);
-            xhttpLivePlaying.withCredentials = true
-            xhttpLivePlaying.send();
-
-
-            addToLog("getTrailer");
-            
-            xhttpLivePlaying.onreadystatechange = function() {
-
-                if (this.readyState == 4 && this.status == 200) {
-
-                
-                    addToLog("getTrailer");
-                    var response = JSON.parse(xhttpLivePlaying.responseText)["response"];
-
-
-                    addToLog("response " + JSON.stringify(response));
-                    var url = response["url"];
-
-                    var mediaInfo = new cast.framework.messages.MediaInformation();
-                    mediaInfo.url = url
-                    mediaInfo.contentUrl = url
-
-                    console.log(mediaInfo)
-
-                    playerManager.setMediaInformation(mediaInfo, null)
-
-                    playerManager.play()
-
-                    /*
-
-                    var request = new cast.media.LoadRequest(mediaInfo);
-
-                    
-                    castSession.loadMedia(request).then(
-                        function() { 
-                            addToLog('Load succeed'); 
-                            playerManager.play();
-                        },
-                        function(errorCode) { 
-                            addToLog('Error code: ' + errorCode); 
-                        }
-                    );
-                    */
-                    
                 }
             }
         }
