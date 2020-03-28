@@ -55,6 +55,7 @@
             addToLog("setMediaPlaybackInfoHandler - customData: " + JSON.stringify(loadRequest.media.customData));
 
 
+            video = document.createElement('video');
             video.setAttribute('crossorigin', 'anonymous');
             var host = new cast.player.api.Host({'mediaElement':video, 'url':loadRequest.media.url});
             host.licenseUrl = licenseUrl;
