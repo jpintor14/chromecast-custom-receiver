@@ -58,7 +58,7 @@
             video = document.createElement('video');
             video.setAttribute('crossorigin', 'anonymous');
             var host = new cast.player.api.Host({'mediaElement':video, 'url':loadRequest.media.url});
-            host.licenseUrl = licenseUrl;
+            host.licenseUrl = licenseServerUrl;
             window.player = new cast.player.api.Player(host);
             var protocol = cast.player.api.CreateSmoothStreamingProtocol(host);
             window.player.load(protocol, 0);
