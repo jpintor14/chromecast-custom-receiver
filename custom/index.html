@@ -50,8 +50,6 @@
         // Update playback config licenseUrl according to provided value in load request.
         playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
 
-            debugger;
-
             addToLog("setMediaPlaybackInfoHandler - customData: " + JSON.stringify(loadRequest.media.customData));
 
 
@@ -110,8 +108,6 @@
         playerManager.addEventListener(cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
             event => {
 
-                debugger;
-
                 addToLog("on PLAYER_LOAD_COMPLETE: contentId " + event.media.contentId);
 
                 for (var i = 0; i < event.media.tracks.length; i++) {
@@ -151,8 +147,6 @@
 
                 if (request.media.entity && !request.media.contentId) {
 
-                    debugger;
-
                     addToLog("----- LOAD ----- contentId " + request.media.contentId);
                     return getMediaByEntity(request.media.entity).then(
                         media => {
@@ -171,8 +165,7 @@
 
         // A hook on the license request url
         playbackConfig.licenseRequestHandler = requestInfo => {
-            debugger;
-
+            
             console.log("licenseRequestHandler: " + requestInfo.url);
             addToLog("licenseRequestHandler: " + requestInfo.url);
 
@@ -193,8 +186,6 @@
         playerManager.addEventListener(cast.framework.events.EventType.MEDIA_STATUS,
             event => {
                 
-                debugger;
-
                 console.log("on MEDIA_STATUS: " + event.mediaStatus.playerState);
                 if (event.mediaStatus.activeTrackIds) {
                     console.log("on MEDIA_STATUS: number of active track " + event.mediaStatus.activeTrackIds.length);
@@ -216,8 +207,6 @@
             event => {
                 var errorCodeAsStr = "";
                 var errorCodeExtentionAsStr = "";
-
-                debugger;
 
                 addToLog("Error " + cast.framework.events.EventType.ERROR)
                 console.error("Error " + cast.framework.events.EventType.ERROR)
@@ -387,14 +376,13 @@
 
         // A hook on the manifest when downloaded and parsed
         playbackConfig.manifestHandler = manifest => {
-            debugger;
             console.log("manifestHandler: " + manifest);
             addToLog("manifestHandler: " + manifest)
             return manifest;
         };
         // A hook on the manifest request url
         playbackConfig.manifestRequestHandler = networkRequestInfo => {
-            debugger;
+            
             console.log("manifestRequestHandler: " + networkRequestInfo.url);
             addToLog("manifestRequestHandler: " + networkRequestInfo.url)
 
@@ -405,7 +393,6 @@
         };
 
         context.addCustomMessageListener(channel, function(customEvent) {
-            debugger;
             clearLog();
             addToLog("addCustomMessageListener");
             var message = customEvent.data;
