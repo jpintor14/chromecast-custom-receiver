@@ -24,11 +24,13 @@
         const channel = 'urn:x-cast:com.optm.anhplayer';
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
-        //const licenseServerUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
-        const licenseServerUrl = "https://manifest.prod.boltdns.net/license/v1/playready/4880098471001/d54a4485-67f7-4f1b-ad04-d9cf951da7d2/8345d6a1-87c1-4cd2-88cb-2d4b7c96277c?fastly_token=NWU3YTQ4NmJfMDVlNWVmOWYzNGE3NDE2OWJmY2FjNDI1MGFlNWQzNWE3ZGY1NTg1NzYyYmZjMjFhMjc0N2FlYTg3MWVmNTU4NQ%3D%3D";
+        const licenseServerUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
+        //const licenseServerUrl = "https://manifest.prod.boltdns.net/license/v1/playready/4880098471001/d54a4485-67f7-4f1b-ad04-d9cf951da7d2/8345d6a1-87c1-4cd2-88cb-2d4b7c96277c?fastly_token=NWU3YTQ4NmJfMDVlNWVmOWYzNGE3NDE2OWJmY2FjNDI1MGFlNWQzNWE3ZGY1NTg1NzYyYmZjMjFhMjc0N2FlYTg3MWVmNTU4NQ%3D%3D";
         var cookies = [];
         var username = ""
         var password = ""
+
+        var video = null;
 
         console.log("context getInstance()")
         addToLog("---------------------------------------------------")
@@ -51,6 +53,19 @@
             debugger;
 
             addToLog("setMediaPlaybackInfoHandler - customData: " + JSON.stringify(loadRequest.media.customData));
+
+
+            video.setAttribute('crossorigin', 'anonymous');
+            var host = new cast.player.api.Host({'mediaElement':video, 'url':loadRequest.media.url});
+            host.licenseUrl = licenseUrl;
+            window.player = new cast.player.api.Player(host);
+            var protocol = cast.player.api.CreateSmoothStreamingProtocol(host);
+            window.player.load(protocol, 0);
+            player = video;
+
+
+            addToLog("setMediaPlaybackInfoHandler laodProtocol");
+
 
             if (loadRequest.media.customData) {
 
@@ -446,7 +461,7 @@
                         //loginWithProfile()
                     //}
 
-                    getTrailer()
+                    //getTrailer()
 
                 }
             }
@@ -481,7 +496,7 @@
 
                     playerManager.setMediaInformation(mediaInfo, null)
 
-                    playerManager.play()
+                    playerManager.load()
 
                     /*
 
@@ -603,7 +618,7 @@
 
     </script>
     <script>
-        //postLogin()
+        postLogin()
     </script>
 
 
