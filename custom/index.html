@@ -55,6 +55,8 @@
             addToLog("setMediaPlaybackInfoHandler - customData: " + JSON.stringify(loadRequest.media.customData));
 
 
+
+            /*
             video = document.createElement('video');
             video.setAttribute('crossorigin', 'anonymous');
             var host = new cast.player.api.Host({'mediaElement':video, 'url':loadRequest.media.url});
@@ -63,6 +65,7 @@
             var protocol = cast.player.api.CreateSmoothStreamingProtocol(host);
             window.player.load(protocol, 0);
             player = video;
+            */
 
 
             addToLog("setMediaPlaybackInfoHandler laodProtocol");
