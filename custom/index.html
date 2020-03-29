@@ -120,10 +120,12 @@
                     addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
                     addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
                     addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
-
-                    setCustomMessage()
-                    playerManager.play()
                 }
+
+
+                addToLog("PLAYER_LOAD_COMPLETE: ");
+                playerManager.play()
+                setCustomMessage()
             }
         );
 
