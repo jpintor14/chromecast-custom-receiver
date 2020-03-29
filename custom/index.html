@@ -121,6 +121,7 @@
                     addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
                     addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
 
+                    setCustomMessage()
                     playerManager.play()
                 }
             }
@@ -175,6 +176,8 @@
             addToLog("SENDER_CONNECTED")
             addToLog("SENDER_CONNECTED" + event.senderId)
             senderId = event.senderId
+
+            setCustomMessage()
         });
 
         const playbackConfig = new cast.framework.PlaybackConfig();
