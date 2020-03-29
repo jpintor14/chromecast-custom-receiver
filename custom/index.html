@@ -29,6 +29,7 @@
         var cookies = [];
         var username = ""
         var password = ""
+        var senderId = ""
 
         var video = null;
 
@@ -173,6 +174,7 @@
             console.log("on SENDER_DISCONNECTED: " + event.type);
             addToLog("SENDER_CONNECTED")
             addToLog("SENDER_CONNECTED" + event.senderId)
+            senderId = event.senderId
         });
 
         const playbackConfig = new cast.framework.PlaybackConfig();
