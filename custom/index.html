@@ -5,18 +5,7 @@
 </head>
 <body>
 
-    <table>
-        <tr>
-            <td>
-                <div id="log" style="color: red; z-index: 9999; position: absolute">Log: </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <cast-media-player id="player"></cast-media-player>
-            </td>
-        </tr>
-    </table>
+    <cast-media-player id="player"></cast-media-player>
 
     <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>
     <script>
@@ -25,17 +14,14 @@
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
         const licenseServerUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
-        //const licenseServerUrl = "https://manifest.prod.boltdns.net/license/v1/playready/4880098471001/d54a4485-67f7-4f1b-ad04-d9cf951da7d2/8345d6a1-87c1-4cd2-88cb-2d4b7c96277c?fastly_token=NWU3YTQ4NmJfMDVlNWVmOWYzNGE3NDE2OWJmY2FjNDI1MGFlNWQzNWE3ZGY1NTg1NzYyYmZjMjFhMjc0N2FlYTg3MWVmNTU4NQ%3D%3D";
         var cookies = [];
-        var username = ""
-        var password = ""
-        var senderId = ""
+        var username = "";
+        var password = "";
+        var senderId = "";
 
-        var video = null;
+        var startTime = 0;
 
         console.log("context getInstance()")
-        addToLog("---------------------------------------------------")
-        addToLog("context getInstance()");
 
 
         const options = new cast.framework.CastReceiverOptions();
@@ -51,39 +37,29 @@
         // Update playback config licenseUrl according to provided value in load request.
         playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
 
-            addToLog("setMediaPlaybackInfoHandler - customData: " + JSON.stringify(loadRequest.media.customData));
+
+            console.log("setMediaPlaybackInfoHandler: " + JSON.stringify(loadRequest.media));
 
 
-
-            /*
-            video = document.createElement('video');
-            video.setAttribute('crossorigin', 'anonymous');
-            var host = new cast.player.api.Host({'mediaElement':video, 'url':loadRequest.media.url});
-            host.licenseUrl = licenseServerUrl;
-            window.player = new cast.player.api.Player(host);
-            var protocol = cast.player.api.CreateSmoothStreamingProtocol(host);
-            window.player.load(protocol, 0);
-            player = video;
-            */
-
-
-            addToLog("setMediaPlaybackInfoHandler laodProtocol");
-
+            if (loadRequest.media.startAbsoluteTime) {
+                console.log("startAbsoluteTime:" + loadRequest.media.startAbsoluteTime);
+                startTime = loadRequest.media.startAbsoluteTime;
+            }
 
             if (loadRequest.media.customData) {
 
 
-                playbackConfig.licenseCustomData = loadRequest.media.customData
+                playbackConfig.licenseCustomData = loadRequest.media.customData;
 
 
                 /*
                 if (loadRequest.media.customData.licenseUrl) {
                     //playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
                     playbackConfig.licenseUrl = licenseServerUrl;
-                    addToLog("licenseUrl: " + loadRequest.media.customData.licenseUrl);
+                    console.log("licenseUrl: " + loadRequest.media.customData.licenseUrl);
                 }
                 if (loadRequest.media.customData.protectionSystem) {
-                    addToLog("protectionSystem: " + loadRequest.media.customData.protectionSystem);
+                    console.log("protectionSystem: " + loadRequest.media.customData.protectionSystem);
                     if (loadRequest.media.customData.protectionSystem === "WIDEVINE") {
                         playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
                     } else
@@ -92,11 +68,11 @@
                         }
                 }
                 if (loadRequest.media.customData.cookies) {
-                    addToLog("cookies: " + loadRequest.media.customData.cookies);
+                    console.log("cookies: " + loadRequest.media.customData.cookies);
                     cookies = loadRequest.media.customData.cookies;
                 }
                 if (loadRequest.media.customData.licenseCustomData) {
-                    addToLog("licenseCustomData: " + loadRequest.media.customData.licenseCustomData);
+                    console.log("licenseCustomData: " + loadRequest.media.customData.licenseCustomData);
                     playbackConfig.licenseCustomData = loadRequest.media.customData.licenseCustomData;
                 }
                 */
@@ -109,23 +85,33 @@
         playerManager.addEventListener(cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
             event => {
 
-                addToLog("on PLAYER_LOAD_COMPLETE: contentId " + event.media.contentId);
+                console.log("on PLAYER_LOAD_COMPLETE: contentId " + event.media.contentId);
 
                 for (var i = 0; i < event.media.tracks.length; i++) {
 
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].language " + event.media.tracks[i].language);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].name: " + event.media.tracks[i].name);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].subtype: " + event.media.tracks[i].subtype);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentId: " + event.media.tracks[i].trackContentId);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].language " + event.media.tracks[i].language);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].name: " + event.media.tracks[i].name);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].subtype: " + event.media.tracks[i].subtype);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentId: " + event.media.tracks[i].trackContentId);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
                 }
 
 
-                addToLog("PLAYER_LOAD_COMPLETE: ");
-                playerManager.play()
-                setCustomMessage()
+                console.log("PLAYER_LOAD_COMPLETE: ");
+                console.log("PLAYER_LOAD_COMPLETE: seekTime " + startTime);
+                playerManager.play();
+                playerManager.seek(startTime);
+                setCustomMessage();
+
+
+
+                console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(oadRequest.media))
+
+
+                sendMessageToSender()
+                
             }
         );
 
@@ -133,25 +119,25 @@
         playerManager.setMessageInterceptor(
             cast.framework.messages.MessageType.LOAD,
             request => {
-                addToLog("----- LOAD -----");
+                console.log("----- LOAD -----");
                 // Resolve entity to content id
 
 
-                playerManager.play()
+                playerManager.play();
                 /*
-                addToLog("----- LOAD ----- media: " + JSON.stringify(request.media));
+                console.log("----- LOAD ----- media: " + JSON.stringify(request.media));
 
 
                 for (var prop in request.media) {
                     if (Object.prototype.hasOwnProperty.call(request.media, prop)) {
-                        addToLog("prop: " + prop + " - " + request.media[prop])
+                        console.log("prop: " + prop + " - " + request.media[prop])
                     }
                 }
                 */
 
                 if (request.media.entity && !request.media.contentId) {
 
-                    //addToLog("----- LOAD ----- contentId " + request.media.contentId);
+                    //console.log("----- LOAD ----- contentId " + request.media.contentId);
                     return getMediaByEntity(request.media.entity).then(
                         media => {
                         request.media.contentId = media.url;
@@ -163,23 +149,21 @@
 
 
 
-        function setCustomMessage(){
-            addToLog("setCustomMessage")
-            console.log("setCustomMessage");
+        function sendMessageToSender(){
+            console.log("sendMessageToSender");
 
-            context.sendCustomMessage(channel, senderId, {
-                command: "playerLoaded"
-            });
+
+            var message = "test"
+            context.sendCustomMessage(channel, senderId, message);
         }
 
 
         context.addEventListener(cast.framework.system.EventType.SENDER_CONNECTED, event => {
             console.log("on SENDER_DISCONNECTED: " + event.type);
-            addToLog("SENDER_CONNECTED")
-            addToLog("SENDER_CONNECTED" + event.senderId)
+            console.log("SENDER_CONNECTED" + event.senderId)
             senderId = event.senderId
 
-            setCustomMessage()
+            sendMessageToSender()
         });
 
         const playbackConfig = new cast.framework.PlaybackConfig();
@@ -190,8 +174,8 @@
         playbackConfig.licenseRequestHandler = requestInfo => {
             
             console.log("licenseRequestHandler: " + requestInfo.url);
-            addToLog("licenseRequestHandler: " + requestInfo.url);
 
+            /*
             if (cookies.length != 0) {
                 cookies.forEach(value => {
                     cookieName = value.split("=")[0];
@@ -200,6 +184,7 @@
                     addToLog("cookieName: " + cookieName);
                 });
             }
+            */
 
             return requestInfo;
         };
@@ -231,7 +216,6 @@
                 var errorCodeAsStr = "";
                 var errorCodeExtentionAsStr = "";
 
-                addToLog("Error " + cast.framework.events.EventType.ERROR)
                 console.error("Error " + cast.framework.events.EventType.ERROR)
 
                 switch (event.detailedErrorCode) {
@@ -400,24 +384,16 @@
         // A hook on the manifest when downloaded and parsed
         playbackConfig.manifestHandler = manifest => {
             console.log("manifestHandler: " + manifest);
-            addToLog("manifestHandler: " + manifest)
             return manifest;
         };
         // A hook on the manifest request url
         playbackConfig.manifestRequestHandler = networkRequestInfo => {
-            
             console.log("manifestRequestHandler: " + networkRequestInfo.url);
-            addToLog("manifestRequestHandler: " + networkRequestInfo.url)
-
-            //getLivePlayingInfo()
-            //getVideoPlatingInfo
-
             return networkRequestInfo;
         };
 
         context.addCustomMessageListener(channel, function(customEvent) {
-            clearLog();
-            addToLog("addCustomMessageListener");
+            console.log("addCustomMessageListener");
             var message = customEvent.data;
             var command = message.command;
             var params = message.params;
@@ -430,210 +406,45 @@
                             "[" +  customEvent.senderId +  "],  " +
                             " command: " + command + 
                             " text: " + text;
-                addToLog(log);
+                console.log(log);
             }
           });
 
 
-        options.playbackConfig = playbackConfig
+        options.playbackConfig = playbackConfig;
         context.start(options);
 
-        addToLog("context started")
+        console.log("context started")
 
 
-        function clearLog(){
-            document.getElementById("log").innerHTML = ""
-        }
-
-        function addToLog(message){
-            //document.getElementById("log").innerHTML += "<br> >>>" + message
-            console.log(message)
-        }
 
         function loginWithParams(params){
-            username = params.username
-            password = params.password
-            postLogin()
+            username = params.username;
+            password = params.password;
+            postLogin();
         }
 
         function postLogin(){
-            addToLog("postLogin")
+            console.log("postLogin");
             var xhttp = new XMLHttpRequest();
             xhttp.open("POST", "https://orangetv.orange.es/mob/api/rtv/v1/Login?client=json", true);
             xhttp.withCredentials = true
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            //xhttp.send("username=" + username +"&password=" + password);
-            xhttp.send("username=410000345&password=aaaa1111");		
+            xhttp.send("username=" + username +"&password=" + password);
 
             xhttp.onreadystatechange = function() {
 
                 if (this.readyState == 4 && this.status == 200) {
-                    addToLog("response: " + xhttp.responseText )
-                    var status = JSON.parse(xhttp.responseText)["response"]["status"] 
-                    addToLog("response: " + status )
-                    //orderVideo()
-                    //if (status == "SUCCESS"){
-                        //loginWithProfile()
-                    //}
-
-                    //getTrailer()
-
-                }
-            }
-        }
-
-        function getTrailer(){
-            var xhttpLivePlaying = new XMLHttpRequest();
-            xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetAttachmentPlayingInfo?external_page_id=MFO_0000027988_PAGE_HD&attachment_name=TRAILER_1&model_external_id=Chromecast&client=json", true);
-            xhttpLivePlaying.withCredentials = true
-            xhttpLivePlaying.send();
+                    console.log("response: " + xhttp.responseText );
+                    var status = JSON.parse(xhttp.responseText)["response"]["status"];
+                    console.log("response: " + status );
 
 
-            addToLog("getTrailer");
-            
-            xhttpLivePlaying.onreadystatechange = function() {
-
-                if (this.readyState == 4 && this.status == 200) {
-
-                
-                    addToLog("getTrailer");
-                    var response = JSON.parse(xhttpLivePlaying.responseText)["response"];
-
-
-                    addToLog("response " + JSON.stringify(response));
-                    var url = response["url"];
-
-                    var mediaInfo = new cast.framework.messages.MediaInformation();
-                    mediaInfo.url = url
-                    mediaInfo.contentUrl = url
-
-                    console.log(mediaInfo)
-
-                    playerManager.setMediaInformation(mediaInfo, null)
-
-                    playerManager.load()
-
-                    /*
-
-                    var request = new cast.media.LoadRequest(mediaInfo);
-
-                    
-                    castSession.loadMedia(request).then(
-                        function() { 
-                            addToLog('Load succeed'); 
-                            playerManager.play();
-                        },
-                        function(errorCode) { 
-                            addToLog('Error code: ' + errorCode); 
-                        }
-                    );
-                    */
-                    
-                }
-            }
-        }
-
-
-        /*
-        function orderVideo(){
-            var xhttpLivePlaying = new XMLHttpRequest();
-            xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/OrderVideo?pricing_id=8779&viewing_method=streaming&client=json&subscription=true&external_video_id=PRG_0000043974HD_DUPLICATED", true);
-            xhttpLivePlaying.withCredentials = true
-            xhttpLivePlaying.send();
-
-
-            xhttpLivePlaying.onreadystatechange = function() {
-
-                if (this.readyState == 4 && this.status == 200) {
-                    addToLog("orderVideo");
-                    var response = JSON.parse(xhttpLivePlaying.responseText)["response"];
-                }
-            }
-        }
-
-        function loginWithProfile(){
-            var xhttpLoginProfile = new XMLHttpRequest();
-            xhttpLoginProfile.open("GET", "https://orangetv.orange.es/mob/api/reco/v1/Login?client=json&profile_id=" + profileId, true);
-            xhttpLoginProfile.withCredentials = true
-            xhttpLoginProfile.send();
-
-
-            xhttpLoginProfile.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    addToLog("loginWithProfile")
-                    addToLog("response " + JSON.parse(xhttpLoginProfile.responseText)["response"] )
+                    sendMessageToSender()
                 }
             }
 
         }
-        */
-
-
-        /*
-        function getLivePlayingInfo(){
-            var xhttpLivePlaying = new XMLHttpRequest();
-            xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=1000&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
-            xhttpLivePlaying.withCredentials = true
-            xhttpLivePlaying.send();
-
-
-            xhttpLivePlaying.onreadystatechange = function() {
-
-                if (this.readyState == 4 && this.status == 200) {
-                    addToLog("getLivePlayingInfo");
-                    var response = JSON.parse(xhttpLivePlaying.responseText)["response"];
-                    casToken = response["casToken"]
-                    playingUrl = response["playingUrl"]
-                    addToLog("response " + xhttpLivePlaying.responseText );
-                    
-                    initPlaybackConfig()
-                }
-            }
-        }
-
-        
-        function getVideoPlatingInfo(){
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/GetVideoPlayingInfo?model_external_id=Chromecast&video_external_id=PRG_0000061190HD_DUPLICATED&client=json&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
-            xhttp.withCredentials = true
-            xhttp.send();
-
-            
-            xhttp.onreadystatechange = function() {
-                addToLog("getLivePlayingInfo");
-                var response = JSON.parse(xhttp.responseText)["response"];
-                casToken = response["token"]
-                playingUrl = response["url"]
-                addToLog("response " + xhttp.responseText );
-                
-                initPlaybackConfig()
-            }
-            
-
-            return casToken
-        }
-        
-
-        function initPlaybackConfig(){
-            
-            addToLog("initPlaybackConfig");
-
-            playbackConfig.licenseCustomData = casToken
-
-            addToLog("play");
-            
-            //playerManager.play()
-            //addToLog("played");
-        }
-
-        function printSender(item, index) {
-            addToLog(item.id)
-        }
-        */
-
-    </script>
-    <script>
-        postLogin()
     </script>
 
 

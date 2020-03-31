@@ -24,15 +24,15 @@
         const channel = 'urn:x-cast:com.optm.anhplayer';
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
-        //const licenseServerUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
-        const licenseServerUrl = "https://manifest.prod.boltdns.net/license/v1/playready/4880098471001/d54a4485-67f7-4f1b-ad04-d9cf951da7d2/8345d6a1-87c1-4cd2-88cb-2d4b7c96277c?fastly_token=NWU3YTQ4NmJfMDVlNWVmOWYzNGE3NDE2OWJmY2FjNDI1MGFlNWQzNWE3ZGY1NTg1NzYyYmZjMjFhMjc0N2FlYTg3MWVmNTU4NQ%3D%3D";
+        const licenseServerUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
         var cookies = [];
-        var username = ""
-        var password = ""
+        var username = "";
+        var password = "";
+        var senderId = "";
+
+        var startTime = 0;
 
         console.log("context getInstance()")
-        addToLog("---------------------------------------------------")
-        addToLog("context getInstance()");
 
 
         const options = new cast.framework.CastReceiverOptions();
@@ -48,14 +48,19 @@
         // Update playback config licenseUrl according to provided value in load request.
         playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
 
-            debugger;
 
-            addToLog("setMediaPlaybackInfoHandler - customData: " + JSON.stringify(loadRequest.media.customData));
+            console.log("setMediaPlaybackInfoHandler: " + JSON.stringify(loadRequest.media));
+
+
+            if (loadRequest.media.startAbsoluteTime) {
+                console.log("startAbsoluteTime:" + loadRequest.media.startAbsoluteTime);
+                startTime = loadRequest.media.startAbsoluteTime;
+            }
 
             if (loadRequest.media.customData) {
 
 
-                playbackConfig.licenseCustomData = loadRequest.media.customData
+                playbackConfig.licenseCustomData = loadRequest.media.customData;
 
 
                 /*
@@ -91,22 +96,30 @@
         playerManager.addEventListener(cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
             event => {
 
-                debugger;
-
-                addToLog("on PLAYER_LOAD_COMPLETE: contentId " + event.media.contentId);
+                console.log("on PLAYER_LOAD_COMPLETE: contentId " + event.media.contentId);
 
                 for (var i = 0; i < event.media.tracks.length; i++) {
 
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].language " + event.media.tracks[i].language);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].name: " + event.media.tracks[i].name);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].subtype: " + event.media.tracks[i].subtype);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentId: " + event.media.tracks[i].trackContentId);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
-                    addToLog("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
-
-                    playerManager.play()
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].language " + event.media.tracks[i].language);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].name: " + event.media.tracks[i].name);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].subtype: " + event.media.tracks[i].subtype);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentId: " + event.media.tracks[i].trackContentId);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
+                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
                 }
+
+
+                console.log("PLAYER_LOAD_COMPLETE: ");
+                console.log("PLAYER_LOAD_COMPLETE: seekTime " + startTime);
+                playerManager.play();
+                playerManager.seek(startTime);
+                setCustomMessage();
+
+
+
+                console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(oadRequest.media))
+                
             }
         );
 
@@ -118,7 +131,7 @@
                 // Resolve entity to content id
 
 
-                playerManager.play()
+                playerManager.play();
                 /*
                 addToLog("----- LOAD ----- media: " + JSON.stringify(request.media));
 
@@ -132,9 +145,7 @@
 
                 if (request.media.entity && !request.media.contentId) {
 
-                    debugger;
-
-                    addToLog("----- LOAD ----- contentId " + request.media.contentId);
+                    //addToLog("----- LOAD ----- contentId " + request.media.contentId);
                     return getMediaByEntity(request.media.entity).then(
                         media => {
                         request.media.contentId = media.url;
@@ -146,14 +157,32 @@
 
 
 
+        function setCustomMessage(){
+            addToLog("setCustomMessage")
+            console.log("setCustomMessage");
+
+            context.sendCustomMessage(channel, senderId, {
+                command: "playerLoaded"
+            });
+        }
+
+
+        context.addEventListener(cast.framework.system.EventType.SENDER_CONNECTED, event => {
+            console.log("on SENDER_DISCONNECTED: " + event.type);
+            addToLog("SENDER_CONNECTED")
+            addToLog("SENDER_CONNECTED" + event.senderId)
+            senderId = event.senderId
+
+            setCustomMessage()
+        });
+
         const playbackConfig = new cast.framework.PlaybackConfig();
         playbackConfig.autoResumeDuration = 5;
         playbackConfig.licenseUrl = licenseServerUrl;
 
         // A hook on the license request url
         playbackConfig.licenseRequestHandler = requestInfo => {
-            debugger;
-
+            
             console.log("licenseRequestHandler: " + requestInfo.url);
             addToLog("licenseRequestHandler: " + requestInfo.url);
 
@@ -174,8 +203,6 @@
         playerManager.addEventListener(cast.framework.events.EventType.MEDIA_STATUS,
             event => {
                 
-                debugger;
-
                 console.log("on MEDIA_STATUS: " + event.mediaStatus.playerState);
                 if (event.mediaStatus.activeTrackIds) {
                     console.log("on MEDIA_STATUS: number of active track " + event.mediaStatus.activeTrackIds.length);
@@ -197,8 +224,6 @@
             event => {
                 var errorCodeAsStr = "";
                 var errorCodeExtentionAsStr = "";
-
-                debugger;
 
                 addToLog("Error " + cast.framework.events.EventType.ERROR)
                 console.error("Error " + cast.framework.events.EventType.ERROR)
@@ -354,7 +379,7 @@
                 var errorMsg = {type: 'playbackerror'};
                 errorMsg.errorCode = event.detailedErrorCode;
                 errorMsg.errorCodeAsStr = errorCodeAsStr + ". " + errorCodeExtentionAsStr;
-                context.sendCustomMessage(SQP_COMMUNICATION_CHANNEL_URN,undefined,errorMsg);
+                context.sendCustomMessage(channel, undefined, errorMsg);
 
                 // stop the player
                 if ( playerManager.getPlayerState() !== cast.framework.messages.PlayerState.IDLE ) {
@@ -368,14 +393,13 @@
 
         // A hook on the manifest when downloaded and parsed
         playbackConfig.manifestHandler = manifest => {
-            debugger;
             console.log("manifestHandler: " + manifest);
             addToLog("manifestHandler: " + manifest)
             return manifest;
         };
         // A hook on the manifest request url
         playbackConfig.manifestRequestHandler = networkRequestInfo => {
-            debugger;
+            
             console.log("manifestRequestHandler: " + networkRequestInfo.url);
             addToLog("manifestRequestHandler: " + networkRequestInfo.url)
 
@@ -386,7 +410,6 @@
         };
 
         context.addCustomMessageListener(channel, function(customEvent) {
-            debugger;
             clearLog();
             addToLog("addCustomMessageListener");
             var message = customEvent.data;
@@ -417,7 +440,8 @@
         }
 
         function addToLog(message){
-            document.getElementById("log").innerHTML += "<br> >>>" + message
+            //document.getElementById("log").innerHTML += "<br> >>>" + message
+            console.log(message)
         }
 
         function loginWithParams(params){
@@ -427,17 +451,17 @@
         }
 
         function postLogin(){
-            debugger;
+            addToLog("postLogin")
             var xhttp = new XMLHttpRequest();
             xhttp.open("POST", "https://orangetv.orange.es/mob/api/rtv/v1/Login?client=json", true);
             xhttp.withCredentials = true
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("username=" + username +"&password=" + password);
+            //xhttp.send("username=" + username +"&password=" + password);
+            xhttp.send("username=410000345&password=aaaa1111");		
 
             xhttp.onreadystatechange = function() {
 
                 if (this.readyState == 4 && this.status == 200) {
-                    addToLog("postLogin")
                     addToLog("response: " + xhttp.responseText )
                     var status = JSON.parse(xhttp.responseText)["response"]["status"] 
                     addToLog("response: " + status )
@@ -446,45 +470,11 @@
                         //loginWithProfile()
                     //}
 
+                    //getTrailer()
+
                 }
             }
         }
-
-
-        /*
-        function orderVideo(){
-            var xhttpLivePlaying = new XMLHttpRequest();
-            xhttpLivePlaying.open("GET", "https://orangetv.orange.es/mob/api/rtv/v1/OrderVideo?pricing_id=8779&viewing_method=streaming&client=json&subscription=true&external_video_id=PRG_0000043974HD_DUPLICATED", true);
-            xhttpLivePlaying.withCredentials = true
-            xhttpLivePlaying.send();
-
-
-            xhttpLivePlaying.onreadystatechange = function() {
-
-                if (this.readyState == 4 && this.status == 200) {
-                    addToLog("orderVideo");
-                    var response = JSON.parse(xhttpLivePlaying.responseText)["response"];
-                }
-            }
-        }
-
-        function loginWithProfile(){
-            var xhttpLoginProfile = new XMLHttpRequest();
-            xhttpLoginProfile.open("GET", "https://orangetv.orange.es/mob/api/reco/v1/Login?client=json&profile_id=" + profileId, true);
-            xhttpLoginProfile.withCredentials = true
-            xhttpLoginProfile.send();
-
-
-            xhttpLoginProfile.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    addToLog("loginWithProfile")
-                    addToLog("response " + JSON.parse(xhttpLoginProfile.responseText)["response"] )
-                }
-            }
-
-        }
-        */
-
 
         /*
         function getLivePlayingInfo(){
@@ -523,34 +513,17 @@
                 playingUrl = response["url"]
                 addToLog("response " + xhttp.responseText );
                 
-                initPlaybackConfig()
+                //initPlaybackConfig()
             }
             
 
             return casToken
         }
-        
-
-        function initPlaybackConfig(){
-            
-            addToLog("initPlaybackConfig");
-
-            playbackConfig.licenseCustomData = casToken
-
-            addToLog("play");
-            
-            //playerManager.play()
-            //addToLog("played");
-        }
-
-        function printSender(item, index) {
-            addToLog(item.id)
-        }
         */
 
     </script>
     <script>
-        //postLogin()
+        postLogin()
     </script>
 
 
