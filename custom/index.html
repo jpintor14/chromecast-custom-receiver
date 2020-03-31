@@ -108,6 +108,10 @@
                 console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media))
 
 
+                if (event.media.startAbsoluteData){
+                    playerManager.seek(event.media.startAbsoluteData);
+                }
+
                 sendMessageToSender()
                 
             }
