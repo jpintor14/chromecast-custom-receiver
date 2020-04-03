@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="stylesheet" href="receiver.css" media="screen" />
 </head>
 <body>
 
@@ -13,7 +14,7 @@
         const channel = 'urn:x-cast:com.optm.anhplayer';
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
-        const licenseServerUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
+        const licenseServerUrl = "https://ios.orangetv.orange.es//mob/api/rtv/v1/drm";
         var cookies = [];
         var username = "";
         var password = "";
@@ -22,7 +23,6 @@
         var startTime = 0;
 
         console.log("context getInstance()")
-
 
         const options = new cast.framework.CastReceiverOptions();
         
