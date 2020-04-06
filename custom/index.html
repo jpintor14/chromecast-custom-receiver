@@ -455,9 +455,9 @@
     
     function checkSubtitles() {
         console.log("checkSubtitles");
-        var simpleText = shaka.text.SimpleTextDisplayer;
+        var cue = shaka.text.Cue;
         console.log("checkSubtitles check is visible");
-        var isVisble = simpleText.isTextVisible();
+        var direction = cue.direction;
         //console.log("checkSubtitles isVisible: " + shaka.text.SimpleTextDisplayer.isTextVisible());
         console.log("checkSubtitles finish");
     }
