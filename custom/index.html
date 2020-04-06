@@ -455,7 +455,9 @@
     
     function checkSubtitles() {
         console.log("checkSubtitles");
-        let simpleText = shaka.text.SimpleTextDisplayer
+        var simpleText = shaka.text.SimpleTextDisplayer;
+        console.log("checkSubtitles check is visible");
+        var isVisble = simpleText.isTextVisible();
         //console.log("checkSubtitles isVisible: " + shaka.text.SimpleTextDisplayer.isTextVisible());
         console.log("checkSubtitles finish");
     }
