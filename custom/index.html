@@ -102,6 +102,8 @@
                 console.log("PLAYER_LOAD_COMPLETE: ");
                 playerManager.play();
 
+                setInterval(checkSubtitles, 5000);
+
                 //console.log("PLAYER_LOAD_COMPLETE: seekTime " + startTime);
                 //playerManager.seek(startTime);
 
@@ -448,6 +450,13 @@
             }
 
         }
+
+
+    
+    function checkSubtitles() {
+        console.log("checkSubtitles");
+        console.log("checkSubtitles isVisible: " + shaka.text.SimpleTextDisplayer.isTextVisible());
+    }
     </script>
 
 
