@@ -4,11 +4,10 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" href="receiver.css" media="screen" />
 </head>
-<body>
+<body style="width: 100%;">
 
     <cast-media-player id="player"></cast-media-player>
-    <!--    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script> -->
-    <script type="text/javascript" src="cast_receiver_framework2.4.0.js"> </script>
+    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>
     <script>
 
         const channel = 'urn:x-cast:com.optm.anhplayer';
@@ -129,7 +128,7 @@
 
 
                 playerManager.play();
-                /*
+                
                 console.log("----- LOAD ----- media: " + JSON.stringify(request.media));
 
 
@@ -138,7 +137,7 @@
                         console.log("prop: " + prop + " - " + request.media[prop])
                     }
                 }
-                */
+                
 
                 if (request.media.entity && !request.media.contentId) {
 

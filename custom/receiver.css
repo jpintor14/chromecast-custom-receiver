@@ -2,8 +2,7 @@ body {
   --playback-logo-image: url('./orange_logo.png');
 }
 cast-media-player {
-  --theme-hue: 100;
-  --progress-color: rgb(0, 255, 0);
+  --progress-color: rgb(192, 192 , 192);
   --splash-image: url('./orange_logo.png');
-  --splash-size: cover;
+  --splash-size: auto;
 }
