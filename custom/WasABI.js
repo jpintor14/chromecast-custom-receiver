@@ -18,16 +18,16 @@ class WasABI {
   }
 
   // chromecast custom namespace
-  getchannel() {
+  getChannel() {
     return this.CHANNEL;
   }
 
   // drm licenser url
-  getlicenseUrl() {
+  getLicenseUrl() {
     return this.licenseUrl;
   }
 
-  setlicenseUrl(url) {
+  setLicenseUrl(url) {
     this.licenseUrl = url;
   }
 
