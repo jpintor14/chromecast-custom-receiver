@@ -19,6 +19,10 @@ class WasABI {
   get channel() {
     return this.channel;
   }
+
+  set channel(value) {
+    this.channel = value;
+  }
   
   // drm licenser url
   get licenseUrl() {
