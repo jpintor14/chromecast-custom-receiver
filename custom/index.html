@@ -12,9 +12,9 @@
     <script type="text/javascript" src="WasABI.js"> </script>
     <script>
 
-        var wasAbi = new WasABI();
-        const channel = wasAbi.getChannel();
-        const licenseServerUrl = wasAbi.getLicenseUrl();
+        let wasAbi = new WasABI();
+        const channel = wasAbi.channel;
+        const licenseServerUrl = wasAbi.licenseUrl;
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
         var username = "";
