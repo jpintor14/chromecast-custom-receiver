@@ -9,13 +9,14 @@
     <cast-media-player style="width: 100%;" id="player"></cast-media-player>
     <!--<script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>-->
     <script type="text/javascript" src="receiver.js"> </script>
+    <script type="text/javascript" src="WasABI.js"> </script>
     <script>
 
-        const channel = 'urn:x-cast:com.optm.anhplayer';
+        var wasAbi = new WasABI();
+        const channel = wasAbi.getChannel();
+        const licenseServerUrl = wasAbi.getLicenseUrl();
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
-        const licenseServerUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1/drm";
-        var cookies = [];
         var username = "";
         var password = "";
         var senderId = "";
@@ -47,35 +48,7 @@
             }
 
             if (loadRequest.media.customData) {
-
-
                 playbackConfig.licenseCustomData = loadRequest.media.customData;
-
-
-                /*
-                if (loadRequest.media.customData.licenseUrl) {
-                    //playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
-                    playbackConfig.licenseUrl = licenseServerUrl;
-                    console.log("licenseUrl: " + loadRequest.media.customData.licenseUrl);
-                }
-                if (loadRequest.media.customData.protectionSystem) {
-                    console.log("protectionSystem: " + loadRequest.media.customData.protectionSystem);
-                    if (loadRequest.media.customData.protectionSystem === "WIDEVINE") {
-                        playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
-                    } else
-                        if (loadRequest.media.customData.protectionSystem === "PLAYREADY"){
-                            playbackConfig.protectionSystem = cast.framework.ContentProtection.PLAYREADY;
-                        }
-                }
-                if (loadRequest.media.customData.cookies) {
-                    console.log("cookies: " + loadRequest.media.customData.cookies);
-                    cookies = loadRequest.media.customData.cookies;
-                }
-                if (loadRequest.media.customData.licenseCustomData) {
-                    console.log("licenseCustomData: " + loadRequest.media.customData.licenseCustomData);
-                    playbackConfig.licenseCustomData = loadRequest.media.customData.licenseCustomData;
-                }
-                */
             }
 
             return playbackConfig;
@@ -103,9 +76,6 @@
                 playerManager.play();
 
                 setInterval(checkSubtitles, 5000);
-
-                //console.log("PLAYER_LOAD_COMPLETE: seekTime " + startTime);
-                //playerManager.seek(startTime);
 
                 console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media))
 
@@ -156,8 +126,6 @@
 
         function sendMessageToSender(){
             console.log("sendMessageToSender");
-
-
             var message = "test"
             context.sendCustomMessage(channel, senderId, message);
         }
@@ -177,20 +145,7 @@
 
         // A hook on the license request url
         playbackConfig.licenseRequestHandler = requestInfo => {
-            
             console.log("licenseRequestHandler: " + requestInfo.url);
-
-            /*
-            if (cookies.length != 0) {
-                cookies.forEach(value => {
-                    cookieName = value.split("=")[0];
-                    cookieValue = value.split("=")[1];
-                    requestInfo.headers[cookieName] = cookieValue;
-                    addToLog("cookieName: " + cookieName);
-                });
-            }
-            */
-
             return requestInfo;
         };
 
@@ -404,7 +359,8 @@
             var params = message.params;
 
             if (command == "login"){
-                loginWithParams(params);
+                wasAbi.login(params)
+                //loginWithParams(params);
             }else{
                 var text = params.text
                 var log = "Message received from " + 
@@ -423,9 +379,11 @@
 
 
 
+        /*
         function loginWithParams(params){
             username = params.username;
             password = params.password;
+            this.wasAbi.setLoginParams(params.username, params.username)
             postLogin();
         }
 
@@ -450,7 +408,7 @@
             }
 
         }
-
+        */
 
     
     function checkSubtitles() {
