@@ -12,11 +12,11 @@
     <script type="text/javascript" src="WasABI.js"> </script>
     <script>
 
-        const wasAbi = new WasABI();
-        const channel = wasAbi.getChannel();
-        const licenseServerUrl = wasAbi.getLicenseUrl();
+        //const wasAbi = new WasABI();
+        const channel = 'urn:x-cast:com.optm.anhplayer';
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
+        const licenseServerUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1/drm";
         var username = "";
         var password = "";
         var senderId = "";
@@ -24,7 +24,6 @@
         var startTime = 0;
 
         console.log("context getInstance()")
-        console.log("channel " + channel)
 
         const options = new cast.framework.CastReceiverOptions();
         
@@ -127,6 +126,8 @@
 
         function sendMessageToSender(){
             console.log("sendMessageToSender");
+
+
             var message = "test"
             context.sendCustomMessage(channel, senderId, message);
         }
@@ -146,6 +147,7 @@
 
         // A hook on the license request url
         playbackConfig.licenseRequestHandler = requestInfo => {
+            
             console.log("licenseRequestHandler: " + requestInfo.url);
             return requestInfo;
         };
@@ -360,8 +362,7 @@
             var params = message.params;
 
             if (command == "login"){
-                wasAbi.login(params);
-                //loginWithParams(params);
+                loginWithParams(params);
             }else{
                 var text = params.text
                 var log = "Message received from " + 
@@ -380,11 +381,9 @@
 
 
 
-        /*
         function loginWithParams(params){
             username = params.username;
             password = params.password;
-            this.wasAbi.setLoginParams(params.username, params.username)
             postLogin();
         }
 
@@ -409,7 +408,7 @@
             }
 
         }
-        */
+
 
     
     function checkSubtitles() {
