@@ -34,8 +34,8 @@ class WasABI {
 
   // login
   login(params){
-    this.username = params.username
-    this.password = params.password
+    this.username = params.username;
+    this.password = params.password;
 
     console.log("wasabi login");
     var xhttp = new XMLHttpRequest();
