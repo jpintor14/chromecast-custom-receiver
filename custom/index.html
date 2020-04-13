@@ -12,7 +12,7 @@
     <script type="text/javascript" src="WasABI.js"> </script>
     <script>
 
-        let wasAbi = new WasABI();
+        const wasAbi = new WasABI();
         const channel = wasAbi.getChannel();
         const licenseServerUrl = wasAbi.getLicenseUrl();
         const context = cast.framework.CastReceiverContext.getInstance();
@@ -24,6 +24,7 @@
         var startTime = 0;
 
         console.log("context getInstance()")
+        console.log("channel " + channel)
 
         const options = new cast.framework.CastReceiverOptions();
         
