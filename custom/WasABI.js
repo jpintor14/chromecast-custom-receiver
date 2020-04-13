@@ -6,30 +6,28 @@
 //  Copyright © 2020 Orange. All rights reserved.
 //
 class WasABI {
+  static CHANNEL = 'urn:x-cast:com.optm.anhplayer';
+  
+  licenseUrl = 'https://ios.orangetv.orange.es/mob/api/rtv/v1/drm';
+  rightTvUrl = 'https://orangetv.orange.es/mob/api/rtv/v1';
+  username = '';
+  password = '';
 
   constructor() {
-    this.channel = 'urn:x-cast:com.optm.anhplayer';
-    this.licenseUrl = 'https://ios.orangetv.orange.es/mob/api/rtv/v1/drm';
-    this.rightTvUrl = 'https://orangetv.orange.es/mob/api/rtv/v1';
-    this.username = '';
-    this.password = '';
+    
   }
 
   // chromecast custom namespace
-  get channel() {
-    return this.channel;
+  getchannel() {
+    return this.CHANNEL;
   }
 
-  set channel(value) {
-    this.channel = value;
-  }
-  
   // drm licenser url
-  get licenseUrl() {
+  getlicenseUrl() {
     return this.licenseUrl;
   }
 
-  set licenseUrl(url) {
+  setlicenseUrl(url) {
     this.licenseUrl = url;
   }
 
@@ -62,7 +60,7 @@ class WasABI {
   }
 
 
-  get username() {
+  getUsername() {
     return this.username;
   }
 

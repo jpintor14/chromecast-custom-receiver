@@ -13,8 +13,8 @@
     <script>
 
         let wasAbi = new WasABI();
-        const channel = wasAbi.channel;
-        const licenseServerUrl = wasAbi.licenseUrl;
+        const channel = wasAbi.getChannel();
+        const licenseServerUrl = wasAbi.getLicenseUrl();
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
         var username = "";
