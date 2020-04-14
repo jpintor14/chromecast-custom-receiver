@@ -13,11 +13,10 @@
     <script>
 
         const wasAbi = new WasABI();
-        //const channel = 'urn:x-cast:com.optm.anhplayer';
         const channel = wasAbi.getChannel();
+        const licenseServerUrl = wasAbi.getLicenseUrl();
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
-        const licenseServerUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1/drm";
         var username = "";
         var password = "";
         var senderId = "";

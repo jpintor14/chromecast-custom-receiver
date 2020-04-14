@@ -21,7 +21,7 @@ class WasABI {
     return this.channel;
   }
 
-  /*
+  
   // drm licenser url
   getLicenseUrl() {
     return this.licenseUrl;
@@ -32,6 +32,7 @@ class WasABI {
   }
 
 
+  /*
   // login
   login(params){
     this.username = params.username;
