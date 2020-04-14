@@ -32,7 +32,7 @@ class WasABI {
   }
 
 
-  /*
+  
   // login
   login(params){
     this.username = params.username;
@@ -52,7 +52,6 @@ class WasABI {
             var status = JSON.parse(xhttp.responseText)["response"]["status"];
             console.log("response: " + status );
 
-
             //send ok
             //sendMessageToSender()
         }
@@ -64,7 +63,7 @@ class WasABI {
   getUsername() {
     return this.username;
   }
-*/
+
 
 
 }
