@@ -7,8 +7,10 @@
 <body style="width: 100%;">
 
     <cast-media-player style="width: 100%;" id="player"></cast-media-player>
+
     <!--<script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>-->
-    <script type="text/javascript" src="receiver.js"> </script>
+    <!--<script type="text/javascript" src="receiver.js"> </script>-->
+    <script type="text/javascript" src="receiver2.5.10.js"> </script>
     <script type="text/javascript" src="WasABI.js"> </script>
     <script>
 
@@ -362,8 +364,7 @@
             var params = message.params;
 
             if (command == "login"){
-                //loginWithParams(params);
-                wasAbi.login(params)
+                wasAbi.login(params);
             }else{
                 var text = params.text
                 var log = "Message received from " + 
@@ -380,50 +381,19 @@
 
         console.log("context started")
 
-
-
-        function loginWithParams(params){
-            username = params.username;
-            password = params.password;
-            postLogin();
-        }
-
-        function postLogin(){
-            console.log("postLogin");
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "https://orangetv.orange.es/mob/api/rtv/v1/Login?client=json", true);
-            xhttp.withCredentials = true
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("username=" + username +"&password=" + password);
-
-            xhttp.onreadystatechange = function() {
-
-                if (this.readyState == 4 && this.status == 200) {
-                    console.log("response: " + xhttp.responseText );
-                    var status = JSON.parse(xhttp.responseText)["response"]["status"];
-                    console.log("response: " + status );
-
-
-                    sendMessageToSender()
-                }
-            }
-
-        }
-
-
     
-    function checkSubtitles() {
-        console.log("checkSubtitles");
-        var cue = shaka.text.Cue;
-        console.log("checkSubtitles check is visible");
-        var direction = cue.direction;
-        //console.log("checkSubtitles isVisible: " + shaka.text.SimpleTextDisplayer.isTextVisible());
-        console.log("checkSubtitles direction " + direction);
-        shaka.text.Cue.backgroundColor = "#00FF00"
-        shaka.text.Cue.color = "#FFFFFF00"
-        shaka.text.Cue.size = 2000
-        console.log("checkSubtitles finish");
-    }
+        function checkSubtitles() {
+            console.log("checkSubtitles");
+            var cue = shaka.text.Cue;
+            console.log("checkSubtitles check is visible");
+            var direction = cue.direction;
+            //console.log("checkSubtitles isVisible: " + shaka.text.SimpleTextDisplayer.isTextVisible());
+            console.log("checkSubtitles direction " + direction);
+            shaka.text.Cue.backgroundColor = "#00FF00"
+            shaka.text.Cue.color = "#FFFFFF00"
+            shaka.text.Cue.size = 2000
+            console.log("checkSubtitles finish");
+        }
     
     </script>
 
