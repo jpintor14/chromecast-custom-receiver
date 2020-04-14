@@ -14,7 +14,7 @@
 
         const wasAbi = new WasABI();
         //const channel = 'urn:x-cast:com.optm.anhplayer';
-        const channel = wasAbi.channel;
+        const channel = wasAbi.getChannel();
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
         const licenseServerUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1/drm";
