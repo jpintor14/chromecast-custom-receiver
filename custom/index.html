@@ -362,7 +362,8 @@
             var params = message.params;
 
             if (command == "login"){
-                loginWithParams(params);
+                //loginWithParams(params);
+                wasAbi.login(params)
             }else{
                 var text = params.text
                 var log = "Message received from " + 
