@@ -63,8 +63,12 @@
 
                 console.log("on PLAYER_LOAD_COMPLETE: contentId " + event.media.contentId);
 
-                for (var i = 0; i < event.media.tracks.length; i++) {
+                console.log("PLAYER_LOAD_COMPLETE: ");
+                playerManager.play();
 
+
+
+                for (var i = 0; i < event.media.tracks.length; i++) {
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].language " + event.media.tracks[i].language);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].name: " + event.media.tracks[i].name);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].subtype: " + event.media.tracks[i].subtype);
@@ -72,13 +76,12 @@
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
+
+
+                    //playerManager.getAudioTracksManager().setActiveByLanguage(defaultAudio);
+                    //playerManager.getTextTracksManager().setActiveByLanguage(defaultSubtitles);
                 }
 
-
-                console.log("PLAYER_LOAD_COMPLETE: ");
-                playerManager.play();
-
-                setPlayingAudioAndSubtitlesOptions()
 
                 console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media))
 
@@ -403,18 +406,8 @@
             console.log("setDefaultLanguages: " + defaultAudio);
 
             console.log("setDefaultLanguages: " + playerManager.getPlayerState);
-            /*
-            if (playerManager.getPlayerState != "IDLE"){
-                setPlayingAudioAndSubtitlesOptions();
-            }
-            */
         }
 
-        function setPlayingAudioAndSubtitlesOptions(){
-            playerManager.getAudioTracksManager().setActiveByLanguage(defaultAudio);
-            playerManager.getTextTracksManager().setActiveByLanguage(defaultSubtitles);
-        }
-    
     </script>
 
 </body>
