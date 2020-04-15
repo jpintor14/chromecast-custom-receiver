@@ -372,10 +372,10 @@
                     wasAbi.login(params);
                     break;
                 case "defaultAudioAndSubtitles":
-                    setDefaultAudioAndSubtitlesOptions(params)
+                    setDefaultAudioAndSubtitlesOptions(params);
                     break;
                 default:
-                    customMessageReceiver(params, command)
+                    customMessageReceiver(params, command);
                     break;
             }
 
@@ -402,10 +402,12 @@
             defaultSubtitles = params.subtitles
             console.log("setDefaultLanguages: " + defaultAudio);
 
-            console.log("setDefaultLanguages: " + defaultAudio);
+            console.log("setDefaultLanguages: " + playerManager.getPlayerState);
+            /*
             if (playerManager.getPlayerState != "IDLE"){
                 setPlayingAudioAndSubtitlesOptions();
             }
+            */
         }
 
         function setPlayingAudioAndSubtitlesOptions(){
