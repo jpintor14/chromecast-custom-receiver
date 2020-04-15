@@ -80,6 +80,14 @@
 
                     //playerManager.getAudioTracksManager().setActiveByLanguage(defaultAudio);
                     //playerManager.getTextTracksManager().setActiveByLanguage(defaultSubtitles);
+
+                    if ((event.media.tracks[i].type == "AUDIO") && (event.media.tracks[i].language == defaultAudio))  {
+                        playerManager.getAudioTracksManager().setActiveByLanguage(defaultAudio);
+                    }else if ((event.media.tracks[i].type == "TEXT") && (event.media.tracks[i].language == defaultSubtitles)) {
+                        playerManager.getTextTracksManager().setActiveByLanguage(defaultSubtitles);
+                    }else if (defaultSubtitles == ""){
+                        playerManager.getTextTracksManager().setActiveByLanguage(null);
+                    }
                 }
 
 
