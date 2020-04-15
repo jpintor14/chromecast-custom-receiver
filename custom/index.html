@@ -21,6 +21,8 @@
         var username = "";
         var password = "";
         var senderId = "";
+        var defaultAudio = "es";
+        var defaultSubtitles = ""
 
         var startTime = 0;
 
@@ -72,13 +74,11 @@
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
                 }
 
+
                 console.log("PLAYER_LOAD_COMPLETE: ");
                 playerManager.play();
 
-                console.log("PLAYER_SET_DEFAULT_LANGUAGE: ");
-                playerManager.getAudioTracksManager().setActiveByLanguage('spa');
-                playerManager.getTextTracksManager().setActiveByLanguage('spa');
-
+                setPlayingAudioAndSubtitlesOptions()
 
                 console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media))
 
@@ -359,28 +359,59 @@
         };
 
         context.addCustomMessageListener(channel, function(customEvent) {
-            console.log("addCustomMessageListener");
             var message = customEvent.data;
             var command = message.command;
             var params = message.params;
 
-            if (command == "login"){
-                wasAbi.login(params);
-            }else{
-                var text = params.text
-                var log = "Message received from " + 
-                            "[" +  customEvent.senderId +  "],  " +
-                            " command: " + command + 
-                            " text: " + text;
-                console.log(log);
+
+            console.log("custom message: " + JSON.stringify(message));
+
+
+            switch (command) {
+                case "login":
+                    wasAbi.login(params);
+                    break;
+                case "defaultAudioAndSubtitles":
+                    setDefaultAudioAndSubtitlesOptions(params)
+                    break;
+                default:
+                    customMessageReceiver(params, command)
+                    break;
             }
+
           });
 
 
         options.playbackConfig = playbackConfig;
         context.start(options);
 
-        console.log("context started")
+        console.log("context started");
+
+        function customMessageReceiver(params, senderId){
+            var command = message.command;
+            var text = params.text;
+            var log = "Message received from " + 
+                        "[" +  senderId +  "],  " +
+                        " command: " + command + 
+                        " text: " + text;
+            console.log(log);
+        }
+
+        function setDefaultAudioAndSubtitlesOptions(params){
+            defaultAudio = params.audio
+            defaultSubtitles = params.subtitles
+            console.log("setDefaultLanguages: " + defaultAudio);
+
+            console.log("setDefaultLanguages: " + defaultAudio);
+            if (playerManager.getPlayerState != "IDLE"){
+                setPlayingAudioAndSubtitlesOptions();
+            }
+        }
+
+        function setPlayingAudioAndSubtitlesOptions(){
+            playerManager.getAudioTracksManager().setActiveByLanguage(defaultAudio);
+            playerManager.getTextTracksManager().setActiveByLanguage(defaultSubtitles);
+        }
     
     </script>
 
