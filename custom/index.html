@@ -73,11 +73,10 @@
                 }
 
                 console.log("PLAYER_LOAD_COMPLETE: ");
-                playerManager.getTextTracksManager().setActiveByLanguage('spa');
-
-                console.log("PLAYER_SET_DEFAULT_LANGUAGE: ");
                 playerManager.play();
 
+                console.log("PLAYER_SET_DEFAULT_LANGUAGE: ");
+                playerManager.getTextTracksManager().setActiveByLanguage('spa');
 
 
                 console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media))
