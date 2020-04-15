@@ -77,10 +77,7 @@
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
 
-
-                    //playerManager.getAudioTracksManager().setActiveByLanguage(defaultAudio);
-                    //playerManager.getTextTracksManager().setActiveByLanguage(defaultSubtitles);
-
+                    /*
                     if ((event.media.tracks[i].type == "AUDIO") && (event.media.tracks[i].language == defaultAudio))  {
                         playerManager.getAudioTracksManager().setActiveByLanguage(defaultAudio);
                     }else if ((event.media.tracks[i].type == "TEXT") && (event.media.tracks[i].language == defaultSubtitles)) {
@@ -88,7 +85,12 @@
                     }else if (defaultSubtitles == ""){
                         playerManager.getTextTracksManager().setActiveByLanguage(null);
                     }
+                    */
                 }
+
+
+                playerManager.getAudioTracksManager().setActiveByLanguage(defaultAudio);
+                playerManager.getTextTracksManager().setActiveByLanguage(defaultSubtitles);
 
 
                 console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media))
