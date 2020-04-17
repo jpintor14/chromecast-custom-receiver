@@ -4347,21 +4347,19 @@
                     /*
                     if ("region" ==
                         m.nodeName && (l = m.attributes.getNamedItem("xml:id"))) {
+                    */
                         var p = f,
                             u = null,
                             v = Yh(m);
                         v ? u = v.origin : p && (v = m.attributes.getNamedItem("style")) && (u = p.get(v.value));
+                    /*
                         if (p = u) g = g || new Map, m = m.attributes.getNamedItem("tts:textAlign"), g.set(l.value, {
                             align: m && m.value || "left",
                             origin: p
                         })
                     }
                     */
-
-                   var p = f,
-                   u = null,
-                   v = Yh(m);
-                   v ? u = v.origin : p && (v = m.attributes.getNamedItem("style")) && (u = p.get(v.value));
+                   
 
                 }
                 f = g
