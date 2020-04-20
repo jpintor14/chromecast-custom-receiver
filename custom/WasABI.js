@@ -11,7 +11,7 @@ class WasABI {
   rightTvUrl = 'https://orangetv.orange.es/mob/api/rtv/v1';
   username = '';
   password = '';
-  channel = '';
+  liveChannel = '';
 
   constructor() {
     
@@ -65,11 +65,11 @@ class WasABI {
     return this.username;
   }
 
-
+  /*
   getLivePlayingInfo(params, playerManager){
-    this.channel = this.channel
+    this.liveChannel = this.liveChannel
     var xhttpLivePlaying = new XMLHttpRequest();
-    xhttpLivePlaying.open("GET", this.rightTvUrl + "/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=" + this.channel +"&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
+    xhttpLivePlaying.open("GET", this.rightTvUrl + "/GetLivePlayingInfo?client=json&include_cas_token=true&channel_external_id=" + this.liveChannel +"&serial_number=FD0DADFF0D46E7D656500EDAA91C264E", true);
     xhttpLivePlaying.withCredentials = true
     xhttpLivePlaying.send();
 
@@ -87,6 +87,7 @@ class WasABI {
         }
     }
 }
+*/
 
 
 
