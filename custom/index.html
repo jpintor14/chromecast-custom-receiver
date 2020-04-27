@@ -13,9 +13,11 @@
     <script type="text/javascript" src="WasABI.js"> </script>
     <script>
 
-        const wasAbi = new WasABI();
-        const channel = wasAbi.getChannel();
-        const licenseServerUrl = wasAbi.getLicenseUrl();
+        //const wasAbi = new WasABI();
+        //const channel = wasAbi.getChannel();
+        //const licenseServerUrl = wasAbi.getLicenseUrl();
+        const channel = 'urn:x-cast:com.optm.anhplayer';
+        const licenseServerUrl = 'https://ios.orangetv.orange.es/mob/api/rtv/v1/drm';
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
         var username = "";
@@ -373,7 +375,7 @@
 
             console.log("custom message: " + JSON.stringify(message));
 
-
+            /*
             switch (command) {
                 case "login":
                     wasAbi.login(params);
@@ -385,6 +387,7 @@
                     customMessageReceiver(params, command);
                     break;
             }
+            */
 
           });
 
