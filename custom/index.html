@@ -13,9 +13,14 @@
     <script type="text/javascript" src="WasABI.js"> </script>
     <script>
 
+        const channel = "urn:x-cast:com.optm.anhplayer";
+        const licenseServerUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1/drm";
+
+        /*
         const wasAbi = new WasABI();
         const channel = wasAbi.getChannel();
         const licenseServerUrl = wasAbi.getLicenseUrl();
+        */
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
         var username = "";
@@ -98,7 +103,7 @@
                     playerManager.seek(event.media.startAbsoluteTime);
                 }
 
-                sendMessageToSender()
+                //sendMessageToSender()
                 
             }
         );
@@ -368,6 +373,7 @@
             return networkRequestInfo;
         };
 
+        /*
         context.addCustomMessageListener(channel, function(customEvent) {
             var message = customEvent.data;
             var command = message.command;
@@ -408,12 +414,13 @@
         }
 
         function setDefaultAudioAndSubtitlesOptions(params){
-            defaultAudio = params.audio
-            defaultSubtitles = params.subtitles
+            defaultAudio = params.audio;
+            defaultSubtitles = params.subtitles;
             console.log("setDefaultLanguages: " + defaultAudio);
 
             console.log("setDefaultLanguages: " + playerManager.getPlayerState);
         }
+        */
 
     </script>
 
