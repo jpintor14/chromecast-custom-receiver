@@ -11,14 +11,14 @@ class WasABI {
 
   //right tv
   rightTvUrl = 'https://orangetv.orange.es/mob/api/rtv/v1';
-  loginUri = "login"
+  loginUri = "login";
 
   //compass 
   compassUrl = 'https://orangetv.orange.es/mob/api/reco/v1/';
   //session manager
   sessionManagerUrl = 'https://orangetv.orange.es/mob/api/sm/v1/';
-  openSessionUri = "openSession"
-  closeSessionUri = "closeSession"
+  openSessionUri = "openSession";
+  closeSessionUri = "closeSession";
 
   username = '';
   password = '';
@@ -77,7 +77,7 @@ class WasABI {
     return this.username;
   }
 
-
+  /*
   openSession(type, deviceId, contentId, sessionId){
     var params = "&type=" + type + "&deviceId= " + deviceId + "&contentId=" + contentId;
     if (sessionId != null){
@@ -127,6 +127,8 @@ class WasABI {
     }
 
   }
+
+  */
 
 
 

@@ -8,30 +8,24 @@
 
     <cast-media-player style="width: 100%;" id="player"></cast-media-player>
 
-    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>
-    <!--<script type="text/javascript" src="receiver2.5.8.js"> </script>-->
-    <!--<script type="text/javascript" src="WasABI.js"> </script>-->
+    <!--<script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>-->
+    <script type="text/javascript" src="receiver2.5.8.js"> </script>
+    <script type="text/javascript" src="WasABI.js"> </script>
     <script>
 
-        const channel = "urn:x-cast:com.optm.anhplayer";
-        const licenseServerUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1/drm";
-
-        /*
         const wasAbi = new WasABI();
         const channel = wasAbi.getChannel();
         const licenseServerUrl = wasAbi.getLicenseUrl();
-        */
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
         var username = "";
         var password = "";
         var senderId = "";
         var defaultAudio = "es";
-        var defaultSubtitles = ""
-
+        var defaultSubtitles = "";
         var startTime = 0;
 
-        console.log("context getInstance()")
+        console.log("context getInstance()");
 
         const options = new cast.framework.CastReceiverOptions();
         
@@ -95,7 +89,7 @@
                 //playerManager.getTextTracksManager().setActiveByLanguage(defaultSubtitles);
 
 
-                console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media))
+                console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media));
 
 
                 if (event.media.startAbsoluteTime){
@@ -103,7 +97,7 @@
                     playerManager.seek(event.media.startAbsoluteTime);
                 }
 
-                //sendMessageToSender()
+                sendMessageToSender();
                 
             }
         );
@@ -144,9 +138,7 @@
 
         function sendMessageToSender(){
             console.log("sendMessageToSender");
-
-
-            var message = "test"
+            var message = "test";
             context.sendCustomMessage(channel, senderId, message);
         }
 
@@ -154,9 +146,9 @@
         context.addEventListener(cast.framework.system.EventType.SENDER_CONNECTED, event => {
             console.log("on SENDER_DISCONNECTED: " + event.type);
             console.log("SENDER_CONNECTED" + event.senderId)
-            senderId = event.senderId
+            senderId = event.senderId;
 
-            sendMessageToSender()
+            sendMessageToSender();
         });
 
         const playbackConfig = new cast.framework.PlaybackConfig();
@@ -373,7 +365,6 @@
             return networkRequestInfo;
         };
 
-        /*
         context.addCustomMessageListener(channel, function(customEvent) {
             var message = customEvent.data;
             var command = message.command;
@@ -417,10 +408,8 @@
             defaultAudio = params.audio;
             defaultSubtitles = params.subtitles;
             console.log("setDefaultLanguages: " + defaultAudio);
-
             console.log("setDefaultLanguages: " + playerManager.getPlayerState);
         }
-        */
 
     </script>
 
