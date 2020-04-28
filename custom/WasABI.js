@@ -60,7 +60,7 @@ class WasABI {
     this.username = params.username;
     this.password = params.password;
     var url =  this.rightTvUrl + "/" + this.loginUri + "?client=json";
-    var postParams = "username=" + this.username +"&password=" + this.password
+    var postParams = "username=" + this.username +"&password=" + this.password;
 
     console.log("wasabi login");
 
@@ -84,7 +84,7 @@ class WasABI {
         }
     }
     */
-   this.request(url, "POST", postParams, null)
+   this.request(url, "POST", postParams, null);
 
   }
 
@@ -115,8 +115,9 @@ class WasABI {
     xhttp.withCredentials = true
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    if (postParams!=null){
-      xhttp.send("username=" + this.username +"&password=" + this.password);
+    console.log("request postParams: " + postParams );
+    if (postParams != null){
+      xhttp.send(postParams);
     }
 
     xhttp.onreadystatechange = function() {
