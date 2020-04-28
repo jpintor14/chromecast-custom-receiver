@@ -75,19 +75,19 @@ class WasABI {
     return this.username;
   }
 
-  scheduleOpenSession(){
-    //if (this.contentType != this.trailerContentType){
-      //this.sessionManagerTimer = setInterval( openSession(self), 10000);
-    //}
-  }
-
   openSession(){
-    var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId;
-    if (this.sessionManagerId != null){
-      params += "&externalSessionId=" + this.sessionManagerId;
-    }
-    var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
-    this.request(url, "GET", null, null);
+
+    if (this.contentType != this.trailerContentType) {
+
+      var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId;
+      if (this.sessionManagerId != null){
+        params += "&externalSessionId=" + this.sessionManagerId;
+      }
+      var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
+      this.request(url, "GET", null, null);
+      
+   }
+
   }
 
   closeSession(){

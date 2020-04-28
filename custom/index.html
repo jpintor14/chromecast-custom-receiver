@@ -61,7 +61,7 @@
 
                 console.log("PLAYER_LOAD_COMPLETE: ");
                 playerManager.play();
-                wasAbi.scheduleOpenSession()
+                scheduleOpenSession()
 
 
 
@@ -437,6 +437,15 @@
             defaultSubtitles = params.subtitles;
             console.log("setDefaultLanguages: " + defaultAudio);
             console.log("setDefaultLanguages: " + playerManager.getPlayerState);
+        }
+
+        function scheduleOpenSession(){
+            setInterval( {
+                this.wasAbi.openSession();
+            }, 10000);
+            //if (this.contentType != this.trailerContentType){
+            //this.sessionManagerTimer = setInterval( openSession(self), 10000);
+            //}
         }
 
     </script>
