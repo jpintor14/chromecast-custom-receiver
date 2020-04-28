@@ -8,7 +8,6 @@
 class WasABI {
  
   constructor() {
-    var self = this;
     this.chromecastChannel = "urn:x-cast:com.optm.anhplayer";
     this.licenseUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1/drm";
 
@@ -32,7 +31,6 @@ class WasABI {
     this.liveChannel = "";
     this.contentId = "";
     this.contentType = "";
-
 
     this.trailerContentType = "TRAILER";
   }
@@ -78,18 +76,18 @@ class WasABI {
   }
 
   scheduleOpenSession(){
-    if (this.contentType != this.trailerContentType){
+    //if (this.contentType != this.trailerContentType){
       //this.sessionManagerTimer = setInterval( openSession(self), 10000);
-    }
+    //}
   }
 
-  openSession(instance){
-    var params = "&type=" + instance.contentType + "&deviceId= " + instance.chromecastSerialId + "&contentId=" + instance.contentId;
-    if (instance.sessionManagerId != null){
-      params += "&externalSessionId=" + instance.sessionManagerId;
+  openSession(){
+    var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId;
+    if (this.sessionManagerId != null){
+      params += "&externalSessionId=" + this.sessionManagerId;
     }
-    var url = instance.sessionManagerUrl + "/" + instance.openSessionUri + "?client=json" + params;
-    instance.request(url, "GET", null, null);
+    var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
+    this.request(url, "GET", null, null);
   }
 
   closeSession(){
