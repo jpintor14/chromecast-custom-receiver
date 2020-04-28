@@ -21,6 +21,7 @@ class WasABI {
     this.sessionManagerUrl = 'https://orangetv.orange.es/mob/api/sm/v1/';
     this.openSessionUri = "openSession";
     this.closeSessionUri = "closeSession";
+    this.sessionManagerId = '';
 
     this.username = '';
     this.password = '';
@@ -41,6 +42,10 @@ class WasABI {
 
   setLicenseUrl(url) {
     this.licenseUrl = url;
+  }
+
+  setSessionManagerId(sessionId) {
+    this.sessionManagerId = sessionId;
   }
 
 
