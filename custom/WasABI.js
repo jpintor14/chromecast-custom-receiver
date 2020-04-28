@@ -76,16 +76,23 @@ class WasABI {
   }
 
   openSession(){
+    console.log("openSession: " );
 
     if (this.contentType != this.trailerContentType) {
+
+
+      console.log("openSession: is not a trailer" );
 
       var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId;
       if (this.sessionManagerId != null){
         params += "&externalSessionId=" + this.sessionManagerId;
       }
       var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
+
+
+      console.log("openSession: call GET " );
       this.request(url, "GET", null, null);
-      
+
    }
 
   }
@@ -99,6 +106,7 @@ class WasABI {
 
 
   request(url, method, postParams, okFunction){
+    console.log("url: " + url );
     var xhttp = new XMLHttpRequest();
     xhttp.open(method, url, true);
     xhttp.withCredentials = true
@@ -109,7 +117,7 @@ class WasABI {
     }
 
     xhttp.onreadystatechange = function() {
-        console.log("url: " + url );
+        console.log("url:  ONREADY " + url );
         if (this.readyState == 4 && this.status == 200) {
             console.log("response: " + xhttp.responseText );
             var status = JSON.parse(xhttp.responseText)["response"]["status"];
