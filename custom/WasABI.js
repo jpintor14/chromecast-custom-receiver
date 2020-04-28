@@ -6,6 +6,7 @@
 //  Copyright © 2020 Orange. All rights reserved.
 //
 class WasABI {
+  /*
   chromecastChannel = 'urn:x-cast:com.optm.anhplayer';
   licenseUrl = 'https://ios.orangetv.orange.es/mob/api/rtv/v1/drm';
 
@@ -23,7 +24,7 @@ class WasABI {
   username = '';
   password = '';
   liveChannel = '';
-  
+  */
 
   constructor() {
     
