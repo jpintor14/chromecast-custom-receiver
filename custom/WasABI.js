@@ -8,6 +8,7 @@
 class WasABI {
  
   constructor() {
+    var self = this;
     this.chromecastChannel = "urn:x-cast:com.optm.anhplayer";
     this.licenseUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1/drm";
 
@@ -68,7 +69,7 @@ class WasABI {
     var url =  this.rightTvUrl + "/" + this.loginUri + "?client=json";
     var postParams = "username=" + this.username +"&password=" + this.password;
 
-    request(url, "POST", postParams, null);
+    this.request(url, "POST", postParams, null);
   }
 
 
@@ -78,24 +79,24 @@ class WasABI {
 
   scheduleOpenSession(){
     if (this.contentType != this.trailerContentType){
-      this.sessionManagerTimer = setInterval(this.openSession, 10000);
+      this.sessionManagerTimer = setInterval( openSession(self), 10000);
     }
   }
 
-  openSession(){
-    var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId;
-    if (this.sessionManagerId != null){
-      params += "&externalSessionId=" + this.sessionManagerId;
+  openSession(instance){
+    var params = "&type=" + instance.contentType + "&deviceId= " + instance.chromecastSerialId + "&contentId=" + instance.contentId;
+    if (instance.sessionManagerId != null){
+      params += "&externalSessionId=" + instance.sessionManagerId;
     }
-    var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
-    request(url, "GET", null, null);
+    var url = instance.sessionManagerUrl + "/" + instance.openSessionUri + "?client=json" + params;
+    instance.request(url, "GET", null, null);
   }
 
   closeSession(){
     clearInterval(this.sessionManagerTimer);
     var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
     var url = this.sessionManagerUrl + "/" + this.closeSession + "?client=json" + params;
-    request(url, "GET", null, null);
+    this.request(url, "GET", null, null);
   }
 
 
