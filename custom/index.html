@@ -378,6 +378,8 @@
             switch (command) {
                 case "login":
                     wasAbi.login(params);
+                case "openSession":
+                    wasAbi.setSessionManagerId(params);
                     break;
                 case "defaultAudioAndSubtitles":
                     setDefaultAudioAndSubtitlesOptions(params);

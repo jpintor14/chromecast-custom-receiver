@@ -44,8 +44,8 @@ class WasABI {
     this.licenseUrl = url;
   }
 
-  setSessionManagerId(sessionId) {
-    this.sessionManagerId = sessionId;
+  setSessionManagerId(params) {
+    this.sessionManagerId = params.sessionId;
   }
 
 
