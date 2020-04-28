@@ -68,7 +68,7 @@ class WasABI {
     var url =  this.rightTvUrl + "/" + this.loginUri + "?client=json";
     var postParams = "username=" + this.username +"&password=" + this.password;
 
-    this.request(url, "POST", postParams, null);
+    request(url, "POST", postParams, null);
   }
 
 
@@ -88,14 +88,14 @@ class WasABI {
       params += "&externalSessionId=" + this.sessionManagerId;
     }
     var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
-    this.request(url, "GET", null, null);
+    request(url, "GET", null, null);
   }
 
   closeSession(){
     clearInterval(this.sessionManagerTimer);
     var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
     var url = this.sessionManagerUrl + "/" + this.closeSession + "?client=json" + params;
-    this.request(url, "GET", null, null);
+    request(url, "GET", null, null);
   }
 
 
