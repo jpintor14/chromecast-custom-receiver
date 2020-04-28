@@ -440,8 +440,8 @@
         }
 
         function scheduleOpenSession(){
-            var fun = wasAbi.openSession
-            setInterval( fun, 10000);
+            var fun = wasAbi.openSession()
+            setInterval(fun, 10000);
             //if (this.contentType != this.trailerContentType){
             //this.sessionManagerTimer = setInterval( openSession(self), 10000);
             //}
