@@ -57,6 +57,9 @@ class WasABI {
     this.sessionManagerId = params.sessionManagerId;
     this.sessionManagerInterval = params.sessionManagerInterval;
     this.chromecastSerialId = params.chromecastSerialId;
+
+    console.log("openSession contentId " + this.contentId)
+    console.log("openSession contentType " + this.contentType)
   }
 
   
@@ -77,6 +80,8 @@ class WasABI {
 
   openSession(){
     console.log("openSession: " );
+    console.log("openSession contentId " + this.contentId)
+    console.log("openSession contentType " + this.contentType)
 
     if (this.contentType != this.trailerContentType) {
 
