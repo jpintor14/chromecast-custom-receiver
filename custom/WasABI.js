@@ -59,8 +59,8 @@ class WasABI {
   login(params){
     this.username = params.username;
     this.password = params.password;
-    var url =  this.rightTvUrl + "/" + this.loginUri + "?client=json";
     var postParams = "username=" + this.username +"&password=" + this.password;
+    var url =  this.rightTvUrl + "/" + this.loginUri + "?client=json&" + postParams;
 
     console.log("wasabi login");
 
