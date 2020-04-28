@@ -23,12 +23,17 @@ class WasABI {
     this.closeSessionUri = "CloseSession";
     this.sessionManagerId = "";
     this.sessionManagerInterval = "";
+    this.sessionManagerTimer = null;
 
+    this.chromecastSerialId = "";
     this.username = "";
     this.password = "";
     this.liveChannel = "";
     this.contentId = "";
     this.contentType = "";
+
+
+    this.trailerContentType = "TRAILER";
   }
 
   
@@ -52,6 +57,7 @@ class WasABI {
     this.contentType = params.contentType;
     this.sessionManagerId = params.sessionManagerId;
     this.sessionManagerInterval = params.sessionManagerInterval;
+    this.chromecastSerialId = params.chromecastSerialId;
   }
 
   
@@ -62,30 +68,7 @@ class WasABI {
     var url =  this.rightTvUrl + "/" + this.loginUri + "?client=json";
     var postParams = "username=" + this.username +"&password=" + this.password;
 
-    console.log("wasabi login");
-
-
-    /*
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", url, true);
-    xhttp.withCredentials = true;
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("username=" + this.username +"&password=" + this.password);
-
-    xhttp.onreadystatechange = function() {
-
-        if (this.readyState == 4 && this.status == 200) {
-            console.log("response: " + xhttp.responseText );
-            var status = JSON.parse(xhttp.responseText)["response"]["status"];
-            console.log("response: " + status );
-
-            //send ok
-            //sendMessageToSender()
-        }
-    }
-    */
-   this.request(url, "POST", postParams, null);
-
+    this.request(url, "POST", postParams, null);
   }
 
 
@@ -93,17 +76,24 @@ class WasABI {
     return this.username;
   }
 
-  openSession(type, deviceId, contentId, sessionId){
-    var params = "&type=" + type + "&deviceId= " + deviceId + "&contentId=" + contentId;
-    if (sessionId != null){
-      params += "&externalSessionId=" + sessionId;
+  scheduleOpenSession(){
+    if (this.contentType != this.trailerContentType){
+      this.sessionManagerTimer = setInterval(this.openSession, 10000);
+    }
+  }
+
+  openSession(){
+    var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId;
+    if (this.sessionManagerId != null){
+      params += "&externalSessionId=" + this.sessionManagerId;
     }
     var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
     this.request(url, "GET", null, null);
   }
 
-  closeSession(type, deviceId, contentId, sessionId){
-    var params = "&type=" + type + "&deviceId= " + deviceId + "&contentId=" + contentId + "&externalSessionId=" + sessionId;
+  closeSession(){
+    clearInterval(this.sessionManagerTimer);
+    var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
     var url = this.sessionManagerUrl + "/" + this.closeSession + "?client=json" + params;
     this.request(url, "GET", null, null);
   }
@@ -115,7 +105,6 @@ class WasABI {
     xhttp.withCredentials = true
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    console.log("request postParams: " + postParams );
     if (postParams != null){
       xhttp.send(postParams);
     }
