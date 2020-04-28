@@ -13,14 +13,14 @@ class WasABI {
 
     //right tv
     this.rightTvUrl = "https://orangetv.orange.es/mob/api/rtv/v1";
-    this.loginUri = "login";
+    this.loginUri = "Login";
 
     //compass 
     this.compassUrl = "https://orangetv.orange.es/mob/api/reco/v1/";
     //session manager
     this.sessionManagerUrl = "https://orangetv.orange.es/mob/api/sm/v1/";
-    this.openSessionUri = "openSession";
-    this.closeSessionUri = "closeSession";
+    this.openSessionUri = "OpenSession";
+    this.closeSessionUri = "CloseSession";
     this.sessionManagerId = "";
     this.sessionManagerInterval = "";
 
@@ -59,8 +59,8 @@ class WasABI {
   login(params){
     this.username = params.username;
     this.password = params.password;
-    var postParams = "username=" + this.username +"&password=" + this.password;
     var url =  this.rightTvUrl + "/" + this.loginUri + "?client=json&" + postParams;
+    var postParams = "username=" + this.username +"&password=" + this.password;
 
     console.log("wasabi login");
 
