@@ -78,25 +78,25 @@ class WasABI {
     return this.username;
   }
 
-  openSession(){
+  openSession(wasAbi){
     console.log("openSession: " );
-    console.log("openSession contentId " + this.contentId)
-    console.log("openSession contentType " + this.contentType)
+    console.log("openSession contentId " + wasAbi.contentId)
+    console.log("openSession contentType " + wasAbi.contentType)
 
-    if (this.contentType != this.trailerContentType) {
+    if (wasAbi.contentType != wasAbi.trailerContentType) {
 
 
       console.log("openSession: is not a trailer" );
 
-      var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId;
-      if (this.sessionManagerId != null){
-        params += "&externalSessionId=" + this.sessionManagerId;
+      var params = "&type=" + wasAbi.contentType + "&deviceId= " + wasAbi.chromecastSerialId + "&contentId=" + wasAbi.contentId;
+      if (wasAbi.sessionManagerId != null){
+        params += "&externalSessionId=" + wasAbi.sessionManagerId;
       }
-      var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
+      var url = wasAbi.sessionManagerUrl + "/" + wasAbi.openSessionUri + "?client=json" + params;
 
 
       console.log("openSession: call GET " );
-      this.request(url, "GET", null, null);
+      wasAbi.request(url, "GET", null, null);
 
    }
 

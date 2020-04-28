@@ -441,7 +441,8 @@
 
         function scheduleOpenSession(){
             console.log("openSession:  schedule");
-            setInterval(wasAbi.openSession, 10000);
+            wasAbi.openSession(wasAbi)
+            setInterval(wasAbi.openSession(wasAbi), 10000);
             console.log("openSession: schedule 2");
             //if (this.contentType != this.trailerContentType){
             //this.sessionManagerTimer = setInterval( openSession(self), 10000);
