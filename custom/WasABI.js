@@ -77,7 +77,6 @@ class WasABI {
     return this.username;
   }
 
-  /*
   openSession(type, deviceId, contentId, sessionId){
     var params = "&type=" + type + "&deviceId= " + deviceId + "&contentId=" + contentId;
     if (sessionId != null){
@@ -127,8 +126,6 @@ class WasABI {
     }
 
   }
-
-  */
 
 
 
