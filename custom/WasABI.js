@@ -79,7 +79,7 @@ class WasABI {
 
   scheduleOpenSession(){
     if (this.contentType != this.trailerContentType){
-      this.sessionManagerTimer = setInterval( openSession(self), 10000);
+      //this.sessionManagerTimer = setInterval( openSession(self), 10000);
     }
   }
 
