@@ -14,10 +14,8 @@
     <script>
 
         const wasAbi = new WasABI();
-        //const channel = wasAbi.getChannel();
-        //const licenseServerUrl = wasAbi.getLicenseUrl();
-        const channel = 'urn:x-cast:com.optm.anhplayer';
-        const licenseServerUrl = 'https://ios.orangetv.orange.es/mob/api/rtv/v1/drm';
+        const channel = wasAbi.getChannel();
+        const licenseServerUrl = wasAbi.getLicenseUrl();
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
         var username = "";
@@ -137,6 +135,7 @@
             return request;
         });
 
+        /*
         playerManager.setMessageInterceptor(
             cast.framework.messages.MessageType.CANCELLED,
             request => {
@@ -160,6 +159,7 @@
                 wasAbi.closeSession()
             return request;
         });
+        */
 
 
         function sendMessageToSender(){
