@@ -16,9 +16,9 @@ class WasABI {
     this.loginUri = "Login";
 
     //compass 
-    this.compassUrl = "https://orangetv.orange.es/mob/api/reco/v1/";
+    this.compassUrl = "https://orangetv.orange.es/mob/api/reco/v1";
     //session manager
-    this.sessionManagerUrl = "https://orangetv.orange.es/mob/api/sm/v1/";
+    this.sessionManagerUrl = "https://orangetv.orange.es/mob/api/sm/v1";
     this.openSessionUri = "OpenSession";
     this.closeSessionUri = "CloseSession";
     this.sessionManagerId = "";
@@ -87,7 +87,7 @@ class WasABI {
 
       console.log("CUSTOM LOG: openSession: is not a trailer" );
 
-      var params = "&type=" + wasAbi.contentType + "&deviceId= " + wasAbi.chromecastSerialId + "&contentId=" + wasAbi.contentId;
+      var params = "&type=" + wasAbi.contentType + "&deviceId=" + wasAbi.chromecastSerialId + "&contentId=" + wasAbi.contentId;
       if (wasAbi.sessionManagerId != null){
         params += "&externalSessionId=" + wasAbi.sessionManagerId;
       }
