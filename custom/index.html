@@ -62,12 +62,12 @@
 
                 console.log("PLAYER_LOAD_COMPLETE: ");
                 playerManager.play();
-                scheduleOpenSession()
+                //scheduleOpenSession()
 
 
 
                 for (var i = 0; i < event.media.tracks.length; i++) {
-                    /*
+                    
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].language " + event.media.tracks[i].language);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].name: " + event.media.tracks[i].name);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].subtype: " + event.media.tracks[i].subtype);
@@ -75,7 +75,6 @@
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
-                    */
 
                     /*
                     if ((event.media.tracks[i].type == "AUDIO") && (event.media.tracks[i].language == defaultAudio))  {
@@ -442,6 +441,7 @@
             console.log("CUSTOM LOG:setDefaultLanguages: " + playerManager.getPlayerState);
         }
 
+        /*
         function scheduleOpenSession(){
             console.log("CUSTOM LOG: openSession:  schedule");
             openSession();
@@ -458,6 +458,7 @@
             clearInterval(sessionManagerTimer);
             console.log("CUSTOM LOG: closeSession");
         }
+        */
 
     </script>
 
