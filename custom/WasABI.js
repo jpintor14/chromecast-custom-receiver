@@ -121,7 +121,9 @@ class WasABI {
 
     xhttp.onreadystatechange = function() {
         console.log("CUSTOM LOG: url:  ONREADY " + url );
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState == 4)
+        
+          if (this.status == 200) {
             console.log("CUSTOM LOG: response: " + xhttp.responseText );
             var status = JSON.parse(xhttp.responseText)["response"]["status"];
             console.log("CUSTOM LOG: response: " + status );
@@ -129,6 +131,11 @@ class WasABI {
             if (okFunction!=null){
               okFunction()
             }
+
+          }else{
+            console.log("CUSTOM LOG: else response: " + xhttp.responseText );
+          }
+
         }
     }
   }
