@@ -95,9 +95,11 @@
                 console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media));
 
 
-                if (event.media.startAbsoluteTime){
+                if (event.media.startAbsoluteTime && event.media.startAbsoluteTime != 0){
                     console.log("PLAYER_LOAD_COMPLETE startTime: " + event.media.startAbsoluteTime);
-                    playerManager.seek(event.media.startAbsoluteTime);
+                    //playerManager.seek(event.media.startAbsoluteTime);
+
+                    setTimeout(function(){ playerManager.seek(event.media.startAbsoluteTime); }, 3000);
                 }
 
                 sendMessageToSender();
