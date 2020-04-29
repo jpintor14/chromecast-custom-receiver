@@ -112,10 +112,10 @@ class WasABI {
     console.log("CUSTOM LOG: request url: " + url );
     var xhttp = new XMLHttpRequest();
     xhttp.open(method, url, true);
-    xhttp.withCredentials = true
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.withCredentials = true;
 
     if (postParams != null){
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhttp.send(postParams);
     }else{
       xhttp.send();
