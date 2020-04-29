@@ -113,6 +113,7 @@ class WasABI {
     var xhttp = new XMLHttpRequest();
     xhttp.open(method, url, true);
     xhttp.withCredentials = true;
+    xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
 
     if (postParams != null){
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
