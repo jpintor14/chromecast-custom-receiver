@@ -67,6 +67,7 @@
 
 
                 for (var i = 0; i < event.media.tracks.length; i++) {
+                    /*
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].language " + event.media.tracks[i].language);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].name: " + event.media.tracks[i].name);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].subtype: " + event.media.tracks[i].subtype);
@@ -74,6 +75,7 @@
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
+                    */
 
                     /*
                     if ((event.media.tracks[i].type == "AUDIO") && (event.media.tracks[i].language == defaultAudio))  {
@@ -125,8 +127,6 @@
                 
 
                 if (request.media.entity && !request.media.contentId) {
-
-                    //console.log("----- LOAD ----- contentId " + request.media.contentId);
                     return getMediaByEntity(request.media.entity).then(
                         media => {
                         request.media.contentId = media.url;
@@ -194,6 +194,7 @@
         playerManager.addEventListener(cast.framework.events.EventType.MEDIA_STATUS,
             event => {
                 
+                /*
                 console.log("on MEDIA_STATUS: " + event.mediaStatus.playerState);
                 if (event.mediaStatus.activeTrackIds) {
                     console.log("on MEDIA_STATUS: number of active track " + event.mediaStatus.activeTrackIds.length);
@@ -204,6 +205,7 @@
                         }
                     }
                 }
+                */
             }
         );
 
@@ -399,7 +401,7 @@
             var params = message.params;
 
 
-            console.log("custom message: " + JSON.stringify(message));
+            console.log("CUSTOM LOG: custom message: " + JSON.stringify(message));
 
             switch (command) {
                 case "login":
@@ -421,7 +423,7 @@
         options.playbackConfig = playbackConfig;
         context.start(options);
 
-        console.log("context started");
+        console.log("CUSTOM LOG:context started");
 
         function customMessageReceiver(params, senderId){
             var command = message.command;
@@ -436,15 +438,15 @@
         function setDefaultAudioAndSubtitlesOptions(params){
             defaultAudio = params.audio;
             defaultSubtitles = params.subtitles;
-            console.log("setDefaultLanguages: " + defaultAudio);
-            console.log("setDefaultLanguages: " + playerManager.getPlayerState);
+            console.log("CUSTOM LOG:setDefaultLanguages: " + defaultAudio);
+            console.log("CUSTOM LOG:setDefaultLanguages: " + playerManager.getPlayerState);
         }
 
         function scheduleOpenSession(){
-            console.log("openSession:  schedule");
+            console.log("CUSTOM LOG: openSession:  schedule");
             wasAbi.openSession(wasAbi);
             sessionManagerTimer = setInterval(wasAbi.openSession(wasAbi), 10000);
-            console.log("openSession: schedule 2");
+            console.log("CUSTOM LOG: openSession: schedule 2");
             //if (this.contentType != this.trailerContentType){
             //this.sessionManagerTimer = setInterval( openSession(self), 10000);
             //}
@@ -452,7 +454,7 @@
 
         function closeSession(){
             clearInterval(sessionManagerTimer);
-            console.log("closeSession");
+            console.log("CUSTOM LOG: closeSession");
         }
 
     </script>

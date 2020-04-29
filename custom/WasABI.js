@@ -57,8 +57,8 @@ class WasABI {
     this.sessionManagerInterval = params.sessionManagerInterval;
     this.chromecastSerialId = params.chromecastSerialId;
 
-    console.log("openSession contentId " + this.contentId)
-    console.log("openSession contentType " + this.contentType)
+    console.log("CUSTOM LOG: openSession contentId " + this.contentId)
+    console.log("CUSTOM LOG: openSession contentType " + this.contentType)
   }
 
   
@@ -78,14 +78,14 @@ class WasABI {
   }
 
   openSession(wasAbi){
-    console.log("openSession: " );
-    console.log("openSession contentId " + wasAbi.contentId)
-    console.log("openSession contentType " + wasAbi.contentType)
+    console.log("CUSTOM LOG: openSession: " );
+    console.log("CUSTOM LOG: openSession contentId " + wasAbi.contentId)
+    console.log("CUSTOM LOG: openSession contentType " + wasAbi.contentType)
 
     if (wasAbi.contentType != wasAbi.trailerContentType) {
 
 
-      console.log("openSession: is not a trailer" );
+      console.log("CUSTOM LOG: openSession: is not a trailer" );
 
       var params = "&type=" + wasAbi.contentType + "&deviceId= " + wasAbi.chromecastSerialId + "&contentId=" + wasAbi.contentId;
       if (wasAbi.sessionManagerId != null){
@@ -94,7 +94,7 @@ class WasABI {
       var url = wasAbi.sessionManagerUrl + "/" + wasAbi.openSessionUri + "?client=json" + params;
 
 
-      console.log("openSession: call GET " );
+      console.log("CUSTOM LOG: openSession: call GET " );
       wasAbi.request(url, "GET", null, null);
 
    }
@@ -120,11 +120,11 @@ class WasABI {
     }
 
     xhttp.onreadystatechange = function() {
-        console.log("url:  ONREADY " + url );
+        console.log("CUSTOM LOG: url:  ONREADY " + url );
         if (this.readyState == 4 && this.status == 200) {
-            console.log("response: " + xhttp.responseText );
+            console.log("CUSTOM LOG: response: " + xhttp.responseText );
             var status = JSON.parse(xhttp.responseText)["response"]["status"];
-            console.log("response: " + status );
+            console.log("CUSTOM LOG: response: " + status );
 
             if (okFunction!=null){
               okFunction()
