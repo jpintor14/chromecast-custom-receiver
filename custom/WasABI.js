@@ -137,6 +137,7 @@ class WasABI {
             }
 
           }else{
+            console.log("CUSTOM LOG: else status: " + this.status );
             console.log("CUSTOM LOG: else response: " + xhttp.responseText );
           }
 
