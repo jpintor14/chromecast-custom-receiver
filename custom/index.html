@@ -444,12 +444,14 @@
 
         function scheduleOpenSession(){
             console.log("CUSTOM LOG: openSession:  schedule");
+            setInterval(onlyLog, 1000)
             openSession();
             sessionManagerTimer = setInterval(openSession, 10000);
             console.log("CUSTOM LOG: openSession: schedule 2");
-            //if (this.contentType != this.trailerContentType){
-            //this.sessionManagerTimer = setInterval( openSession(self), 10000);
-            //}
+        }
+
+        function onlyLog(){
+            console.log("CUSTOM LOG: only log");
         }
 
         function openSession(){
