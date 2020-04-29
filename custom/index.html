@@ -97,9 +97,7 @@
 
                 if (event.media.startAbsoluteTime && event.media.startAbsoluteTime != 0){
                     console.log("PLAYER_LOAD_COMPLETE startTime: " + event.media.startAbsoluteTime);
-                    //playerManager.seek(event.media.startAbsoluteTime);
-
-                    setTimeout(function(){ playerManager.seek(event.media.startAbsoluteTime); }, 3000);
+                    playerManager.seek(event.media.startAbsoluteTime);
                 }
 
                 sendMessageToSender();
