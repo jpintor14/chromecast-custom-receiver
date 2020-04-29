@@ -444,12 +444,17 @@
 
         function scheduleOpenSession(){
             console.log("CUSTOM LOG: openSession:  schedule");
-            wasAbi.openSession(wasAbi);
-            sessionManagerTimer = setInterval(wasAbi.openSession(wasAbi), 10000);
+            openSession();
+            sessionManagerTimer = setInterval(openSession, 10000);
             console.log("CUSTOM LOG: openSession: schedule 2");
             //if (this.contentType != this.trailerContentType){
             //this.sessionManagerTimer = setInterval( openSession(self), 10000);
             //}
+        }
+
+        function openSession(){
+            console.log("CUSTOM LOG: openSession:  interval");
+            wasAbi.openSession(wasAbi);
         }
 
         function closeSession(){
