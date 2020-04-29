@@ -109,7 +109,7 @@ class WasABI {
 
 
   request(url, method, postParams, okFunction){
-    console.log("url: " + url );
+    console.log("CUSTOM LOG: request url: " + url );
     var xhttp = new XMLHttpRequest();
     xhttp.open(method, url, true);
     xhttp.withCredentials = true
@@ -117,8 +117,12 @@ class WasABI {
 
     if (postParams != null){
       xhttp.send(postParams);
+    }else{
+      xhttp.send();
     }
 
+    
+    console.log("CUSTOM LOG: start onreadystatechange: " + url );
     xhttp.onreadystatechange = function() {
         console.log("CUSTOM LOG: url:  ONREADY " + url );
         if (this.readyState == 4) {
