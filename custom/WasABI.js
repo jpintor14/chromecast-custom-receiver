@@ -23,7 +23,6 @@ class WasABI {
     this.closeSessionUri = "CloseSession";
     this.sessionManagerId = "";
     this.sessionManagerInterval = "";
-    this.sessionManagerTimer = null;
 
     this.chromecastSerialId = "";
     this.username = "";
@@ -102,11 +101,10 @@ class WasABI {
 
   }
 
-  closeSession(){
-    clearInterval(this.sessionManagerTimer);
-    var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
-    var url = this.sessionManagerUrl + "/" + this.closeSession + "?client=json" + params;
-    this.request(url, "GET", null, null);
+  closeSession(wasAbi){
+    var params = "&type=" + wasAbi.contentType + "&deviceId= " + wasAbi.chromecastSerialId + "&contentId=" + wasAbi.contentId + "&externalSessionId=" + wasAbi.sessionManagerId;
+    var url = wasAbi.sessionManagerUrl + "/" + wasAbi.closeSession + "?client=json" + params;
+    wasAbi.request(url, "GET", null, null);
   }
 
 

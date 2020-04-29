@@ -24,6 +24,7 @@
         var defaultAudio = "es";
         var defaultSubtitles = "";
         var startTime = 0;
+        var sessionManagerTimer = null;
 
         console.log("context getInstance()");
 
@@ -441,12 +442,17 @@
 
         function scheduleOpenSession(){
             console.log("openSession:  schedule");
-            wasAbi.openSession(wasAbi)
-            setInterval(wasAbi.openSession(wasAbi), 10000);
+            wasAbi.openSession(wasAbi);
+            sessionManagerTimer = setInterval(wasAbi.openSession(wasAbi), 10000);
             console.log("openSession: schedule 2");
             //if (this.contentType != this.trailerContentType){
             //this.sessionManagerTimer = setInterval( openSession(self), 10000);
             //}
+        }
+
+        function closeSession(){
+            clearInterval(sessionManagerTimer);
+            console.log("closeSession");
         }
 
     </script>
