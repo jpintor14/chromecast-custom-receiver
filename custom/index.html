@@ -101,6 +101,7 @@
                 }
 
                 sendMessageToSender();
+                sendLoadOK()
                 
             }
         );
@@ -166,6 +167,20 @@
             console.log("sendMessageToSender");
             var message = "test";
             context.sendCustomMessage(channel, senderId, message);
+        }
+
+
+        function sendLoadOK(){
+            console.log("CUSTOM LOG: ");
+            var contentInfo = wasAbi.getContentInfo()
+            if (contentInfo.type == "CUSTOM LOG: stov")
+            {
+                playerManager.seek(0)
+            }
+            //var message = "test";
+            //context.sendCustomMessage(channel, senderId, message);
+
+
         }
 
 
@@ -378,8 +393,8 @@
                 }
 
                 // stop the session
-                context.stop();
-                wasAbi.closeSession()
+                //context.stop();
+                //wasAbi.closeSession()
             }
         );
 

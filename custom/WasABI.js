@@ -45,6 +45,13 @@ class WasABI {
   getLicenseUrl() {
     return this.licenseUrl;
   }
+  
+  // get current content info
+  getContentInfo() {
+    var info = { "id": this.contentId,
+                "type": this.contentType };
+    return info;
+  }
 
   setLicenseUrl(url) {
     this.licenseUrl = url;
