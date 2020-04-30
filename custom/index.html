@@ -101,7 +101,7 @@
                 }
 
                 sendMessageToSender();
-                sendLoadOK()
+                adjustPlayAfterLoad()
                 
             }
         );
@@ -163,28 +163,6 @@
         */
 
 
-        function sendMessageToSender(){
-            console.log("sendMessageToSender");
-            var message = "test";
-            context.sendCustomMessage(channel, senderId, message);
-        }
-
-
-        function sendLoadOK(){
-            console.log("CUSTOM LOG: ");
-            var contentInfo = wasAbi.getContentInfo()
-            console.log("CUSTOM LOG: sendLoadOK " + JSON.stringify(contentInfo));
-            if (contentInfo.type == "stov")
-            {
-                playerManager.seek(0)
-            }
-            //var message = "test";
-            //context.sendCustomMessage(channel, senderId, message);
-
-
-        }
-
-
         context.addEventListener(cast.framework.system.EventType.SENDER_CONNECTED, event => {
             console.log("on SENDER_DISCONNECTED: " + event.type);
             console.log("SENDER_CONNECTED" + event.senderId)
@@ -204,25 +182,6 @@
             return requestInfo;
         };
 
-
-
-        playerManager.addEventListener(cast.framework.events.EventType.MEDIA_STATUS,
-            event => {
-                
-                /*
-                console.log("on MEDIA_STATUS: " + event.mediaStatus.playerState);
-                if (event.mediaStatus.activeTrackIds) {
-                    console.log("on MEDIA_STATUS: number of active track " + event.mediaStatus.activeTrackIds.length);
-                    if (event.mediaStatus.activeTrackIds.length >= 1) {
-                        console.log("on MEDIA_STATUS: first trackId " + event.mediaStatus.activeTrackIds[0]);
-                        if (event.mediaStatus.activeTrackIds.length == 2) {
-                            console.log("on MEDIA_STATUS: second trackId " + event.mediaStatus.activeTrackIds[1]);
-                        }
-                    }
-                }
-                */
-            }
-        );
 
         /* For error code description */
         /* event.detailedErrorCode: https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.events#.DetailedErrorCode */
@@ -423,6 +382,8 @@
                     wasAbi.login(params);
                 case "sessionParams":
                     wasAbi.initSessionParams(params);
+                case "requestSessionParams":
+                    sendSessionParams();
                     break;
                 case "defaultAudioAndSubtitles":
                     setDefaultAudioAndSubtitlesOptions(params);
@@ -450,11 +411,38 @@
             console.log(log);
         }
 
+
         function setDefaultAudioAndSubtitlesOptions(params){
             defaultAudio = params.audio;
             defaultSubtitles = params.subtitles;
             console.log("CUSTOM LOG:setDefaultLanguages: " + defaultAudio);
             console.log("CUSTOM LOG:setDefaultLanguages: " + playerManager.getPlayerState);
+        }
+
+
+
+        function sendMessageToSender(){
+            console.log("sendMessageToSender");
+            var message = "test";
+            context.sendCustomMessage(channel, senderId, message);
+        }
+
+        function adjustPlayAfterLoad(){
+            var contentInfo = wasAbi.getContentInfo()
+            if (contentInfo.type == "stov")
+            {
+                playerManager.seek(0)
+            }
+        }
+
+
+        function sendSessionParams(){
+            var contentInfo = wasAbi.getContentInfo()
+
+            var message = { "command": "sessionParams",
+                            "data": contentInfo };
+
+            context.sendCustomMessage(channel, senderId, message);
         }
 
         /*
