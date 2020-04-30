@@ -31,6 +31,7 @@ class WasABI {
     this.contentId = "";
     this.contentType = "";
     this.customData = "";
+    this.playingUrl = "";
 
     this.trailerContentType = "TRAILER";
   }
@@ -71,6 +72,7 @@ class WasABI {
     this.sessionManagerInterval = params.sessionManagerInterval;
     this.chromecastSerialId = params.chromecastSerialId;
     this.customData = params.customData;
+    this.playingUrl = params.playingUrl;
 
 
     console.log("CUSTOM LOG: initSessionParams contentId " + this.contentId);
