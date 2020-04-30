@@ -48,6 +48,7 @@ class WasABI {
   
   // get current content info
   getContentInfo() {
+    console.log("CUSTOM LOG: openSession getContentInfo " + this.contentType);
     var info = { "id": this.contentId,
                 "type": this.contentType };
     return info;
@@ -64,8 +65,8 @@ class WasABI {
     this.sessionManagerInterval = params.sessionManagerInterval;
     this.chromecastSerialId = params.chromecastSerialId;
 
-    console.log("CUSTOM LOG: openSession contentId " + this.contentId)
-    console.log("CUSTOM LOG: openSession contentType " + this.contentType)
+    console.log("CUSTOM LOG: openSession contentId " + this.contentId);
+    console.log("CUSTOM LOG: openSession contentType " + this.contentType);
   }
 
   
