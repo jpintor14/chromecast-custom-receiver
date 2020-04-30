@@ -55,9 +55,8 @@ class WasABI {
                 "type": this.contentType,
                 "licenseUrl": this.licenseUrl,
                 "customData": this.customData,
-                "channelId": this.channelId,
-                "sessionManagerId": this.sessionManagerId
-                 };
+                "channelId": this.liveChannel,
+                "sessionManagerId": this.sessionManagerId };
     return info;
   }
 
@@ -67,6 +66,7 @@ class WasABI {
 
   initSessionParams(params){
     this.contentId = params.contentId;
+    this.liveChannel = params.channelId;
     this.contentType = params.contentType;
     this.sessionManagerId = params.sessionManagerId;
     this.sessionManagerInterval = params.sessionManagerInterval;
