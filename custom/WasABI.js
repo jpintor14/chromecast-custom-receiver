@@ -18,7 +18,7 @@ class WasABI {
     //compass 
     this.compassUrl = "https://orangetv.orange.es/mob/api/reco/v1";
     //session manager
-    this.sessionManagerUrl = "https://orangetv.orange.es/mob/api/sm/v1";
+    this.sessionManagerUrl = "https://ios.orangetv.orange.es/mob/api/sm/v1";
     this.openSessionUri = "openSession";
     this.closeSessionUri = "closeSession";
     this.sessionManagerId = "";
