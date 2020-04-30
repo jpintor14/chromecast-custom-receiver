@@ -438,6 +438,7 @@
 
         function sendSessionParams(){
             var contentInfo = wasAbi.getContentInfo()
+            console.log("CUSTOM LOG:sendSessionParams: " + JSON.stringify(contentInfo));
 
             var message = { "command": "sessionParams",
                             "data": contentInfo };
