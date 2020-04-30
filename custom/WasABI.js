@@ -65,8 +65,8 @@ class WasABI {
     this.sessionManagerInterval = params.sessionManagerInterval;
     this.chromecastSerialId = params.chromecastSerialId;
 
-    console.log("CUSTOM LOG: openSession contentId " + this.contentId);
-    console.log("CUSTOM LOG: openSession contentType " + this.contentType);
+    console.log("CUSTOM LOG: initSessionParams contentId " + this.contentId);
+    console.log("CUSTOM LOG: initSessionParams contentType " + this.contentType);
   }
 
   
