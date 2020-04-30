@@ -380,8 +380,10 @@
             switch (command) {
                 case "login":
                     wasAbi.login(params);
+                    break;
                 case "sessionParams":
-                    //wasAbi.initSessionParams(params);
+                    wasAbi.initSessionParams(params);
+                    break;
                 case "requestSessionParams":
                     sendSessionParams();
                     break;
