@@ -30,6 +30,7 @@ class WasABI {
     this.liveChannel = "";
     this.contentId = "";
     this.contentType = "";
+    this.customData = "";
 
     this.trailerContentType = "TRAILER";
   }
@@ -50,7 +51,12 @@ class WasABI {
   getContentInfo() {
     console.log("CUSTOM LOG: openSession getContentInfo " + this.contentType);
     var info = { "id": this.contentId,
-                "type": this.contentType };
+                "type": this.contentType,
+                "licenseUrl": this.licenseUrl,
+                "customData": this.customData,
+                "channelId": this.channelId,
+                "sessionManagerId": this.sessionManagerId
+                 };
     return info;
   }
 
@@ -64,6 +70,8 @@ class WasABI {
     this.sessionManagerId = params.sessionManagerId;
     this.sessionManagerInterval = params.sessionManagerInterval;
     this.chromecastSerialId = params.chromecastSerialId;
+    this.customData = params.customData;
+
 
     console.log("CUSTOM LOG: initSessionParams contentId " + this.contentId);
     console.log("CUSTOM LOG: initSessionParams contentType " + this.contentType);
