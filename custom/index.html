@@ -173,7 +173,8 @@
         function sendLoadOK(){
             console.log("CUSTOM LOG: ");
             var contentInfo = wasAbi.getContentInfo()
-            if (contentInfo.type == "CUSTOM LOG: stov")
+            console.log("CUSTOM LOG: sendLoadOK " + JSON.stringify(contentInfo));
+            if (contentInfo.type == "stov")
             {
                 playerManager.seek(0)
             }
