@@ -62,7 +62,7 @@
 
                 console.log("PLAYER_LOAD_COMPLETE: ");
                 playerManager.play();
-                //scheduleOpenSession()
+                scheduleOpenSession()
 
 
 
@@ -437,7 +437,7 @@
 
 
         function sendSessionParams(){
-            var contentInfo = wasAbi.getContentInfo()
+            var contentInfo = wasAbi.getContentInfo();
             console.log("CUSTOM LOG:sendSessionParams: " + JSON.stringify(contentInfo));
 
             var message = { "command": "sessionParams",
@@ -446,7 +446,7 @@
             context.sendCustomMessage(channel, senderId, message);
         }
 
-        /*
+        
         function scheduleOpenSession(){
             console.log("CUSTOM LOG: openSession:  schedule");
             openSession();
@@ -463,7 +463,7 @@
             clearInterval(sessionManagerTimer);
             console.log("CUSTOM LOG: closeSession");
         }
-        */
+        
 
     </script>
 

@@ -12,13 +12,13 @@ class WasABI {
     this.licenseUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1/drm";
 
     //right tv
-    this.rightTvUrl = "https://orangetv.orange.es/mob/api/rtv/v1";
+    this.rightTvUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1";
     this.loginUri = "Login";
 
     //compass 
     this.compassUrl = "https://orangetv.orange.es/mob/api/reco/v1";
     //session manager
-    this.sessionManagerUrl = "https://orangetv.orange.es/mob/api/sm/v1";
+    this.sessionManagerUrl = "https://ios.orangetv.orange.es/mob/api/sm/v1";
     this.openSessionUri = "openSession";
     this.closeSessionUri = "closeSession";
     this.sessionManagerId = "";
