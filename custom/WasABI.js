@@ -171,7 +171,7 @@ class WasABI {
 
     spa_langs.forEach(function(item){
       if (launguage.includes(item)) {
-        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Español" + event.media.tracks[i].name);
+        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Español" + launguage);
         return "Español";
       }
     });
@@ -179,13 +179,13 @@ class WasABI {
 
     en_langs.forEach(function(item){
       if (launguage.includes(item)) {
-        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Inglés" + event.media.tracks[i].name);
+        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Inglés" + launguage);
         return "Inglés";
       }
     });
 
 
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + event.media.tracks[i].name);
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + launguage);
     return launguage;
 
   }
