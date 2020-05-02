@@ -166,12 +166,14 @@ class WasABI {
 
 
   getLanguageName(launguage){
+    var found = false;
     var spa_langs = ["es", "spa", "ES"];
     var en_langs = ["en", "uk", "usa", "UK", "USA"];
 
     spa_langs.forEach(function(item){
       if (launguage.includes(item)) {
         console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Español" + launguage);
+        found = true;
         return "Español";
       }
     });
@@ -180,13 +182,17 @@ class WasABI {
     en_langs.forEach(function(item){
       if (launguage.includes(item)) {
         console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Inglés" + launguage);
+        found = true;
         return "Inglés";
       }
     });
 
 
     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + launguage);
-    return launguage;
+
+    if (!found){
+      return launguage;
+    }
 
   }
 
