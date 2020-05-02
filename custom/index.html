@@ -113,6 +113,11 @@
             }
         );
 
+        playerManager.setMessageInterceptor(cast.framework.messages.MessageType.EDIT_AUDIO_TRACKS, request => {
+            
+            console.log("PLAYER_LOAD_COMPLETE: setMessageInterceptor EDIT_AUDIO_TRACKS " + JSON.stringify(request));
+        });
+
         
         playerManager.setMessageInterceptor(
             cast.framework.messages.MessageType.LOAD,
