@@ -116,6 +116,15 @@
         playerManager.setMessageInterceptor(cast.framework.messages.MessageType.EDIT_AUDIO_TRACKS, request => {
             
             console.log("PLAYER_LOAD_COMPLETE: setMessageInterceptor EDIT_AUDIO_TRACKS " + JSON.stringify(request));
+
+
+            for (var i = 0; i < request.tracks; i++) {
+                if (request.tracks[i].type == "AUDIO"){
+                    console.log("PLAYER_LOAD_COMPLETE: setMessageInterceptor AUDIO_TRACK " + request.tracks[i].name);
+                    request.tracks[i].name = wasAbi.getLanguageName(request.tracks[i].name);
+                    console.log("PLAYER_LOAD_COMPLETE: setMessageInterceptor getLanguageName AUDIO_TRACK " + request.tracks[i].name);
+                }
+            }
         });
 
         
