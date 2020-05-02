@@ -1,0 +1,18 @@
+body {
+  --playback-logo-image: url('./orange_logo.png');
+}
+cast-media-player {
+  --progress-color: rgb(192, 192 , 192);
+  /*--splash-image: url('./orange_logo.png');*/
+  --splash-size: auto;
+  --slideshow-image-1: "https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/ATLANTICAS_HEADING_640x360(1).jpg";
+  --slideshow-image-2: "https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/SHUT%20EYE_HEADING_640x360(2).jpg";
+  --slideshow-image-3: "https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/GOLDBERG_HEADING_640x360.jpg";
+  --slideshow-image-4: "https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/KEVIN%20CAN%20WAIT_HEADING_640x360.jpg";
+  --slideshow-image-5: "https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/BREAKING_HEADING_640x360(3).jpg";
+  --slideshow-image-6: "https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/CHOSEN_HEADING_640x360.jpg";
+  --slideshow-image-7: "https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/CLEANERS_HEADING_640x360.jpg";
+  --slideshow-image-8: "https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/COMUNITY_HEADING_640x360(1).jpg";
+  --slideshow-image-9: "https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/DAMAGES__HEADING_640x360.jpg";
+  --slideshow-image-10: "https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/DAWSON_HEADING_640x360.jpg";
+}

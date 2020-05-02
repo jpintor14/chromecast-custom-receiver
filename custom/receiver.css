@@ -1,8 +1,0 @@
-body {
-  --playback-logo-image: url('./orange_logo.png');
-}
-cast-media-player {
-  --progress-color: rgb(192, 192 , 192);
-  --splash-image: url('./orange_logo.png');
-  --splash-size: auto;
-}
