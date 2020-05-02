@@ -165,34 +165,34 @@ class WasABI {
   }
 
 
-  getLanguageName(launguage){
+  getLanguageName(language){
     var found = false;
     var spa_langs = ["es", "spa", "ES"];
     var en_langs = ["en", "uk", "usa", "UK", "USA"];
 
     spa_langs.forEach(function(item){
       if (launguage.includes(item)) {
-        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Español" + launguage);
+        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Español" + language);
         found = true;
-        return "Español";
+        language = "Español";
       }
     });
 
-
-    en_langs.forEach(function(item){
-      if (launguage.includes(item)) {
-        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Inglés" + launguage);
-        found = true;
-        return "Inglés";
-      }
-    });
-
-
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + launguage);
 
     if (!found){
-      return launguage;
+      en_langs.forEach(function(item){
+        if (launguage.includes(item)) {
+          console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Inglés" + language);
+          found = true;
+          language = "Inglés";
+        }
+      });  
     }
+
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + language);
+
+    return launguage;
+  
 
   }
 
