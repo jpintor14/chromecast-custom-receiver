@@ -165,5 +165,28 @@ class WasABI {
   }
 
 
+  getLanguageName(launguage){
+    var spa_langs = ["es", "spa", "ES"];
+    var en_langs = ["en", "uk", "usa", "UK", "USA"];
+
+    spa_langs.forEach(function(item){
+      if (launguage.include(item)) {
+        return "Español";
+      }
+    });
+
+
+    en_langs.forEach(function(item){
+      if (launguage.include(item)) {
+        return "Inglés";
+      }
+    });
+
+
+    return launguage
+
+  }
+
+
 
 }

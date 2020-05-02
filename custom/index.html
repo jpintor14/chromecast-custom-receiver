@@ -76,6 +76,9 @@
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
 
+
+                    event.media.tracks[i].name = wasAbi.getLanguageName(event.media.tracks[i].name);
+
                     /*
                     if ((event.media.tracks[i].type == "AUDIO") && (event.media.tracks[i].language == defaultAudio))  {
                         playerManager.getAudioTracksManager().setActiveByLanguage(defaultAudio);
