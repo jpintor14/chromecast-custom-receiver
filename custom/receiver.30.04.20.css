@@ -3,10 +3,8 @@ body {
 }
 cast-media-player {
   --progress-color: rgb(192, 192 , 192);
-  /*
   --splash-image: url('./orange_logo.png');
-  --splash-size: contain;
-  */
+  --splash-size: auto;
   --slideshow-image-1: url('https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/ATLANTICAS_HEADING_640x360(1).jpg');
   --slideshow-image-2: url('https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/SHUT%20EYE_HEADING_640x360(2).jpg');
   --slideshow-image-3: url('https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/GOLDBERG_HEADING_640x360.jpg');
