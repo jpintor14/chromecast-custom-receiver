@@ -170,20 +170,20 @@ class WasABI {
     var en_langs = ["en", "uk", "usa", "UK", "USA"];
 
     spa_langs.forEach(function(item){
-      if (launguage.include(item)) {
+      if (launguage.includes(item)) {
         return "Español";
       }
     });
 
 
     en_langs.forEach(function(item){
-      if (launguage.include(item)) {
+      if (launguage.includes(item)) {
         return "Inglés";
       }
     });
 
 
-    return launguage
+    return launguage;
 
   }
 
