@@ -78,7 +78,7 @@ class WasABI {
     this.customData = params.customData;
     this.playingUrl = params.playingUrl;
     this.contentImage = params.contentImage;
-    this.contentName = params.contentName;
+    this.contentTitle = params.contentTitle;
 
 
     console.log("CUSTOM LOG: initSessionParams contentId " + this.contentId);
