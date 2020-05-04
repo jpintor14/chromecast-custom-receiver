@@ -32,6 +32,8 @@ class WasABI {
     this.contentType = "";
     this.customData = "";
     this.playingUrl = "";
+    this.contentImage = "";
+    this.contentName = "";
 
     this.trailerContentType = "TRAILER";
   }
@@ -56,7 +58,9 @@ class WasABI {
                 "licenseUrl": this.licenseUrl,
                 "customData": this.customData,
                 "channelId": this.liveChannel,
-                "sessionManagerId": this.sessionManagerId };
+                "sessionManagerId": this.sessionManagerId,
+                "contentImage": this.contentImage ,
+                "contentName": this.contentName };
     return info;
   }
 
@@ -73,6 +77,8 @@ class WasABI {
     this.chromecastSerialId = params.chromecastSerialId;
     this.customData = params.customData;
     this.playingUrl = params.playingUrl;
+    this.contentImage = params.contentImage;
+    this.contentName = params.contentName;
 
 
     console.log("CUSTOM LOG: initSessionParams contentId " + this.contentId);
