@@ -33,7 +33,7 @@ class WasABI {
     this.customData = "";
     this.playingUrl = "";
     this.contentImage = "";
-    this.contentName = "";
+    this.contentTitle = "";
 
     this.trailerContentType = "TRAILER";
   }
@@ -60,7 +60,7 @@ class WasABI {
                 "channelId": this.liveChannel,
                 "sessionManagerId": this.sessionManagerId,
                 "contentImage": this.contentImage ,
-                "contentName": this.contentName };
+                "contentTitle": this.contentTitle };
     return info;
   }
 
