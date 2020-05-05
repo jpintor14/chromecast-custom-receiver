@@ -16,3 +16,7 @@ cast-media-player {
   --slideshow-image-9: url('https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/DAMAGES__HEADING_640x360.jpg');
   --slideshow-image-10: url('https://orangetv.orange.es/mob/api/rtv/v1/images/attachments/DAWSON_HEADING_640x360.jpg');
 }
+
+.metadataImage {
+  background-repeat: no-repeat;
+}
