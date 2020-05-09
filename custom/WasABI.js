@@ -102,7 +102,7 @@ class WasABI {
   markPosition(postion){
     console.log("CUSTOM LOG: wasabi markPosition: " + postion);
     var params = "video_external_id=" + this.contentId +"&position=" + postion;
-    var url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json" + params;
+    var url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
 
     this.request(url, "GET", null, null);
   }

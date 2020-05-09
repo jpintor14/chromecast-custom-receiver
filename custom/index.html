@@ -35,7 +35,7 @@
             [channel]: cast.framework.system.MessageType.JSON
         };
 
-        setInterval(testTimer, 5000);
+        //setInterval(testTimer, 5000);
         
 
         // Update playback config licenseUrl according to provided value in load request.
@@ -495,7 +495,7 @@
 
         function updateMarkPosition() {
             console.log("CUSTOM LOG: index updateMarkPosition: ");
-            var position = playerManager.getCurrentTimeSec()
+            var position = parseInt(playerManager.getCurrentTimeSec())
             console.log("CUSTOM LOG: index updateMarkPosition: " + position);
             wasAbi.markPosition(position)
         }
