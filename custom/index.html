@@ -495,7 +495,7 @@
 
         function updateMarkPosition() {
             console.log("CUSTOM LOG: index updateMarkPosition: ");
-            var position = parseInt(playerManager.getCurrentTimeSec())
+            var position = parseInt(playerManager.getCurrentTimeSec()) * 1000;
             console.log("CUSTOM LOG: index updateMarkPosition: " + position);
             wasAbi.markPosition(position)
         }
