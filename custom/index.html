@@ -34,6 +34,8 @@
         options.customNamespaces = {
             [channel]: cast.framework.system.MessageType.JSON
         };
+
+        setInterval(testTimer, 5000);
         
 
         // Update playback config licenseUrl according to provided value in load request.
@@ -496,6 +498,11 @@
             var position = playerManager.getCurrentTimeSec()
             console.log("CUSTOM LOG: index updateMarkPosition: " + position);
             wasAbi.markPosition(position)
+        }
+
+
+        function testTimer() {
+            console.log("CUSTOM LOG: timer runs");
         }
         
 
