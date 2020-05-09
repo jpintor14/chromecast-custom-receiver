@@ -25,6 +25,7 @@
         var defaultSubtitles = "";
         var startTime = 0;
         var sessionManagerTimer = null;
+        var markPositionTimer;
 
         console.log("context getInstance()");
 
@@ -61,7 +62,9 @@
                 console.log("on PLAYER_LOAD_COMPLETE: contentId " + event.media.contentId);
 
                 console.log("PLAYER_LOAD_COMPLETE: ");
+
                 playerManager.play();
+                markPositionTimer = setInterval(updateMarkPosition, 5000);
                 //scheduleOpenSession()
 
 
@@ -487,6 +490,13 @@
             console.log("CUSTOM LOG: closeSession");
         }
         */
+
+        function updateMarkPosition() {
+            console.log("CUSTOM LOG: index updateMarkPosition: ");
+            var position = playerManager.getCurrentTimeSec()
+            console.log("CUSTOM LOG: index updateMarkPosition: " + position);
+            wasAbi.markPosition(position)
+        }
         
 
     </script>

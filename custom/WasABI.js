@@ -14,6 +14,8 @@ class WasABI {
     //right tv
     this.rightTvUrl = "https://ios.orangetv.orange.es/mob/api/rtv/v1";
     this.loginUri = "Login";
+    this.markPositionUri = "MarkPosition";
+    this.markRecordingPositionUri = "MarkRecordingPosition";
 
     //compass 
     this.compassUrl = "https://ios.orangetv.orange.es/mob/api/reco/v1";
@@ -94,6 +96,23 @@ class WasABI {
     var postParams = "username=" + this.username +"&password=" + this.password;
 
     this.request(url, "POST", postParams, null);
+  }
+
+  // playing mark position (position in miliseconds)
+  markPosition(postion){
+    console.log("CUSTOM LOG: wasabi markPosition: " + postion);
+    var params = "video_external_id=" + this.contentId +"&position=" + postion;
+    var url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json" + params;
+
+    this.request(url, "GET", null, null);
+  }
+
+  // playing mark position for recordings (position in miliseconds)
+  markRecordingPosition(postion){
+    var params = "recording_id=" + this.contentId +"&position=" + postion;
+    var url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json" + params;
+
+    this.request(url, "GET", null, null);
   }
 
 
