@@ -231,6 +231,7 @@ class WasABI {
 
 
   getLanguageName(language){
+    var response = launguage;
     var found = false;
     var spa_langs = ["es", "spa", "ES"];
     var en_langs = ["en", "uk", "usa", "UK", "USA"];
@@ -268,7 +269,7 @@ class WasABI {
 
     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + language);
 
-    return launguage;
+    return response;
   
 
   }
