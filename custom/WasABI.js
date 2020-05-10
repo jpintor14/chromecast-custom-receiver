@@ -124,6 +124,7 @@ class WasABI {
   markPosition(postion){
     console.log("CUSTOM LOG: wasabi markPosition: " + postion);
 
+    console.log("CUSTOM LOG: isPlayingLive: " + isPlayingLive());
     if (!isPlayingLive()){
 
       var params = "";
