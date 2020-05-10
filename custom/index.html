@@ -498,18 +498,6 @@
 
             // live will not send mark position
             if (!wasAbi.isPlayingLive()){
-
-                /*
-                if (!wasAbi.isPlayingCatchup()){
-                    // vod / svod
-                    markPositionTimer = setInterval(updateMarkPosition, wasAbi.getMarkPositionInterval());
-                }else if (wasAbi.isPlayingNpvr()){
-                    //npvr
-                }else{
-                    //catchup
-                }
-                */
-
                 markPositionTimer = setInterval(updateMarkPosition, wasAbi.getMarkPositionInterval());
             }
         }

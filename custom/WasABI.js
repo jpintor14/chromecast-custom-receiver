@@ -124,7 +124,7 @@ class WasABI {
   markPosition(postion){
     console.log("CUSTOM LOG: wasabi markPosition: " + postion);
 
-    if (!wasAbi.isPlayingLive()){
+    if (!isPlayingLive()){
 
       var params = "";
       var url = "";
