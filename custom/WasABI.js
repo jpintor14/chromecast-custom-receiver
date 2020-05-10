@@ -129,18 +129,18 @@ class WasABI {
       var params = "";
       var url = "";
 
-      if (!wasAbi.isPlayingCatchup()){
-        // vod / svod
-        params = "video_external_id=" + this.contentId +"&position=" + postion;
-        url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
-      }else if (wasAbi.isPlayingNpvr()){
+      if (isPlayingNpvr()){
         //npvr
         params = "recording_id=" + this.recordingId +"&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
-      }else{
+      }else if (isPlayingCatchup()){
         //catchup
         params = "program_external_id=" + this.programId + "&channel_id=" + this.channelId + "&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
+      }else{
+        // vod / svod
+        params = "video_external_id=" + this.contentId +"&position=" + postion;
+        url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
       }
 
       this.request(url, "GET", null, null);
