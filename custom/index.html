@@ -34,8 +34,6 @@
         options.customNamespaces = {
             [channel]: cast.framework.system.MessageType.JSON
         };
-
-        //setInterval(testTimer, 5000);
         
 
         // Update playback config licenseUrl according to provided value in load request.
@@ -66,7 +64,7 @@
                 console.log("PLAYER_LOAD_COMPLETE: ");
 
                 playerManager.play();
-                markPositionTimer = setInterval(updateMarkPosition, 5000);
+                scheduleTimerMarkPosition();
                 //scheduleOpenSession()
 
 
@@ -493,16 +491,30 @@
         }
         */
 
+        function scheduleTimerMarkPosition(){
+            if (markPositionTimer != null){
+                clearInterval(markPositionTimer);
+            }
+
+            // live will not send mark position
+            if (!wasAbi.isPlayingLive()){
+
+                if (!wasAbi.isPlayingCatchup()){
+                    // vod / svod
+                    markPositionTimer = setInterval(updateMarkPosition, wasAbi.getMarkPositionInterval());
+                }else if (wasAbi.isPlayingNpvr()){
+                    //npvr
+                }else{
+                    //catchup
+                }
+            }
+        }
+
         function updateMarkPosition() {
             console.log("CUSTOM LOG: index updateMarkPosition: ");
             var position = parseInt(playerManager.getCurrentTimeSec()) * 1000;
             console.log("CUSTOM LOG: index updateMarkPosition: " + position);
             wasAbi.markPosition(position)
-        }
-
-
-        function testTimer() {
-            console.log("CUSTOM LOG: timer runs");
         }
         
 

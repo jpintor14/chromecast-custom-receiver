@@ -38,6 +38,9 @@ class WasABI {
     this.contentTitle = "";
 
     this.trailerContentType = "TRAILER";
+
+    this.markPositionInterval = 5000;
+
   }
 
   
@@ -68,6 +71,20 @@ class WasABI {
 
   setLicenseUrl(url) {
     this.licenseUrl = url;
+  }
+
+
+  isPlayingLive() {
+    return (this.contentType == "live");
+  }
+
+  isPlayingCatchup() {
+    return (this.contentType == "catchup");
+  }
+
+  isPlayingNpvr() {
+    //return (this.contentType == "catchup");
+    return false;
   }
 
   initSessionParams(params){
@@ -118,6 +135,11 @@ class WasABI {
 
   getUsername() {
     return this.username;
+  }
+
+
+  getMarkPositionInterval() {
+    return this.markPositionInterval;
   }
 
   openSession(wasAbi){
