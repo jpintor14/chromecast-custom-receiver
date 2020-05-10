@@ -267,7 +267,7 @@ class WasABI {
       });  
     }
 
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + language);
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + response);
 
     return response;
   
