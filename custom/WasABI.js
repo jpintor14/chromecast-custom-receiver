@@ -124,17 +124,17 @@ class WasABI {
   markPosition(postion){
     console.log("CUSTOM LOG: wasabi markPosition: " + postion);
 
-    console.log("CUSTOM LOG: isPlayingLive: " + isPlayingLive());
+    console.log("CUSTOM LOG: isPlayingLive: " + this.isPlayingLive());
     if (!isPlayingLive()){
 
       var params = "";
       var url = "";
 
-      if (isPlayingNpvr()){
+      if (this.isPlayingNpvr()){
         //npvr
         params = "recording_id=" + this.recordingId +"&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
-      }else if (isPlayingCatchup()){
+      }else if (this.isPlayingCatchup()){
         //catchup
         params = "program_external_id=" + this.programId + "&channel_id=" + this.channelId + "&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
