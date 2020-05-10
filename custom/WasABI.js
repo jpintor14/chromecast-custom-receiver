@@ -235,6 +235,8 @@ class WasABI {
     var spa_langs = ["es", "spa", "ES"];
     var en_langs = ["en", "uk", "usa", "UK", "USA"];
 
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0");
+
     spa_langs.forEach(function(item){
       if (launguage.includes(item)) {
         console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Español" + language);
@@ -243,6 +245,7 @@ class WasABI {
       }
     });
 
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 1");
 
     if (!found){
       en_langs.forEach(function(item){
