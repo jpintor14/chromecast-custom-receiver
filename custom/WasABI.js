@@ -24,7 +24,7 @@ class WasABI {
     this.openSessionUri = "openSession";
     this.closeSessionUri = "closeSession";
     this.sessionManagerId = "";
-    this.sessionManagerInterval = "";
+    this.sessionManagerInterval = 5000;
 
     this.chromecastSerialId = "";
     this.username = "";
@@ -38,10 +38,6 @@ class WasABI {
     this.playingUrl = "";
     this.contentImage = "";
     this.contentTitle = "";
-
-    this.trailerContentType = "TRAILER";
-
-    this.markPositionInterval = 5000;
 
   }
 
@@ -90,6 +86,10 @@ class WasABI {
     return (this.contentType == "npvr");
   }
 
+  isPlayingTrailer() {
+    return (this.contentType == "TRAILER");
+  }
+
   initSessionParams(params){
     this.contentId = params.contentId;
     this.channelId = params.channelId;
@@ -103,6 +103,7 @@ class WasABI {
     this.playingUrl = params.playingUrl;
     this.contentImage = params.contentImage;
     this.contentTitle = params.contentTitle;
+    this.sessionManagerInterval = params.sessionManagerInterval;
 
 
     console.log("CUSTOM LOG: initSessionParams contentId " + this.contentId);
@@ -125,7 +126,7 @@ class WasABI {
     console.log("CUSTOM LOG: wasabi markPosition: " + postion);
 
     console.log("CUSTOM LOG: isPlayingLive: " + this.isPlayingLive());
-    if (!this.isPlayingLive()){
+    if (!this.isPlayingLive() && !this.isPlayingTrailer()){
 
       var params = "";
       var url = "";
@@ -155,8 +156,8 @@ class WasABI {
   }
 
 
-  getMarkPositionInterval() {
-    return this.markPositionInterval;
+  getSessionManagerInterval() {
+    return this.sessionManagerInterval;
   }
 
   openSession(wasAbi){
@@ -164,7 +165,7 @@ class WasABI {
     console.log("CUSTOM LOG: openSession contentId " + wasAbi.contentId)
     console.log("CUSTOM LOG: openSession contentType " + wasAbi.contentType)
 
-    if (wasAbi.contentType != wasAbi.trailerContentType) {
+    if (!this.isPlayingTrailer()) {
 
 
       console.log("CUSTOM LOG: openSession: is not a trailer" );

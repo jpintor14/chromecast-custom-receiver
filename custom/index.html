@@ -496,9 +496,9 @@
                 clearInterval(markPositionTimer);
             }
 
-            // live will not send mark position
-            if (!wasAbi.isPlayingLive()){
-                markPositionTimer = setInterval(updateMarkPosition, wasAbi.getMarkPositionInterval());
+            // live and trailer will not send mark position
+            if (!wasAbi.isPlayingLive() && !wasAbi.isPlayingTrailer()){
+                markPositionTimer = setInterval(updateMarkPosition, wasAbi.getSessionManagerInterval());
             }
         }
 
