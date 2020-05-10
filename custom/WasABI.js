@@ -29,7 +29,9 @@ class WasABI {
     this.chromecastSerialId = "";
     this.username = "";
     this.password = "";
-    this.liveChannel = "";
+    this.channelId = "";
+    this.programId = "";
+    this.recordingId = "";
     this.contentId = "";
     this.contentType = "";
     this.customData = "";
@@ -62,7 +64,9 @@ class WasABI {
                 "type": this.contentType,
                 "licenseUrl": this.licenseUrl,
                 "customData": this.customData,
-                "channelId": this.liveChannel,
+                "channelId": this.channelId,
+                "programId": this.programId,
+                "recordingId": this.recordingId,
                 "sessionManagerId": this.sessionManagerId,
                 "contentImage": this.contentImage ,
                 "contentTitle": this.contentTitle };
@@ -83,13 +87,14 @@ class WasABI {
   }
 
   isPlayingNpvr() {
-    //return (this.contentType == "catchup");
-    return false;
+    return (this.contentType == "npvr");
   }
 
   initSessionParams(params){
     this.contentId = params.contentId;
-    this.liveChannel = params.channelId;
+    this.channelId = params.channelId;
+    this.programId = params.programId;
+    this.recordingId = params.recordingId;
     this.contentType = params.contentType;
     this.sessionManagerId = params.sessionManagerId;
     this.sessionManagerInterval = params.sessionManagerInterval;
@@ -118,8 +123,29 @@ class WasABI {
   // playing mark position (position in miliseconds)
   markPosition(postion){
     console.log("CUSTOM LOG: wasabi markPosition: " + postion);
-    var params = "video_external_id=" + this.contentId +"&position=" + postion;
-    var url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
+
+    if (!wasAbi.isPlayingLive()){
+
+      var params = "";
+      var url = "";
+
+      if (!wasAbi.isPlayingCatchup()){
+        // vod / svod
+        params = "video_external_id=" + this.contentId +"&position=" + postion;
+        url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
+      }else if (wasAbi.isPlayingNpvr()){
+        //npvr
+        params = "recording_id=" + this.recordingId +"&position=" + postion;
+        url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
+      }else{
+        //catchup
+        params = "program_external_id=" + this.programId + "&channel_id=" + this.channelId + "&position=" + postion;
+        url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
+      }
+
+      this.request(url, "GET", null, null);
+    }
+
 
     this.request(url, "GET", null, null);
   }
