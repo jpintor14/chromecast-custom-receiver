@@ -146,16 +146,6 @@ class WasABI {
       this.request(url, "GET", null, null);
     }
 
-
-    this.request(url, "GET", null, null);
-  }
-
-  // playing mark position for recordings (position in miliseconds)
-  markRecordingPosition(postion){
-    var params = "recording_id=" + this.contentId +"&position=" + postion;
-    var url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json" + params;
-
-    this.request(url, "GET", null, null);
   }
 
 
