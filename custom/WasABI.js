@@ -136,7 +136,7 @@ class WasABI {
         url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
       }else if (this.isPlayingCatchup()){
         //catchup
-        params = "program_external_id=" + this.programId + "&channel_id=" + this.channelId + "&position=" + postion;
+        params = "program_external_id=" + this.programId + "&channel_external_id=" + this.channelId + "&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
       }else{
         // vod / svod
