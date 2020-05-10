@@ -246,7 +246,7 @@ class WasABI {
       if (launguage.includes(item)) {
         console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Español" + language);
         found = true;
-        language = "Español";
+        response = "Español";
       }
       
     });
