@@ -254,6 +254,8 @@ class WasABI {
 
     if (!found){
       en_langs.forEach(function(item){
+
+        console.log("on PLAYER_LOAD_COMPLETE: en_langs " + item);
         /*
         if (launguage.includes(item)) {
           console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Inglés" + language);
