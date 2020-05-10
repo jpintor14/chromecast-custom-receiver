@@ -80,10 +80,11 @@
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
 
 
-                    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName name " + event.media.tracks[i].name);
-                    if (event.media.tracks[i].name != null || event.media.tracks[i].name != "" ){
+                    var trackName = event.media.tracks[i].name;
+                    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName name " + trackName);
+                    if (trackName != null || trackName != "" ){
                         //event.media.tracks[i].name = wasAbi.getLanguageName(event.media.tracks[i].name);
-                        var replaced = wasAbi.getLanguageName(event.media.tracks[i].name);
+                        var replaced = wasAbi.getLanguageName(trackName);
                         console.log("on PLAYER_LOAD_COMPLETE: getLanguageName replaced value" + replaced);
                     }
                     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName replaced " + event.media.tracks[i].name);
