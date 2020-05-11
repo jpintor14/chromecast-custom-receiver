@@ -293,6 +293,7 @@ class WasABI {
     var spa_langs = ["es", "spa", "ES"];
     var en_langs = ["en", "uk", "usa", "UK", "USA"];
 
+    console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage defaultLanguage " + defaultLanguage);
     spa_langs.forEach(function(item){
       if (item == defaultLanguage && item.indexOf(trackName)){
         console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage found " + item);
