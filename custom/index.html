@@ -499,7 +499,7 @@
 
         function setDefaultLanguage(tracks){
             console.log("on PLAYER_LOAD_COMPLETE: setDefaultLanguage ");
-            if (wasAbi.getDefaultAudioLanguage == "qaa"){
+            if (wasAbi.getDefaultAudioLanguage() == "qaa"){
                 console.log("qaa");
                 var qaaFound = false;
 
