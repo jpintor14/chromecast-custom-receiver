@@ -231,12 +231,13 @@ class WasABI {
 
 
   getLanguageName(language){
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0" + language);
     var response = launguage;
     var found = false;
     var spa_langs = ["es", "spa", "ES"];
     var en_langs = ["en", "uk", "usa", "UK", "USA"];
 
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0");
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.1");
 
     /*
     spa_langs.forEach(function(item){
