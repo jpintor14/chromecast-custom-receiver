@@ -112,7 +112,7 @@
                         if ( trackName != null && trackName != "" &&  trackLang != null && trackLang != ""){
                             if (wasAbi.isDefaultLanguage(trackName, defaultAudio)){
                                 console.log("on PLAYER_LOAD_COMPLETE: setActiveByLanguage " + trackLang);
-                                playerManager.getTextTracksManager().setActiveByLanguage(trackLang);
+                                playerManager.getAudioTracksManager().setActiveByLanguage(trackLang);
                             }
                         }
                     }
