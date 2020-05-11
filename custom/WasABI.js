@@ -39,8 +39,8 @@ class WasABI {
     this.contentImage = "";
     this.contentTitle = "";
 
-    defaultAudio = "spa";
-    defaultSubtitles = "";
+    this.defaultAudio = "spa";
+    this.defaultSubtitles = "";
 
   }
 
