@@ -39,6 +39,9 @@ class WasABI {
     this.contentImage = "";
     this.contentTitle = "";
 
+    defaultAudio = "spa";
+    defaultSubtitles = "";
+
   }
 
   
@@ -64,8 +67,10 @@ class WasABI {
                 "programId": this.programId,
                 "recordingId": this.recordingId,
                 "sessionManagerId": this.sessionManagerId,
-                "contentImage": this.contentImage ,
-                "contentTitle": this.contentTitle };
+                "contentImage": this.contentImage,
+                "contentTitle": this.contentTitle,
+                "deafultAudio": this.defaultAudio,
+                "defaultSubtitles": this.defaultSubtitles };
     return info;
   }
 
@@ -104,6 +109,13 @@ class WasABI {
     this.contentImage = params.contentImage;
     this.contentTitle = params.contentTitle;
     this.sessionManagerInterval = params.sessionManagerInterval;
+
+    if (params.defaultAudio != null && params.defaultAudio != ""){
+      this.defaultAudio = params.defaultAudio;
+    }
+    if (params.defaultSubtitles != null && params.defaultSubtitles != ""){
+      this.defaultSubtitles = params.defaultSubtitles;
+    }
 
 
     console.log("CUSTOM LOG: initSessionParams contentId " + this.contentId);
@@ -229,6 +241,17 @@ class WasABI {
     }
   }
 
+  getDefaultAudioLanguage() {
+    return this.defaultAudio;
+  }
+
+  getDefaultSubtitlesLanguage() {
+    return this.defaultSubtitles;
+  }
+
+
+
+  //TEST:
 
   getLanguageName(language){
     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0" + language);
