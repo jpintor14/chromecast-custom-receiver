@@ -238,17 +238,18 @@ class WasABI {
 
     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0");
 
+    /*
     spa_langs.forEach(function(item){
 
       console.log("on PLAYER_LOAD_COMPLETE: spa_langs " + item);
 
-      /*
+      
       if (launguage.includes(item)) {
         console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Español" + language);
         found = true;
         response = "Español";
       }
-      */
+      
       
     });
 
