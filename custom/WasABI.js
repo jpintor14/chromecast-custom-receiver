@@ -294,7 +294,7 @@ class WasABI {
     var en_langs = ["en", "uk", "usa", "UK", "USA"];
 
     spa_langs.forEach(function(item){
-      if (item == defaultLanguage && item.indexOf(language)){
+      if (item == defaultLanguage && item.indexOf(trackName)){
         console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage found" + item);
         found = true;
       }
@@ -302,7 +302,7 @@ class WasABI {
 
     if (!found){
       en_langs.forEach(function(item){
-        if (item == defaultLanguage && item.indexOf(language)){
+        if (item == defaultLanguage && item.indexOf(trackName)){
           console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage found" + item);
           found = true;
         }
