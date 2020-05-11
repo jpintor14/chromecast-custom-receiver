@@ -80,7 +80,7 @@
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
 
 
-                    
+                    /*
                     if (event.media.tracks[i].type == "AUDIO"){
 
                         console.log("on PLAYER_LOAD_COMPLETE: track read ");
@@ -94,6 +94,7 @@
                         console.log("on PLAYER_LOAD_COMPLETE: getLanguageName replaced " + event.media.tracks[i].name);
                     
                     }
+                    */
 
                     /*
                     if ((event.media.tracks[i].type == "AUDIO") && (event.media.tracks[i].language == defaultAudio))  {
@@ -104,6 +105,17 @@
                         playerManager.getTextTracksManager().setActiveByLanguage(null);
                     }
                     */
+
+                    if (event.media.tracks[i].type == "AUDIO"){
+                        var trackName = String(event.media.tracks[i].name);
+                        if (trackName != null || trackName != "" ){
+                            if (wasAbi.isDefaultLanguage(trackName, defaultAudio)){
+                                console.log("isDefault " + trackName);
+                            }
+                        }
+                    }
+
+
                 }
 
 
