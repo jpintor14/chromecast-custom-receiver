@@ -232,7 +232,7 @@ class WasABI {
 
   getLanguageName(language){
     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0" + language);
-    var languageResponse = String(launguage);
+    var languageResponse = "";
     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.1" + languageResponse);
     var found = false;
     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.2" + languageResponse);
