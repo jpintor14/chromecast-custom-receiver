@@ -117,6 +117,17 @@
                         }
                     }
 
+                    if (event.media.tracks[i].type == "TEXT"){
+                        var trackName = event.media.tracks[i].name;
+                        var trackLang = event.media.tracks[i].language;
+                        if ( trackName != null && trackName != "" &&  trackLang != null && trackLang != ""){
+                            if (wasAbi.isDefaultLanguage(trackName, defaultSubtitles)){
+                                console.log("on PLAYER_LOAD_COMPLETE: setActiveByLanguage " + trackLang);
+                                playerManager.getTextTracksManager().setActiveByLanguage(trackLang);
+                            }
+                        }
+                    }
+
 
                 }
 
