@@ -232,12 +232,12 @@ class WasABI {
 
   getLanguageName(language){
     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0" + language);
-    var response = launguage;
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.1" + response);
+    var languageResponse = launguage;
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.1" + languageResponse);
     var found = false;
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.2" + response);
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.2" + languageResponse);
     var spa_langs = ["es", "spa", "ES"];
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.3" + response);
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.3" + languageResponse);
     var en_langs = ["en", "uk", "usa", "UK", "USA"];
 
     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.4");
@@ -275,9 +275,9 @@ class WasABI {
     }
     */
 
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + response);
+    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + languageResponse);
 
-    return response;
+    return languageResponse;
   
 
   }
