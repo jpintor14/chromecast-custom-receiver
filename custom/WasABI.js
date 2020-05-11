@@ -24,7 +24,7 @@ class WasABI {
     this.openSessionUri = "openSession";
     this.closeSessionUri = "closeSession";
     this.sessionManagerId = "";
-    this.sessionManagerInterval = 5000;
+    this.sessionManagerInterval = 60000;
 
     this.chromecastSerialId = "";
     this.username = "";
