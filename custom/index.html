@@ -498,7 +498,9 @@
         }
 
         function setDefaultLanguage(tracks){
+            console.log("on PLAYER_LOAD_COMPLETE: setDefaultLanguage ");
             if (wasAbi.getDefaultAudioLanguage == "qaa"){
+                console.log("qaa");
                 var qaaFound = false;
 
                 //search qaa
@@ -506,6 +508,7 @@
                     if (tracks[i].type == "AUDIO" && tracks[i].language == wasAbi.getDefaultAudioLanguage()){
                         playerManager.getAudioTracksManager().setActiveByLanguage(tracks[i].language);
                         qaaFound = true;
+                        console.log("on PLAYER_LOAD_COMPLETE: found" + tracks[i].language);
                     }
                 }
 
@@ -515,6 +518,8 @@
                         if (tracks[i].type == "AUDIO" && tracks[i].language == secondaryQaaLanguage){
                             playerManager.getAudioTracksManager().setActiveByLanguage(tracks[i].language);
                             qaaFound = true;
+
+                            console.log("on PLAYER_LOAD_COMPLETE: found" + tracks[i].language);
                         }
                     }
                 }
@@ -525,11 +530,14 @@
                         if (!qaaFound && tracks[i].type == "AUDIO" && tracks[i].language != notQaaLanguage){
                             playerManager.getAudioTracksManager().setActiveByLanguage(tracks[i].language);
                             qaaFound = true;
+
+                            console.log("on PLAYER_LOAD_COMPLETE: found" + tracks[i].language);
                         }
                     }
                 }
 
             }else{
+                console.log("not qaa ");
                 //if  selected language is not qaa try to set automatically
                 for (var i = 0; i < tracks.length; i++) {
                     if (tracks[i].type == "AUDIO" && tracks[i].language == wasAbi.getDefaultAudioLanguage()){
