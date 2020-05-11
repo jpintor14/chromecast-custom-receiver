@@ -24,6 +24,8 @@
         var startTime = 0;
         var sessionManagerTimer = null;
         var markPositionTimer;
+        var secondaryQaaLanguage = "eng";
+        var notQaaLanguage = "spa";
 
         console.log("context getInstance()");
 
@@ -77,6 +79,15 @@
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
 
+                    /*
+                    if (event.media.tracks[i].type == "AUDIO"){
+                        if (wasAbi.getDefaultAudioLanguage == "qaa"){
+                            console.log("qaa");
+                        }else{
+                            playerManager.getAudioTracksManager().setActiveByLanguage(event.media.tracks[i].language);
+                        }
+                    }
+
                     if (event.media.tracks[i].type == "AUDIO" && event.media.tracks[i].language == wasAbi.getDefaultAudioLanguage()){
                         playerManager.getAudioTracksManager().setActiveByLanguage(event.media.tracks[i].language);
                     }
@@ -84,8 +95,11 @@
                     if (event.media.tracks[i].type == "TEXT" && event.media.tracks[i].language == wasAbi.getDefaultSubtitlesLanguage()){
                         playerManager.getTextTracksManager().setActiveByLanguage(event.media.tracks[i].language);
                     }
+                    */
             
                 }
+
+                setDefaultLanguage(event.media.tracks)
 
 
                 console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media));
@@ -481,6 +495,52 @@
             var position = parseInt(playerManager.getCurrentTimeSec()) * 1000;
             console.log("CUSTOM LOG: index updateMarkPosition: " + position);
             wasAbi.markPosition(position)
+        }
+
+        function setDefaultLanguage(tracks){
+            if (wasAbi.getDefaultAudioLanguage == "qaa"){
+                var qaaFound = false;
+
+                //search qaa
+                for (var i = 0; i < tracks.length; i++) {
+                    if (tracks[i].type == "AUDIO" && tracks[i].language == wasAbi.getDefaultAudioLanguage()){
+                        playerManager.getAudioTracksManager().setActiveByLanguage(tracks[i].language);
+                        qaaFound = true;
+                    }
+                }
+
+                //search secondary qaa language (eng)
+                if (!qaaFound){
+                    for (var i = 0; i < tracks.length; i++) {
+                        if (tracks[i].type == "AUDIO" && tracks[i].language == secondaryQaaLanguage){
+                            playerManager.getAudioTracksManager().setActiveByLanguage(tracks[i].language);
+                            qaaFound = true;
+                        }
+                    }
+                }
+
+                //set first language if is not spanish
+                if (!qaaFound){
+                    for (var i = 0; i < tracks.length; i++) {
+                        if (!qaaFound && tracks[i].type == "AUDIO" && tracks[i].language != notQaaLanguage){
+                            playerManager.getAudioTracksManager().setActiveByLanguage(tracks[i].language);
+                            qaaFound = true;
+                        }
+                    }
+                }
+
+            }else{
+                //if  selected language is not qaa try to set automatically
+                for (var i = 0; i < tracks.length; i++) {
+                    if (tracks[i].type == "AUDIO" && tracks[i].language == wasAbi.getDefaultAudioLanguage()){
+                        playerManager.getAudioTracksManager().setActiveByLanguage(tracks[i].language);
+                    }
+                }
+            }
+        }
+
+        function setDefaultSubtitles(){
+
         }
         
 
