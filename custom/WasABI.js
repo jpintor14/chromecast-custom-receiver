@@ -294,17 +294,19 @@ class WasABI {
     var en_langs = ["en", "uk", "usa", "UK", "USA"];
 
     console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage defaultLanguage " + defaultLanguage);
-    spa_langs.forEach(function(item){
-      if (item == defaultLanguage && item.indexOf(trackName)){
-        console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage found " + item);
+    console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage trackName " + trackName);
+
+    spa_langs.forEach(function(esItem){
+      if (esItem == defaultLanguage && esItem.indexOf(trackName)){
+        console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage found " + esItem);
         found = true;
       }
     });
 
     if (!found){
-      en_langs.forEach(function(item){
-        if (item == defaultLanguage && item.indexOf(trackName)){
-          console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage found " + item);
+      en_langs.forEach(function(enItem){
+        if (enItem == defaultLanguage && enItem.indexOf(trackName)){
+          console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage found " + enItem);
           found = true;
         }
       });
