@@ -81,16 +81,19 @@
 
 
                     
-                    console.log("on PLAYER_LOAD_COMPLETE: track read ");
-                    var trackName = String(event.media.tracks[i].name);
-                    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName name " + trackName);
-                    if (trackName != null || trackName != "" ){
-                        //event.media.tracks[i].name = wasAbi.getLanguageName(event.media.tracks[i].name);
-                        var replaced = wasAbi.getLanguageName(trackName);
-                        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName replaced value" + replaced);
-                    }
-                    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName replaced " + event.media.tracks[i].name);
+                    if (event.media.tracks[i].type == "AUDIO"){
+
+                        console.log("on PLAYER_LOAD_COMPLETE: track read ");
+                        var trackName = String(event.media.tracks[i].name);
+                        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName name " + trackName);
+                        if (trackName != null || trackName != "" ){
+                            //event.media.tracks[i].name = wasAbi.getLanguageName(event.media.tracks[i].name);
+                            var replaced = wasAbi.getLanguageName(trackName);
+                            console.log("on PLAYER_LOAD_COMPLETE: getLanguageName replaced value" + replaced);
+                        }
+                        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName replaced " + event.media.tracks[i].name);
                     
+                    }
 
                     /*
                     if ((event.media.tracks[i].type == "AUDIO") && (event.media.tracks[i].language == defaultAudio))  {
