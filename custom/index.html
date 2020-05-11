@@ -107,10 +107,12 @@
                     */
 
                     if (event.media.tracks[i].type == "AUDIO"){
-                        var trackName = String(event.media.tracks[i].name);
-                        if (trackName != null || trackName != "" ){
+                        var trackName = event.media.tracks[i].name;
+                        var trackLang = event.media.tracks[i].language;
+                        if ( trackName != null && trackName != "" &&  trackLang != null && trackLang != ""){
                             if (wasAbi.isDefaultLanguage(trackName, defaultAudio)){
-                                console.log("isDefault " + trackName);
+                                console.log("on PLAYER_LOAD_COMPLETE: setActiveByLanguage " + trackLang);
+                                playerManager.getTextTracksManager().setActiveByLanguage(trackLang);
                             }
                         }
                     }
