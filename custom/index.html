@@ -21,7 +21,7 @@
         var username = "";
         var password = "";
         var senderId = "";
-        var defaultAudio = "es";
+        var defaultAudio = "spa";
         var defaultSubtitles = "";
         var startTime = 0;
         var sessionManagerTimer = null;
@@ -82,31 +82,6 @@
 
                     /*
                     if (event.media.tracks[i].type == "AUDIO"){
-
-                        console.log("on PLAYER_LOAD_COMPLETE: track read ");
-                        var trackName = String(event.media.tracks[i].name);
-                        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName name " + trackName);
-                        if (trackName != null || trackName != "" ){
-                            //event.media.tracks[i].name = wasAbi.getLanguageName(event.media.tracks[i].name);
-                            var replaced = wasAbi.getLanguageName(trackName);
-                            console.log("on PLAYER_LOAD_COMPLETE: getLanguageName replaced value" + replaced);
-                        }
-                        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName replaced " + event.media.tracks[i].name);
-                    
-                    }
-                    */
-
-                    /*
-                    if ((event.media.tracks[i].type == "AUDIO") && (event.media.tracks[i].language == defaultAudio))  {
-                        playerManager.getAudioTracksManager().setActiveByLanguage(defaultAudio);
-                    }else if ((event.media.tracks[i].type == "TEXT") && (event.media.tracks[i].language == defaultSubtitles)) {
-                        playerManager.getTextTracksManager().setActiveByLanguage(defaultSubtitles);
-                    }else if (defaultSubtitles == ""){
-                        playerManager.getTextTracksManager().setActiveByLanguage(null);
-                    }
-                    */
-
-                    if (event.media.tracks[i].type == "AUDIO"){
                         var trackName = event.media.tracks[i].name;
                         var trackLang = event.media.tracks[i].language;
                         if ( trackName != null && trackName != "" &&  trackLang != null && trackLang != ""){
@@ -116,19 +91,12 @@
                             }
                         }
                     }
-
-                    /*
-                    if (event.media.tracks[i].type == "TEXT"){
-                        var trackName = event.media.tracks[i].name;
-                        var trackLang = event.media.tracks[i].language;
-                        if ( trackName != null && trackName != "" &&  trackLang != null && trackLang != ""){
-                            if (wasAbi.isDefaultLanguage(trackName, defaultSubtitles)){
-                                console.log("on PLAYER_LOAD_COMPLETE: setActiveByLanguage " + trackLang);
-                                playerManager.getTextTracksManager().setActiveByLanguage(trackLang);
-                            }
-                        }
-                    }
                     */
+
+                    if (event.media.tracks[i].type == "AUDIO" && event.media.tracks[i].language == defaultAudio){
+                        playerManager.getAudioTracksManager().setActiveByLanguage(event.media.tracks[i].language);
+                    }
+                    
 
 
                 }
