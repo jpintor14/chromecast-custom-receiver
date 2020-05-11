@@ -82,7 +82,7 @@
 
                     
                     console.log("on PLAYER_LOAD_COMPLETE: track read ");
-                    var trackName = event.media.tracks[i].name;
+                    var trackName = String(event.media.tracks[i].name);
                     console.log("on PLAYER_LOAD_COMPLETE: getLanguageName name " + trackName);
                     if (trackName != null || trackName != "" ){
                         //event.media.tracks[i].name = wasAbi.getLanguageName(event.media.tracks[i].name);
