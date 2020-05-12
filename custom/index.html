@@ -625,11 +625,13 @@
         }
 
         function showFingerprint(){
+            console.log("CUSTOM LOG: showFingerprint ");
             document.getElementById("fingerprint").visibility = visible;
             document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
         }
 
         function hideFingerprint(){
+            console.log("CUSTOM LOG: hideFingerprint ");
             document.getElementById("fingerprint").visibility = hidden;
         }
         
