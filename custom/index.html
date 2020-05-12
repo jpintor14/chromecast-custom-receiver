@@ -179,32 +179,6 @@
             return request;
         });
 
-        /*
-        playerManager.setMessageInterceptor(
-            cast.framework.messages.MessageType.CANCELLED,
-            request => {
-                console.log("----- CANCELLED -----");
-                wasAbi.closeSession()
-            return request;
-        });
-
-        playerManager.setMessageInterceptor(
-            cast.framework.messages.MessageType.INTERRUPTED,
-            request => {
-                console.log("----- INTERRUPTED -----");
-                wasAbi.closeSession()
-            return request;
-        });
-
-        playerManager.setMessageInterceptor(
-            cast.framework.messages.MessageType.FINISHED,
-            request => {
-                console.log("----- FINISHED -----");
-                wasAbi.closeSession()
-            return request;
-        });
-        */
-
 
         context.addEventListener(cast.framework.system.EventType.SENDER_CONNECTED, event => {
             console.log("on SENDER_DISCONNECTED: " + event.type);
@@ -484,7 +458,6 @@
             console.log("CUSTOM LOG: openSession:  schedule");
             if (sessionManagerTimer != null){
                 closeSession();
-                clearInterval(sessionManagerTimer);
             }
 
             openSession();
@@ -498,6 +471,7 @@
         }
 
         function closeSession(){
+            wasAbi.closeSession();
             clearInterval(sessionManagerTimer);
             console.log("CUSTOM LOG: closeSession");
         }

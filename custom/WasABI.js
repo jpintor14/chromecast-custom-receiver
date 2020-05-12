@@ -172,34 +172,34 @@ class WasABI {
     return this.sessionManagerInterval;
   }
 
-  openSession(wasAbi){
+  openSession(){
     console.log("CUSTOM LOG: openSession: " );
-    console.log("CUSTOM LOG: openSession contentId " + wasAbi.contentId)
-    console.log("CUSTOM LOG: openSession contentType " + wasAbi.contentType)
+    console.log("CUSTOM LOG: openSession contentId " + this.contentId)
+    console.log("CUSTOM LOG: openSession contentType " + this.contentType)
 
     if (!this.isPlayingTrailer()) {
 
 
       console.log("CUSTOM LOG: openSession: is not a trailer" );
 
-      var params = "&type=" + wasAbi.contentType + "&deviceId=" + wasAbi.chromecastSerialId + "&contentId=" + wasAbi.contentId;
-      if (wasAbi.sessionManagerId != null){
-        params += "&externalSessionId=" + wasAbi.sessionManagerId;
+      var params = "&type=" + this.contentType + "&deviceId=" + this.chromecastSerialId + "&contentId=" + this.contentId;
+      if (this.sessionManagerId != null){
+        params += "&externalSessionId=" + this.sessionManagerId;
       }
-      var url = wasAbi.sessionManagerUrl + "/" + wasAbi.openSessionUri + "?client=json" + params;
+      var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
 
 
       console.log("CUSTOM LOG: openSession: call GET " );
-      wasAbi.request(url, "GET", null, null);
+      this.request(url, "GET", null, null);
 
    }
 
   }
 
-  closeSession(wasAbi){
-    var params = "&type=" + wasAbi.contentType + "&deviceId= " + wasAbi.chromecastSerialId + "&contentId=" + wasAbi.contentId + "&externalSessionId=" + wasAbi.sessionManagerId;
-    var url = wasAbi.sessionManagerUrl + "/" + wasAbi.closeSession + "?client=json" + params;
-    wasAbi.request(url, "GET", null, null);
+  closeSession(){
+    var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
+    var url = this.sessionManagerUrl + "/" + this.closeSession + "?client=json" + params;
+    this.request(url, "GET", null, null);
   }
 
 
