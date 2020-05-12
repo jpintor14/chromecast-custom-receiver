@@ -44,6 +44,9 @@ class WasABI {
     this.defaultSubtitles = "";
 
     this.channelFingerprint = false;
+    this.periodFingerprint = 0;
+    this.durationFingerprint = 0;
+    this.coordinatesFingerprint = [];
 
   }
 
@@ -73,8 +76,7 @@ class WasABI {
                 "contentTitle": this.contentTitle,
                 "deafultAudio": this.defaultAudio,
                 "defaultSubtitles": this.defaultSubtitles,
-                "householdId": this.householdId,
-                "hasFingerprint": this.channelFingerprint };
+                "householdId": this.householdId };
     console.log("CUSTOM LOG: getContentInfo " + JSON.stringify(info));
     return info;
   }
@@ -104,6 +106,15 @@ class WasABI {
     return this.channelFingerprint;
   }
 
+  getFingerprintDuration() {
+    return this.durationFingerprint;
+  }
+
+
+  getFingerprintPeriod(){
+    return this.periodFingerprint;
+  }
+
 
   getHouseholdId() {
     return this.householdId;
@@ -124,7 +135,16 @@ class WasABI {
     this.contentImage = params.contentImage;
     this.contentTitle = params.contentTitle;
     this.sessionManagerInterval = params.sessionManagerInterval;
+
+    //fingerprint
     this.channelFingerprint = params.channelFingerprint;
+    if (this.channelFingerprint){
+      this.durationFingerprint = params.durationFingerprint * 1000;
+      this.periodFingerprint = params.periodFingerprint * 1000;
+    }else{
+      this.durationFingerprint = 0;
+      this.periodFingerprint = 0;
+    }
 
     if (params.defaultAudio != null && params.defaultAudio != ""){
       this.defaultAudio = params.defaultAudio;
