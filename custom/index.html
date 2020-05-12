@@ -127,12 +127,14 @@
             }
         );
 
+        /*
         playerManager.addEventListener(cast.framework.events.EventType.ABORT,
             event => {
                 console.log("CUSTOM LOG: event abort");
                 playEnded();
             }
         );
+        */
 
         playerManager.addEventListener(cast.framework.events.EventType.REQUEST_STOP,
             event => {
@@ -624,6 +626,7 @@
 
         function showFingerprint(){
             document.getElementById("fingerprint").display = inline;
+            document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
         }
 
         function hideFingerprint(){

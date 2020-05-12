@@ -104,6 +104,11 @@ class WasABI {
     return this.hasFingerprint;
   }
 
+
+  getHouseholdId() {
+    return this.householdId;
+  }
+
   initSessionParams(params){
     this.householdId = params.householdId;
     this.contentId = params.contentId;
