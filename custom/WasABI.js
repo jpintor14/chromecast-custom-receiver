@@ -198,7 +198,7 @@ class WasABI {
 
   closeSession(){
     var params = "&type=" + this.contentType + "&deviceId= " + this.chromecastSerialId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
-    var url = this.sessionManagerUrl + "/" + this.closeSession + "?client=json" + params;
+    var url = this.sessionManagerUrl + "/" + this.closeSessionUri + "?client=json" + params;
     this.request(url, "GET", null, null);
   }
 
