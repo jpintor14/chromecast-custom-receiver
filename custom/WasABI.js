@@ -43,7 +43,7 @@ class WasABI {
     this.defaultAudio = "spa";
     this.defaultSubtitles = "";
 
-    this.channelFingerprint = true;
+    this.channelFingerprint = false;
 
   }
 
