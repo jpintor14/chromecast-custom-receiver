@@ -614,6 +614,9 @@
 
         function playEnded(){
             closeSession();
+            if (markPositionTimer != null){
+                clearInterval(markPositionTimer);
+            }
         }
         
 
