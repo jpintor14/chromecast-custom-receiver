@@ -28,7 +28,8 @@ class WasABI {
 
     this.chromecastSerialId = "";
     this.username = "";
-    this.password = "";
+    //this.password = "";
+    this.householdId = "";
     this.channelId = "";
     this.programId = "";
     this.recordingId = "";
@@ -42,7 +43,7 @@ class WasABI {
     this.defaultAudio = "spa";
     this.defaultSubtitles = "";
 
-    this.hasFingerprint = true;
+    this.channelFingerprint = true;
 
   }
 
@@ -72,7 +73,9 @@ class WasABI {
                 "contentImage": this.contentImage,
                 "contentTitle": this.contentTitle,
                 "deafultAudio": this.defaultAudio,
-                "defaultSubtitles": this.defaultSubtitles };
+                "defaultSubtitles": this.defaultSubtitles,
+                "householdId": this.householdId,
+                "hasFingerprint": this.channelFingerprint };
     return info;
   }
 
@@ -102,6 +105,7 @@ class WasABI {
   }
 
   initSessionParams(params){
+    this.householdId = params.householdId;
     this.contentId = params.contentId;
     this.channelId = params.channelId;
     this.programId = params.programId;
@@ -115,6 +119,7 @@ class WasABI {
     this.contentImage = params.contentImage;
     this.contentTitle = params.contentTitle;
     this.sessionManagerInterval = params.sessionManagerInterval;
+    this.channelFingerprint = params.channelFingerprint;
 
     if (params.defaultAudio != null && params.defaultAudio != ""){
       this.defaultAudio = params.defaultAudio;
@@ -132,9 +137,9 @@ class WasABI {
   // login
   login(params){
     this.username = params.username;
-    this.password = params.password;
+    //this.password = params.password;
     var url =  this.rightTvUrl + "/" + this.loginUri + "?client=json";
-    var postParams = "username=" + this.username +"&password=" + this.password;
+    var postParams = "username=" + this.username +"&password=" + params.password;
 
     this.request(url, "POST", postParams, null);
   }
