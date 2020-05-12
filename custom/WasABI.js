@@ -100,8 +100,8 @@ class WasABI {
     return (this.contentType == "TRAILER");
   }
 
-  getHasFingerprint() {
-    return this.hasFingerprint;
+  hasFingerprint() {
+    return this.channelFingerprint;
   }
 
 
