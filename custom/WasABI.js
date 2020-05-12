@@ -58,7 +58,7 @@ class WasABI {
   
   // get current content info
   getContentInfo() {
-    console.log("CUSTOM LOG: openSession getContentInfo " + this.contentType);
+    console.log("CUSTOM LOG: getContentInfo " + this.contentType);
     var info = { "id": this.contentId,
                 "type": this.contentType,
                 "licenseUrl": this.licenseUrl,

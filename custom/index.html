@@ -65,7 +65,7 @@
 
                 playerManager.play();
                 scheduleTimerMarkPosition();
-                //scheduleOpenSession()
+                scheduleTimerOpenSession();
 
 
 
@@ -96,6 +96,37 @@
                 sendMessageToSender();
                 adjustPlayAfterLoad()
                 
+            }
+        );
+
+        playerManager.addEventListener(cast.framework.events.EventType.SEEKED,
+            event => {
+                updateMarkPosition();
+            }
+        );
+
+        playerManager.addEventListener(cast.framework.events.EventType.ENDED,
+            event => {
+                playEnded();
+            }
+        );
+
+        playerManager.addEventListener(cast.framework.events.EventType.ABORT,
+            event => {
+                playEnded();
+            }
+        );
+
+        playerManager.addEventListener(cast.framework.events.EventType.REQUEST_STOP,
+            event => {
+                playEnded();
+            }
+        );
+
+        playerManager.addEventListener(cast.framework.events.EventType.LIVE_ENDED,
+            event => {
+                playerManager.stop()
+                playEnded();
             }
         );
 
@@ -443,11 +474,16 @@
             context.sendCustomMessage(channel, senderId, message);
         }
 
-        /*
-        function scheduleOpenSession(){
+        
+        function scheduleTimerOpenSession(){
             console.log("CUSTOM LOG: openSession:  schedule");
+            if (sessionManagerTimer != null){
+                closeSession();
+                clearInterval(sessionManagerTimer);
+            }
+
             openSession();
-            sessionManagerTimer = setInterval(openSession, 10000);
+            sessionManagerTimer = setInterval(openSession, wasAbi.getSessionManagerInterval());
             console.log("CUSTOM LOG: openSession: schedule 2");
         }
 
@@ -460,7 +496,7 @@
             clearInterval(sessionManagerTimer);
             console.log("CUSTOM LOG: closeSession");
         }
-        */
+        
 
         function scheduleTimerMarkPosition(){
             if (markPositionTimer != null){
@@ -469,17 +505,23 @@
 
             // live and trailer will not send mark position
             if (!wasAbi.isPlayingLive() && !wasAbi.isPlayingTrailer()){
+                //execute first time now
+                updateMarkPosition();
                 markPositionTimer = setInterval(updateMarkPosition, wasAbi.getSessionManagerInterval());
             }
         }
 
         function updateMarkPosition() {
-            console.log("CUSTOM LOG: index updateMarkPosition: ");
-            var position = parseInt(playerManager.getCurrentTimeSec()) * 1000;
-            console.log("CUSTOM LOG: index updateMarkPosition: " + position);
-            wasAbi.markPosition(position)
+            // live and trailer will not send mark position
+            if (!wasAbi.isPlayingLive() && !wasAbi.isPlayingTrailer()){
+                console.log("CUSTOM LOG: index updateMarkPosition: ");
+                var position = parseInt(playerManager.getCurrentTimeSec()) * 1000;
+                console.log("CUSTOM LOG: index updateMarkPosition: " + position);
+                wasAbi.markPosition(position)
+            }
         }
 
+        //set default audio language (updated from the server)
         function setDefaultLanguage(tracks){
             if (wasAbi.getDefaultAudioLanguage() == "qaa"){
                 console.log("qaa");
@@ -523,6 +565,7 @@
             }
         }
 
+        //set default subtitles language (updated from the server)
         function setDefaultSubtitles(tracks){
 
             if (wasAbi.getDefaultSubtitlesLanguage() == "qaa"){
@@ -566,6 +609,11 @@
                 }
             }
 
+        }
+
+
+        function playEnded(){
+            closeSession();
         }
         
 
