@@ -433,6 +433,7 @@
 
         options.playbackConfig = playbackConfig;
         context.start(options);
+        checkFingerPrint()
 
         console.log("CUSTOM LOG:context started");
 
@@ -625,7 +626,7 @@
         }
 
         function showFingerprint(){
-            document.getElementById("fingerprint").display = inline;
+            document.getElementById("fingerprint").display = block;
             document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
         }
 
