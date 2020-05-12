@@ -61,7 +61,6 @@ class WasABI {
   
   // get current content info
   getContentInfo() {
-    console.log("CUSTOM LOG: getContentInfo " + this.contentType);
     var info = { "id": this.contentId,
                 "type": this.contentType,
                 "licenseUrl": this.licenseUrl,
@@ -76,6 +75,7 @@ class WasABI {
                 "defaultSubtitles": this.defaultSubtitles,
                 "householdId": this.householdId,
                 "hasFingerprint": this.channelFingerprint };
+    console.log("CUSTOM LOG: getContentInfo " + JSON.stringify(info));
     return info;
   }
 
@@ -136,6 +136,9 @@ class WasABI {
 
     console.log("CUSTOM LOG: initSessionParams contentId " + this.contentId);
     console.log("CUSTOM LOG: initSessionParams contentType " + this.contentType);
+
+
+    console.log("CUSTOM LOG: initSessionParams " + JSON.stringify(params));
   }
 
   
