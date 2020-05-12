@@ -101,30 +101,35 @@
 
         playerManager.addEventListener(cast.framework.events.EventType.SEEKED,
             event => {
+                console.log("CUSTOM LOG: event seeked");
                 updateMarkPosition();
             }
         );
 
         playerManager.addEventListener(cast.framework.events.EventType.ENDED,
             event => {
+                console.log("CUSTOM LOG: event ended");
                 playEnded();
             }
         );
 
         playerManager.addEventListener(cast.framework.events.EventType.ABORT,
             event => {
+                console.log("CUSTOM LOG: event abort");
                 playEnded();
             }
         );
 
         playerManager.addEventListener(cast.framework.events.EventType.REQUEST_STOP,
             event => {
+                console.log("CUSTOM LOG: event request_stop");
                 playEnded();
             }
         );
 
         playerManager.addEventListener(cast.framework.events.EventType.LIVE_ENDED,
             event => {
+                console.log("CUSTOM LOG: event live_ended");
                 playerManager.stop()
                 playEnded();
             }
@@ -524,7 +529,6 @@
         //set default audio language (updated from the server)
         function setDefaultLanguage(tracks){
             if (wasAbi.getDefaultAudioLanguage() == "qaa"){
-                console.log("qaa");
                 var qaaFound = false;
 
                 //search qaa
@@ -569,7 +573,6 @@
         function setDefaultSubtitles(tracks){
 
             if (wasAbi.getDefaultSubtitlesLanguage() == "qaa"){
-                console.log("qaa");
                 var qaaFound = false;
 
                 //search qaa
