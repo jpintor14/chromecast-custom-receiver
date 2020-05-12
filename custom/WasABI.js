@@ -42,6 +42,8 @@ class WasABI {
     this.defaultAudio = "spa";
     this.defaultSubtitles = "";
 
+    this.hasFingerprint = true;
+
   }
 
   
@@ -93,6 +95,10 @@ class WasABI {
 
   isPlayingTrailer() {
     return (this.contentType == "TRAILER");
+  }
+
+  hasFingerprint() {
+    return this.hasFingerprint;
   }
 
   initSessionParams(params){
