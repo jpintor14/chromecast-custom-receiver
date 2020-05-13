@@ -641,12 +641,13 @@
 
                 console.log("CUSTOM LOG: showFingerprint  screen.height" +  screen.height);
 
+                var marginLeft = screen.width * (position.horizontal / 100)
                 var marginTop = screen.height * (position.vertical / 100)
 
-                console.log("CUSTOM LOG: showFingerprint horizontal" + position.horizontal + "%");
+                console.log("CUSTOM LOG: showFingerprint horizontal" + marginLeft + "px");
                 console.log("CUSTOM LOG: showFingerprint vertical" + marginTop + "px");
 
-                document.getElementById("fingerprint").style.marginLeft = position.horizontal + "%";
+                document.getElementById("fingerprint").style.marginLeft = marginLeft + "%";
                 document.getElementById("fingerprint").style.marginTop = marginTop + "px";
                 document.getElementById("fingerprint").style.visibility = "visible";
                 document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
