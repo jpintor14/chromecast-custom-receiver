@@ -148,9 +148,9 @@ class WasABI {
     //fingerprint
     this.channelFingerprint = params.channelFingerprint;
     if (this.channelFingerprint){
-      //this.durationFingerprint = params.durationFingerprint * 1000;
-      this.durationFingerprint = 30 * 1000;
-      this.periodFingerprint = params.periodFingerprint * 1000;
+      this.durationFingerprint = params.durationFingerprint * 1000;
+      //this.periodFingerprint = params.periodFingerprint * 1000;
+      this.periodFingerprint = 20000;
 
       if (params.positionsFingerprint != null){
 
