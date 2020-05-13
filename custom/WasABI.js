@@ -141,9 +141,32 @@ class WasABI {
     if (this.channelFingerprint){
       this.durationFingerprint = params.durationFingerprint * 1000;
       this.periodFingerprint = params.periodFingerprint * 1000;
+
+      if (params.positionsFingerprint != null){
+
+        console.log("CUSTOM LOG: positionsFingerprint ");
+
+        var positionsArray = params.positionsFingerprint.split(";");
+        console.log("CUSTOM LOG: positionsFingerprint positionsArray " + positionsArray.length);
+
+        for (var i = 0; i < positionsArray.length; i++) {
+          var coordinates = positionsArray[i].split("|");
+
+          console.log("CUSTOM LOG: positionsFingerprint coordinates " + coordinates.length);
+          if (coordinates.length > 1){
+            this.coordinatesFingerprint.push([coordinates[0], coordinates[1]])
+            console.log("CUSTOM LOG: positionsFingerprint push ok ");
+          }
+        }
+
+
+        console.log("CUSTOM LOG: positionsFingerprint" + this.coordinatesFingerprint);
+
+      }
     }else{
       this.durationFingerprint = 0;
       this.periodFingerprint = 0;
+      this.coordinatesFingerprint = 0;
     }
 
     if (params.defaultAudio != null && params.defaultAudio != ""){
