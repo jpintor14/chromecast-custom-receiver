@@ -115,7 +115,8 @@ class WasABI {
     return this.periodFingerprint;
   }
 
-  getRandomFingerPrintPosition(){
+  getRandomFingerprintPosition(){
+    console.log("CUSTOM LOG: getRandomFingerPrintPosition");
     console.log("CUSTOM LOG: getRandomFingerPrintPosition" + this.coordinatesFingerprint.length);
     if (this.coordinatesFingerprint.length > 0){
 
