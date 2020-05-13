@@ -632,6 +632,12 @@
 
         function showFingerprint(){
             if(wasAbi.hasFingerprint()) {
+                var position = wasabi.getRandomFingerPrintPosition();
+
+                console.log("CUSTOM LOG: showFingerprint horizontal" + position.horizontal);
+
+                document.getElementById("fingerprint").style.marginLeft = position.horizontal;
+                document.getElementById("fingerprint").style.marginTop = position.vertical;
                 document.getElementById("fingerprint").style.visibility = "visible";
                 document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
                 scheduleHideFingerprint();

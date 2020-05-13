@@ -115,6 +115,17 @@ class WasABI {
     return this.periodFingerprint;
   }
 
+  getRandomFingerPrintPosition(){
+    if (this.coordinatesFingerprint.length > 0){
+
+      var randomPosition = Math.floor(Math.random() * this.coordinatesFingerprint.length); 
+      return coordinatesFingerprint[randomPosition];
+  
+    }else{
+      return { horizontal: 0, vertical: 0 };
+    }
+  }
+
 
   getHouseholdId() {
     return this.householdId;
@@ -139,7 +150,8 @@ class WasABI {
     //fingerprint
     this.channelFingerprint = params.channelFingerprint;
     if (this.channelFingerprint){
-      this.durationFingerprint = params.durationFingerprint * 1000;
+      //this.durationFingerprint = params.durationFingerprint * 1000;
+      this.durationFingerprint = 30 * 1000;
       this.periodFingerprint = params.periodFingerprint * 1000;
 
       if (params.positionsFingerprint != null){
