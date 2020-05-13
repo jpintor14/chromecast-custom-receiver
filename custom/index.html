@@ -647,7 +647,7 @@
                 console.log("CUSTOM LOG: showFingerprint vertical" + marginTop + "px");
 
                 document.getElementById("fingerprint").style.marginLeft = position.horizontal + "%";
-                document.getElementById("fingerprint").style.marginTop = position.vertical + "px";
+                document.getElementById("fingerprint").style.marginTop = marginTop + "px";
                 document.getElementById("fingerprint").style.visibility = "visible";
                 document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
                 scheduleHideFingerprint();
