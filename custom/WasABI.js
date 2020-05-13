@@ -116,11 +116,8 @@ class WasABI {
   }
 
   getRandomFingerprintPosition(){
-    console.log("CUSTOM LOG: getRandomFingerPrintPosition");
-    console.log("CUSTOM LOG: getRandomFingerPrintPosition" + this.coordinatesFingerprint.length);
     if (this.coordinatesFingerprint.length > 0){
       var randomPosition = Math.floor(Math.random() * this.coordinatesFingerprint.length); 
-      console.log("CUSTOM LOG: getRandomFingerPrintPosition randomPosition");
       return this.coordinatesFingerprint[randomPosition];
     }else{
       return { horizontal: 0, vertical: 0 };
