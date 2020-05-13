@@ -641,32 +641,23 @@
 
                 console.log("CUSTOM LOG: showFingerprint  screen.height" +  screen.height);
 
-                var marginLeft = "auto"
-                var marginRight = "auto"
-                var marginTop = "auto"
-                var marginBottom = "auto"
+                var fingerprintWith = document.getElementById("fingerprint").offsetWidth;
+                var fingerprintHeight = document.getElementById("fingerprint").offsetHeight;
 
-                if (position.horizontal > 50 ){
-                    marginRight =  screen.width * ((100 - position.horizontal) / 100) + "px";
-                }else{
-                    marginLeft =  screen.width * (position.horizontal / 100) + "px";
+                var marginLeft = screen.width * (position.horizontal / 100);
+                var marginTop = screen.height * (position.vertical / 100);
+                if (position.horizontal > 50){
+                    marginLeft -= fingerprintWith;
+                }
+                if (position.vertical < 50){
+                    marginTop -= fingerprintHeight;
                 }
 
-                if (position.vertical > 50 ){
-                    marginBottom =  screen.height * ((100 - position.vertical) / 100) + "px";
-                }else{
-                    marginTop =  screen.height * (position.vertical / 100) + "px";
-                }
+                console.log("CUSTOM LOG: showFingerprint horizontal" + marginLeft + "px");
+                console.log("CUSTOM LOG: showFingerprint vertical" + marginTop + "px");
 
-                console.log("CUSTOM LOG: showFingerprint marginLeft" + marginLeft );
-                console.log("CUSTOM LOG: showFingerprint marginTop" + marginTop);
-                console.log("CUSTOM LOG: showFingerprint marginRight" + marginRight);
-                console.log("CUSTOM LOG: showFingerprint marginBottom" + marginBottom);
-
-                document.getElementById("fingerprint").style.marginLeft = marginLeft;
-                document.getElementById("fingerprint").style.marginRight = marginRight;
-                document.getElementById("fingerprint").style.marginTop = marginTop;
-                document.getElementById("fingerprint").style.marginBottom = marginBottom;
+                document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
+                document.getElementById("fingerprint").style.marginTop = marginTop + "px";
                 document.getElementById("fingerprint").style.visibility = "visible";
                 document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
                 scheduleHideFingerprint();
