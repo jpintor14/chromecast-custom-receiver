@@ -154,7 +154,9 @@ class WasABI {
 
           console.log("CUSTOM LOG: positionsFingerprint coordinates " + coordinates.length);
           if (coordinates.length > 1){
-            this.coordinatesFingerprint.push([coordinates[0], coordinates[1]])
+            var coordinate = { horizontal: coordinates[0], vertical: coordinates[1] }
+            console.log("CUSTOM LOG: positionsFingerprint coordinate ");
+            this.coordinatesFingerprint.push(coordinate)
             console.log("CUSTOM LOG: positionsFingerprint push ok ");
           }
         }
