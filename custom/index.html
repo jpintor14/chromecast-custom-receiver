@@ -639,31 +639,16 @@
 
                 console.log("CUSTOM LOG: showFingerprint position" + JSON.stringify(position));
 
-
-                //var player = document.getElementsByTagName("body");
-                var playerWidth = screen.width;
-                var playerHeight = screen.height;
-                /*
-                if (player.length > 0){
-                    console.log("CUSTOM LOG: showFingerprint player");
-                    playerWidth = player[0].clientWidth;
-                    playerHeight = player[0].clientHeight;
-                    console.log("CUSTOM LOG: showFingerprint playerHeight " + playerHeight);
-                }
-                */
-                
                 var fingerprintWith = document.getElementById("fingerprint").offsetWidth;
                 var fingerprintHeight = document.getElementById("fingerprint").offsetHeight;
 
-                var marginLeft = playerWidth * (position.horizontal / 100);
-                var marginTop = playerHeight * (position.vertical / 100);
+                var marginLeft = screen.width * (position.horizontal / 100);
+                var marginTop = screen.height * (position.vertical / 100);
                 if (position.horizontal > 50){
                     marginLeft -= fingerprintWith;
                 }
                 if (position.vertical > 50){
-                    console.log("CUSTOM LOG: showFingerprint position.vertical > 50");
                     marginTop -= fingerprintHeight;
-                    marginTop -= 100;
                 }
                 
                 document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
