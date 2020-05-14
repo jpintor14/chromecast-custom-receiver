@@ -647,7 +647,7 @@
                 if (player.length > 0){
                     console.log("CUSTOM LOG: showFingerprint player");
                     playerWidth = player[0].clientWidth;
-                    playerHeight = player[0].clientHeight;;
+                    playerHeight = player[0].clientHeight;
                     console.log("CUSTOM LOG: showFingerprint playerHeight " + playerHeight);
                 }
                 */
@@ -661,7 +661,9 @@
                     marginLeft -= fingerprintWith;
                 }
                 if (position.vertical < 50){
+                    console.log("CUSTOM LOG: showFingerprint position.vertical < 50");
                     marginTop -= fingerprintHeight;
+                    marginTop -= 100;
                 }
                 
                 document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
