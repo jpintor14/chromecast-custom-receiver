@@ -632,12 +632,7 @@
 
         function showFingerprint(){
             if(wasAbi.hasFingerprint()) {
-                console.log("CUSTOM LOG: showFingerprint hasFingerprint");
                 var position = wasAbi.getRandomFingerprintPosition();
-
-
-
-                console.log("CUSTOM LOG: showFingerprint position" + JSON.stringify(position));
 
                 var fingerprintWith = document.getElementById("fingerprint").offsetWidth;
                 var fingerprintHeight = document.getElementById("fingerprint").offsetHeight;
