@@ -111,8 +111,6 @@
 
                 sendMessageToSender();
                 adjustPlayAfterLoad();
-                checkFingerPrint();
-                
             }
         );
 
@@ -421,6 +419,7 @@
                     break;
                 case "sessionParams":
                     wasAbi.initSessionParams(params);
+                    checkFingerPrint();
                     break;
                 case "requestSessionParams":
                     sendSessionParams();
