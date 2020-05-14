@@ -639,14 +639,15 @@
 
                 console.log("CUSTOM LOG: showFingerprint position" + JSON.stringify(position));
 
-                console.log("CUSTOM LOG: showFingerprint  screen.height" +  screen.height);
 
                 var player = document.getElementsByTagName("cast-media-player");
                 var playerWidth = screen.width;
                 var playerHeight = screen.height;
                 if (player.length > 0){
+                    console.log("CUSTOM LOG: showFingerprint player");
                     playerWidth = player[0].offsetWidth;
                     playerHeight = player[0].offsetHeight;
+                    console.log("CUSTOM LOG: showFingerprint playerHeight " + playerHeight);
                 }
                 
                 var fingerprintWith = document.getElementById("fingerprint").offsetWidth;
