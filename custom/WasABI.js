@@ -117,7 +117,7 @@ class WasABI {
 
   getRandomFingerprintPosition(){
     if (this.coordinatesFingerprint.length > 0){
-      var randomPosition = Math.floor(Math.random() * (this.coordinatesFingerprint.length + 1) ); 
+      var randomPosition = Math.floor(Math.random() * this.coordinatesFingerprint.length); 
       return this.coordinatesFingerprint[randomPosition];
     }else{
       return { horizontal: 0, vertical: 0 };
