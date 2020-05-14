@@ -630,7 +630,9 @@
         }
 
         function showFingerprint(){
+            console.log("CUSTOM LOG: showFingerprint ");
             if(wasAbi.hasFingerprint()) {
+                console.log("CUSTOM LOG: showFingerprint hasFingerprint");
                 var position = wasAbi.getRandomFingerprintPosition();
 
                 var marginLeft = screen.width * (position.horizontal / 100);
@@ -641,6 +643,9 @@
                 if (position.vertical > 50){
                     marginTop -= document.getElementById("fingerprint").offsetHeight;
                 }
+
+                console.log("CUSTOM LOG: showFingerprint hasFingerprint marginTop" + marginTop);
+                console.log("CUSTOM LOG: showFingerprint hasFingerprint marginLeft" + marginLeft);
                 
                 document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
                 document.getElementById("fingerprint").style.marginTop = marginTop + "px";
