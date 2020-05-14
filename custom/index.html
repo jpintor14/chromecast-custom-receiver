@@ -634,16 +634,13 @@
             if(wasAbi.hasFingerprint()) {
                 var position = wasAbi.getRandomFingerprintPosition();
 
-                var fingerprintWith = document.getElementById("fingerprint").offsetWidth;
-                var fingerprintHeight = document.getElementById("fingerprint").offsetHeight;
-
                 var marginLeft = screen.width * (position.horizontal / 100);
                 var marginTop = screen.height * (position.vertical / 100);
                 if (position.horizontal > 50){
-                    marginLeft -= fingerprintWith;
+                    marginLeft -= document.getElementById("fingerprint").offsetWidth;
                 }
                 if (position.vertical > 50){
-                    marginTop -= fingerprintHeight;
+                    marginTop -= document.getElementById("fingerprint").offsetHeight;
                 }
                 
                 document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
