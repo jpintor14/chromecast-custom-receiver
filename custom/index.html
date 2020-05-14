@@ -641,21 +641,26 @@
 
                 console.log("CUSTOM LOG: showFingerprint  screen.height" +  screen.height);
 
+                var player = document.getElementsByTagName("cast-media-player");
+                var playerWidth = screen.width;
+                var playerHeight = screen.height;
+                if (player.length > 0){
+                    playerWidth = player[0].offsetWidth;
+                    playerHeight = player[0].offsetHeight;
+                }
+                
                 var fingerprintWith = document.getElementById("fingerprint").offsetWidth;
                 var fingerprintHeight = document.getElementById("fingerprint").offsetHeight;
 
-                var marginLeft = screen.width * (position.horizontal / 100);
-                var marginTop = screen.height * (position.vertical / 100);
+                var marginLeft = playerWidth * (position.horizontal / 100);
+                var marginTop = playerHeight * (position.vertical / 100);
                 if (position.horizontal > 50){
                     marginLeft -= fingerprintWith;
                 }
                 if (position.vertical < 50){
                     marginTop -= fingerprintHeight;
                 }
-
-                console.log("CUSTOM LOG: showFingerprint horizontal" + marginLeft + "px");
-                console.log("CUSTOM LOG: showFingerprint vertical" + marginTop + "px");
-
+                
                 document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
                 document.getElementById("fingerprint").style.marginTop = marginTop + "px";
                 document.getElementById("fingerprint").style.visibility = "visible";
