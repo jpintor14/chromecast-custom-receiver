@@ -117,7 +117,7 @@ class WasABI {
 
   getRandomFingerprintPosition(){
     if (this.coordinatesFingerprint.length > 0){
-      var randomPosition = Math.floor(Math.random() * this.coordinatesFingerprint.length); 
+      var randomPosition = Math.floor(Math.random() * (this.coordinatesFingerprint.length + 1) ); 
       return this.coordinatesFingerprint[randomPosition];
     }else{
       return { horizontal: 0, vertical: 0 };
@@ -149,7 +149,8 @@ class WasABI {
     this.channelFingerprint = params.channelFingerprint;
     if (this.channelFingerprint){
       this.durationFingerprint = params.durationFingerprint * 1000;
-      this.periodFingerprint = params.periodFingerprint * 1000;
+      //this.periodFingerprint = params.periodFingerprint * 1000;
+      this.periodFingerprint = 5000;
 
       if (params.positionsFingerprint != null){
 
