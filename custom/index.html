@@ -507,7 +507,7 @@
             if (!wasAbi.isPlayingLive() && !wasAbi.isPlayingTrailer()){
                 //execute first time now
                 updateMarkPosition();
-                markPositionTimer = setInterval(updateMarkPosition, wasAbi.getSessionManagerInterval());
+                markPositionTimer = setInterval(updateMarkPosition, wasAbi.getMarkPositionInterval());
             }
         }
 

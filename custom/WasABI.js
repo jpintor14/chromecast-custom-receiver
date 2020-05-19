@@ -26,6 +26,8 @@ class WasABI {
     this.sessionManagerId = "";
     this.sessionManagerInterval = 60000;
 
+    this.markPositionInterval = 60000;
+
     this.chromecastSerialId = "";
     this.username = "";
     //this.password = "";
@@ -143,7 +145,7 @@ class WasABI {
     this.playingUrl = params.playingUrl;
     this.contentImage = params.contentImage;
     this.contentTitle = params.contentTitle;
-    this.sessionManagerInterval = params.sessionManagerInterval;
+    this.markPositionInterval = params.markPositionInterval;
 
     //fingerprint
     this.channelFingerprint = params.channelFingerprint;
@@ -243,6 +245,10 @@ class WasABI {
 
   getSessionManagerInterval() {
     return this.sessionManagerInterval;
+  }
+
+  getMarkPositionInterval() {
+    return this.markPositionInterval;
   }
 
   openSession(){
