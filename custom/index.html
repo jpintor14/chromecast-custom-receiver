@@ -101,12 +101,12 @@
                 for (var i = 0; i < tracks.length; i++) {
                     
                     if (tracks[i].type == "AUDIO"){
-                        console.log("on PLAYER_LOAD_COMPLETE: My language ");
-                        tracks[i].name = "My language"
+                        console.log("on PLAYER_LOAD_COMPLETE: My language");
+                        tracks[i].name = "My language";
                     }
 
                 }
-
+                textTracksManager.addTracks(tracks);
 
                 setDefaultLanguage(event.media.tracks);
                 setDefaultSubtitles(event.media.tracks);
