@@ -697,7 +697,9 @@
         }
 
         function loadSlideshow(params){
+            console.log("CUSTOM LOG: loadSlideshow ");
             let playerElement = document.getElementsByTagName("cast-media-player")[0];
+            console.log("CUSTOM LOG: loadSlideshow 2" + JSON.stringify(params));
             if (params.slideshow_1 != null){
                 playerElement.style.setProperty('--slideshow-image-1', 'url(' + params.slideshow_1 + ')');
             }
