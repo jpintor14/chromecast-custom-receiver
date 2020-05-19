@@ -100,9 +100,9 @@
                 var tracks = textTracksManager.getTracks()
                 for (var i = 0; i < tracks.length; i++) {
                     
-                    if (tracks[i].type == "AUDIO"){
+                    if (tracks[i].type == "AUDIO" && tracks[i].language == "spa"){
                         console.log("on PLAYER_LOAD_COMPLETE: My language");
-                        tracks[i].name = "My language";
+                        tracks[i].name = "My Spanish";
                     }
 
                 }
