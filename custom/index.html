@@ -416,7 +416,6 @@
 
             switch (command) {
                 case "slideshow":
-                    console.log("CUSTOM LOG: slideshow");
                     loadSlideshow(params);
                     break;
                 case "login":
@@ -430,7 +429,6 @@
                     sendSessionParams();
                     break;
                 default:
-                    console.log("CUSTOM LOG: default");
                     customMessageReceiver(params, command);
                     break;
             }
@@ -699,15 +697,15 @@
         }
 
         function loadSlideshow(params){
-            console.log("CUSTOM LOG: loadSlideshow ");
             let playerElement = document.getElementsByTagName("cast-media-player")[0];
-            console.log("CUSTOM LOG: loadSlideshow 2" + JSON.stringify(params));
             if (params.slideshow_1 != null){
                 playerElement.style.setProperty('--slideshow-image-1', 'url(' + params.slideshow_1 + ')');
             }
             if (params.slideshow_2 != null){
-                playerElement.style.setProperty('--slideshow-image-1', 'url(' + params.slideshow_2 + ')');
+                playerElement.style.setProperty('--slideshow-image-2', 'url(' + params.slideshow_2 + ')');
             }
+
+            context.start()
         }
         
 
