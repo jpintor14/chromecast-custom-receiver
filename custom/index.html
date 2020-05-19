@@ -634,6 +634,10 @@
                 clearInterval(markPositionTimer);
             }
             hideFingerprint();
+
+            var message = "playended";
+            context.sendCustomMessage(channel, senderId, message);
+        
         }
 
         function checkFingerPrint(){
