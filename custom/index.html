@@ -635,7 +635,7 @@
             }
             hideFingerprint();
 
-            var message = "playended";
+            var message = { "command": "playEnded"};
             context.sendCustomMessage(channel, senderId, message);
         
         }
