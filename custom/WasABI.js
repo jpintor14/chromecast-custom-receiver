@@ -304,7 +304,7 @@ class WasABI {
         
           if (this.status == 200) {
             console.log("CUSTOM LOG: response: " + xhttp.responseText );
-            var status = JSON.parse(xhttp.responseText)["response"]["status"];
+            //var status = JSON.parse(xhttp.responseText)["response"]["status"];
             console.log("CUSTOM LOG: response: " + status );
 
             if (okFunction!=null){
@@ -312,7 +312,7 @@ class WasABI {
             }
 
           }else{
-            console.log("CUSTOM LOG: else status: " + this.status );
+            //console.log("CUSTOM LOG: else status: " + this.status );
             console.log("CUSTOM LOG: else response: " + xhttp.responseText );
           }
 
