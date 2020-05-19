@@ -83,6 +83,7 @@
                 scheduleTimerMarkPosition();
                 scheduleTimerOpenSession();
 
+                const textTracksManager = playerManager.getTextTracksManager();
 
 
                 for (var i = 0; i < event.media.tracks.length; i++) {
@@ -94,6 +95,13 @@
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
                     console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
+
+                    if (event.media.tracks[i].language == "spa"){
+                        var track = event.media.tracks[i];
+                        track.name = "Mi español";
+
+                        textTracksManager.addTracks(track);
+                    }
 
                 }
 
