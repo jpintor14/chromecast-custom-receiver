@@ -24,6 +24,7 @@
 
     <!--<script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>-->
     <script type="text/javascript" src="receiver2.5.8.js"> </script>
+    <script type="text/javascript" src="lang.js"> </script>
     <script type="text/javascript" src="WasABI.js"> </script>
     <script>
 
@@ -98,14 +99,18 @@
 
                 const textTracksManager = playerManager.getTextTracksManager();
                 var tracks = textTracksManager.getTracks()
+                
                 for (var i = 0; i < tracks.length; i++) {
-                    
+                    tracks[i].name = wasAbi.getLanguageLabel(tracks[i].name);
+
+                    /*
                     if (tracks[i].type == "TEXT" && tracks[i].language == "spa"){
                         console.log("on PLAYER_LOAD_COMPLETE: My language");
                         tracks[i].name = "My Spanish";
                     }
-
+                    */
                 }
+                
                 //textTracksManager.addTracks(tracks);
 
                 setDefaultLanguage(event.media.tracks);

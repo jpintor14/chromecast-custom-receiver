@@ -323,94 +323,16 @@ class WasABI {
   }
 
 
+  getLanguageLabel(language){
+    if (language != null && language != ""){
+      var label = "lang." + language;
+      if (languages[label] != null){
+        return languages[label];
+      }
+    }
 
-  //TEST:
-
-  getLanguageName(language){
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0" + language);
-    var languageResponse = "";
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.1" + languageResponse);
-    var found = false;
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.2" + languageResponse);
-    var spa_langs = ["es", "spa", "ES"];
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.3" + languageResponse);
-    var en_langs = ["en", "uk", "usa", "UK", "USA"];
-
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 0.4");
-
+    return language;
     
-    spa_langs.forEach(function(item){
-
-      console.log("on PLAYER_LOAD_COMPLETE: spa_langs " + item);
-
-      if (item.indexOf(language)){
-        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Español" + language);
-        found = true;
-        languageResponse = "Español";
-      }
-      /*
-      if (launguage.includes(item)) {
-        console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Español" + language);
-        found = true;
-        languageResponse = "Español";
-      }
-      */
-      
-      
-    });
-
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName 1");
-
-    /*
-    if (!found){
-      en_langs.forEach(function(item){
-
-        console.log("on PLAYER_LOAD_COMPLETE: en_langs " + item);
-        
-        if (launguage.includes(item)) {
-          console.log("on PLAYER_LOAD_COMPLETE: getLanguageName Inglés" + language);
-          found = true;
-          language = "Inglés";
-        }
-        
-      });  
-    }
-    */
-
-    console.log("on PLAYER_LOAD_COMPLETE: getLanguageName lang" + languageResponse);
-
-    return languageResponse;
-  
-
   }
-
-  isDefaultLanguage(trackName, defaultLanguage){
-    var found = false;
-    var spa_langs = ["es", "spa", "ES"];
-    var en_langs = ["en", "uk", "usa", "UK", "USA"];
-
-    console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage defaultLanguage " + defaultLanguage);
-    console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage trackName " + trackName);
-
-    spa_langs.forEach(function(esItem){
-      if (esItem == defaultLanguage && esItem.indexOf(trackName)){
-        console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage found " + esItem);
-        found = true;
-      }
-    });
-
-    if (!found){
-      en_langs.forEach(function(enItem){
-        if (enItem == defaultLanguage && enItem.indexOf(trackName)){
-          console.log("on PLAYER_LOAD_COMPLETE: isDefaultLanguage found " + enItem);
-          found = true;
-        }
-      });
-    }
-
-    return found;
-  }
-
-
 
 }
