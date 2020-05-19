@@ -416,7 +416,8 @@
 
             switch (command) {
                 case "slideshow":
-                    loadSlideshow(params)
+                    console.log("CUSTOM LOG: slideshow");
+                    loadSlideshow(params);
                     break;
                 case "login":
                     wasAbi.login(params);
@@ -429,6 +430,7 @@
                     sendSessionParams();
                     break;
                 default:
+                    console.log("CUSTOM LOG: default");
                     customMessageReceiver(params, command);
                     break;
             }
