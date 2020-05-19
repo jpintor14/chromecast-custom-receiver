@@ -415,6 +415,9 @@
             console.log("CUSTOM LOG: custom message: " + JSON.stringify(message));
 
             switch (command) {
+                case "slideshow":
+                    loadSlideshow(params)
+                    break;
                 case "login":
                     wasAbi.login(params);
                     break;
@@ -691,6 +694,16 @@
 
         function scheduleShowFingerprint(){
             showFingerPrintTimeout = setTimeout(showFingerprint, wasAbi.getFingerprintPeriod());
+        }
+
+        function loadSlideshow(params){
+            let playerElement = document.getElementsByTagName("cast-media-player")[0];
+            if (params.slideshow_1 != null){
+                playerElement.style.setProperty('--slideshow-image-1', 'url(' + params.slideshow_1 + ')');
+            }
+            if (params.slideshow_2 != null){
+                playerElement.style.setProperty('--slideshow-image-1', 'url(' + params.slideshow_2 + ')');
+            }
         }
         
 
