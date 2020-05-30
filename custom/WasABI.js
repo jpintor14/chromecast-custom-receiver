@@ -79,7 +79,6 @@ class WasABI {
                 "deafultAudio": this.defaultAudio,
                 "defaultSubtitles": this.defaultSubtitles,
                 "householdId": this.householdId };
-    console.log("CUSTOM LOG: getContentInfo " + JSON.stringify(info));
     return info;
   }
 
@@ -156,25 +155,17 @@ class WasABI {
       if (params.positionsFingerprint != null){
         this.coordinatesFingerprint = [];
 
-        console.log("CUSTOM LOG: positionsFingerprint ");
 
         var positionsArray = params.positionsFingerprint.split(";");
-        console.log("CUSTOM LOG: positionsFingerprint positionsArray " + positionsArray.length);
 
         for (var i = 0; i < positionsArray.length; i++) {
           var coordinates = positionsArray[i].split("|");
 
-          console.log("CUSTOM LOG: positionsFingerprint coordinates " + coordinates.length);
           if (coordinates.length > 1){
             var coordinate = { horizontal: coordinates[0], vertical: coordinates[1] }
-            console.log("CUSTOM LOG: positionsFingerprint coordinate ");
             this.coordinatesFingerprint.push(coordinate)
-            console.log("CUSTOM LOG: positionsFingerprint push ok ");
           }
         }
-
-
-        console.log("CUSTOM LOG: positionsFingerprint" + this.coordinatesFingerprint);
 
       }
     }else{
@@ -190,12 +181,6 @@ class WasABI {
       this.defaultSubtitles = params.defaultSubtitles;
     }
 
-
-    console.log("CUSTOM LOG: initSessionParams contentId " + this.contentId);
-    console.log("CUSTOM LOG: initSessionParams contentType " + this.contentType);
-
-
-    console.log("CUSTOM LOG: initSessionParams " + JSON.stringify(params));
   }
 
   
@@ -253,14 +238,7 @@ class WasABI {
   }
 
   openSession(){
-    console.log("CUSTOM LOG: openSession: " );
-    console.log("CUSTOM LOG: openSession contentId " + this.contentId)
-    console.log("CUSTOM LOG: openSession contentType " + this.contentType)
-
     if (!this.isPlayingTrailer()) {
-
-
-      console.log("CUSTOM LOG: openSession: is not a trailer" );
 
       var params = "&type=" + this.contentType + "&deviceId=" + this.chromecastSerialId + "&contentId=" + this.contentId;
       if (this.sessionManagerId != null){
@@ -268,8 +246,6 @@ class WasABI {
       }
       var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
 
-
-      console.log("CUSTOM LOG: openSession: call GET " );
       this.request(url, "GET", null, null);
 
    }
@@ -284,7 +260,6 @@ class WasABI {
 
 
   request(url, method, postParams, okFunction){
-    console.log("CUSTOM LOG: request url: " + url );
     var xhttp = new XMLHttpRequest();
     xhttp.open(method, url, true);
     xhttp.withCredentials = true;
@@ -297,23 +272,17 @@ class WasABI {
       xhttp.send();
     }
 
-    
-    console.log("CUSTOM LOG: start onreadystatechange: " + url );
     xhttp.onreadystatechange = function() {
-        console.log("CUSTOM LOG: url:  ONREADY " + url );
         if (this.readyState == 4) {
         
           if (this.status == 200) {
-            console.log("CUSTOM LOG: response: " + xhttp.responseText );
             //var status = JSON.parse(xhttp.responseText)["response"]["status"];
-            console.log("CUSTOM LOG: response: " + status );
 
             if (okFunction!=null){
               okFunction()
             }
 
           }else{
-            //console.log("CUSTOM LOG: else status: " + this.status );
             console.log("CUSTOM LOG: else response: " + xhttp.responseText );
           }
 

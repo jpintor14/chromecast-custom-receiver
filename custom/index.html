@@ -44,7 +44,6 @@
         var secondaryQaaLanguage = "eng";
         var notQaaLanguage = "spa";
 
-        console.log("context getInstance()");
 
         const options = new cast.framework.CastReceiverOptions();
         
@@ -56,8 +55,6 @@
         // Update playback config licenseUrl according to provided value in load request.
         playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
 
-
-            console.log("setMediaPlaybackInfoHandler: " + JSON.stringify(loadRequest.media));
 
 
             if (loadRequest.media.startAbsoluteTime) {
@@ -76,37 +73,16 @@
         playerManager.addEventListener(cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
             event => {
 
-                console.log("on PLAYER_LOAD_COMPLETE: contentId " + event.media.contentId);
-
-                console.log("PLAYER_LOAD_COMPLETE: ");
-
                 playerManager.play();
                 scheduleTimerMarkPosition();
                 scheduleTimerOpenSession();
-
-
-                for (var i = 0; i < event.media.tracks.length; i++) {
-                    
-                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].language " + event.media.tracks[i].language);
-                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].name: " + event.media.tracks[i].name);
-                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].subtype: " + event.media.tracks[i].subtype);
-                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentId: " + event.media.tracks[i].trackContentId);
-                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackContentType: " + event.media.tracks[i].trackContentType);
-                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].trackId: " + event.media.tracks[i].trackId);
-                    console.log("on PLAYER_LOAD_COMPLETE: tracks[" + i + "].type: " + event.media.tracks[i].type);
-                }
 
                 setDefaultLanguage(event.media.tracks);
                 setDefaultSubtitles(event.media.tracks);
                 setAudioLanguageLabels();
                 setSubtitlesLanguageLabels();
 
-
-                console.log("PLAYER_LOAD_COMPLETE: " + JSON.stringify(event.media));
-
-
                 if (event.media.startAbsoluteTime){
-                    console.log("PLAYER_LOAD_COMPLETE startTime: " + event.media.startAbsoluteTime);
                     playerManager.seek(event.media.startAbsoluteTime);
                 }
 
@@ -117,37 +93,24 @@
 
         playerManager.addEventListener(cast.framework.events.EventType.SEEKED,
             event => {
-                console.log("CUSTOM LOG: event seeked");
                 updateMarkPosition();
             }
         );
 
         playerManager.addEventListener(cast.framework.events.EventType.ENDED,
             event => {
-                console.log("CUSTOM LOG: event ended");
                 playEnded();
             }
         );
-
-        /*
-        playerManager.addEventListener(cast.framework.events.EventType.ABORT,
-            event => {
-                console.log("CUSTOM LOG: event abort");
-                playEnded();
-            }
-        );
-        */
 
         playerManager.addEventListener(cast.framework.events.EventType.REQUEST_STOP,
             event => {
-                console.log("CUSTOM LOG: event request_stop");
                 playEnded();
             }
         );
 
         playerManager.addEventListener(cast.framework.events.EventType.LIVE_ENDED,
             event => {
-                console.log("CUSTOM LOG: event live_ended");
                 playerManager.stop()
                 playEnded();
             }
@@ -155,30 +118,20 @@
 
         playerManager.setMessageInterceptor(cast.framework.messages.MessageType.EDIT_AUDIO_TRACKS, request => {
             
-            console.log("PLAYER_LOAD_COMPLETE: setMessageInterceptor EDIT_AUDIO_TRACKS " + JSON.stringify(request));
-
-
             for (var i = 0; i < request.tracks; i++) {
                 if (request.tracks[i].type == "AUDIO"){
-                    console.log("PLAYER_LOAD_COMPLETE: setMessageInterceptor AUDIO_TRACK " + request.tracks[i].name);
                     request.tracks[i].name = wasAbi.getLanguageName(request.tracks[i].name);
-                    console.log("PLAYER_LOAD_COMPLETE: setMessageInterceptor getLanguageName AUDIO_TRACK " + request.tracks[i].name);
                 }
             }
         });
 
         
+        /*
         playerManager.setMessageInterceptor(
             cast.framework.messages.MessageType.LOAD,
             request => {
-                console.log("----- LOAD -----");
-                // Resolve entity to content id
-
 
                 playerManager.play();
-                
-                console.log("----- LOAD ----- media: " + JSON.stringify(request.media));
-
 
                 for (var prop in request.media) {
                     if (Object.prototype.hasOwnProperty.call(request.media, prop)) {
@@ -196,13 +149,11 @@
             }
             return request;
         });
+        */
 
 
         context.addEventListener(cast.framework.system.EventType.SENDER_CONNECTED, event => {
-            console.log("on SENDER_DISCONNECTED: " + event.type);
-            console.log("SENDER_CONNECTED" + event.senderId)
             senderId = event.senderId;
-
             sendMessageToSender();
         });
 
@@ -211,13 +162,6 @@
         playbackConfig.licenseUrl = licenseServerUrl;
 
 
-
-        // A hook on the license request url
-        playbackConfig.licenseRequestHandler = requestInfo => {
-            
-            console.log("licenseRequestHandler: " + requestInfo.url);
-            return requestInfo;
-        };
 
 
         /* For error code description */
@@ -395,24 +339,11 @@
             }
         );
 
-        // A hook on the manifest when downloaded and parsed
-        playbackConfig.manifestHandler = manifest => {
-            console.log("manifestHandler: " + manifest);
-            return manifest;
-        };
-        // A hook on the manifest request url
-        playbackConfig.manifestRequestHandler = networkRequestInfo => {
-            console.log("manifestRequestHandler: " + networkRequestInfo.url);
-            return networkRequestInfo;
-        };
 
         context.addCustomMessageListener(channel, function(customEvent) {
             var message = customEvent.data;
             var command = message.command;
             var params = message.params;
-
-
-            console.log("CUSTOM LOG: custom message: " + JSON.stringify(message));
 
             switch (command) {
                 case "slideshow":
@@ -439,8 +370,6 @@
         options.playbackConfig = playbackConfig;
         context.start(options);
 
-        console.log("CUSTOM LOG:context started");
-
         function customMessageReceiver(params, senderId){
             var command = message.command;
             var text = params.text;
@@ -453,7 +382,6 @@
 
 
         function sendMessageToSender(){
-            console.log("sendMessageToSender");
             var message = "test";
             context.sendCustomMessage(channel, senderId, message);
         }
@@ -469,7 +397,6 @@
 
         function sendSessionParams(){
             var contentInfo = wasAbi.getContentInfo();
-            console.log("CUSTOM LOG: sendSessionParams: " + JSON.stringify(contentInfo));
 
             var message = { "command": "sessionParams",
                             "data": contentInfo };
@@ -479,25 +406,21 @@
 
         
         function scheduleTimerOpenSession(){
-            console.log("CUSTOM LOG: openSession:  schedule");
             if (sessionManagerTimer != null){
                 closeSession();
             }
 
             openSession();
             sessionManagerTimer = setInterval(openSession, wasAbi.getSessionManagerInterval());
-            console.log("CUSTOM LOG: openSession: schedule 2");
         }
 
         function openSession(){
-            console.log("CUSTOM LOG: openSession:  interval");
             wasAbi.openSession(wasAbi);
         }
 
         function closeSession(){
             wasAbi.closeSession();
             clearInterval(sessionManagerTimer);
-            console.log("CUSTOM LOG: closeSession");
         }
         
 
@@ -517,9 +440,7 @@
         function updateMarkPosition() {
             // live and trailer will not send mark position
             if (!wasAbi.isPlayingLive() && !wasAbi.isPlayingTrailer()){
-                console.log("CUSTOM LOG: index updateMarkPosition: ");
                 var position = parseInt(playerManager.getCurrentTimeSec()) * 1000;
-                console.log("CUSTOM LOG: index updateMarkPosition: " + position);
                 wasAbi.markPosition(position)
             }
         }
@@ -656,9 +577,7 @@
         }
 
         function showFingerprint(){
-            console.log("CUSTOM LOG: showFingerprint ");
             if(wasAbi.hasFingerprint()) {
-                console.log("CUSTOM LOG: showFingerprint hasFingerprint");
                 var position = wasAbi.getRandomFingerprintPosition();
 
                 var marginLeft = screen.width * (position.horizontal / 100);
@@ -669,9 +588,6 @@
                 if (position.vertical > 50){
                     marginTop -= document.getElementById("fingerprint").offsetHeight;
                 }
-
-                console.log("CUSTOM LOG: showFingerprint hasFingerprint marginTop" + marginTop);
-                console.log("CUSTOM LOG: showFingerprint hasFingerprint marginLeft" + marginLeft);
                 
                 document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
                 document.getElementById("fingerprint").style.marginTop = marginTop + "px";
