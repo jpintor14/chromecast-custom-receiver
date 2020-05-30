@@ -699,12 +699,12 @@
         function loadSlideshow(params){
             let playerElement = document.getElementsByTagName("cast-media-player")[0];
             if (params.slideshow_1 != null){
-                //playerElement.style.setProperty('--slideshow-image-1', 'url(' + params.slideshow_1 + ')');
-                document.getElementsByClassName("slideshow-image-1").backgroundImage = params.slideshow_1;
+                playerElement.style.setProperty('--slideshow-image-1', 'url(' + params.slideshow_1 + ')');
+                //document.getElementsByClassName("slideshow-image-1").backgroundImage = params.slideshow_1;
             }
             if (params.slideshow_2 != null){
-                //playerElement.style.setProperty('--slideshow-image-2', 'url(' + params.slideshow_2 + ')');
-                document.getElementsByClassName("slideshow-image-2").backgroundImage = params.slideshow_2;
+                playerElement.style.setProperty('--slideshow-image-2', 'url(' + params.slideshow_2 + ')');
+                //document.getElementsByClassName("slideshow-image-2").backgroundImage = params.slideshow_2;
             }
 
             //context.start(playbackConfig)

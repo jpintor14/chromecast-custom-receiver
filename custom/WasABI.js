@@ -154,6 +154,7 @@ class WasABI {
       this.periodFingerprint = params.periodFingerprint * 1000;
 
       if (params.positionsFingerprint != null){
+        this.coordinatesFingerprint = [];
 
         console.log("CUSTOM LOG: positionsFingerprint ");
 
