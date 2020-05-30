@@ -2,25 +2,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <link rel="stylesheet" href="receiver.05.05.20.css" media="screen" />
+    <link rel="stylesheet" href="receiver.29.05.20.css" media="screen" />
 </head>
 <body style="width: 100%; height: 100%;">
 
     <cast-media-player style="width: 100%;" id="player"></cast-media-player>
 
     <!-- fingerprint -->
-    <div id="fingerprint" style="color: red; 
-                                z-index: 9999; 
-                                position: absolute; 
-                                float: left; 
-                                background-color: black; 
-                                color: white; 
-                                margin-left: 5%; 
-                                margin-top: 5%; 
-                                font-size: 20px;
-                                padding: 5px 20px 5px 20px; 
-                                border-radius: 5px;
-                                visibility: hidden;">00000000</div>
+    <div id="fingerprint"></div>
 
     <!--<script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"> </script>-->
     <script type="text/javascript" src="receiver2.5.8.js"> </script>
@@ -616,14 +605,35 @@
             let playerElement = document.getElementsByTagName("cast-media-player")[0];
             if (params.slideshow_1 != null){
                 playerElement.style.setProperty('--slideshow-image-1', 'url(' + params.slideshow_1 + ')');
-                //document.getElementsByClassName("slideshow-image-1").backgroundImage = params.slideshow_1;
             }
             if (params.slideshow_2 != null){
                 playerElement.style.setProperty('--slideshow-image-2', 'url(' + params.slideshow_2 + ')');
-                //document.getElementsByClassName("slideshow-image-2").backgroundImage = params.slideshow_2;
+            }
+            if (params.slideshow_3 != null){
+                playerElement.style.setProperty('--slideshow-image-3', 'url(' + params.slideshow_2 + ')');
+            }
+            if (params.slideshow_4 != null){
+                playerElement.style.setProperty('--slideshow-image-4', 'url(' + params.slideshow_2 + ')');
+            }
+            if (params.slideshow_5 != null){
+                playerElement.style.setProperty('--slideshow-image-5', 'url(' + params.slideshow_2 + ')');
+            }
+            if (params.slideshow_6 != null){
+                playerElement.style.setProperty('--slideshow-image-6', 'url(' + params.slideshow_2 + ')');
+            }
+            if (params.slideshow_7 != null){
+                playerElement.style.setProperty('--slideshow-image-7', 'url(' + params.slideshow_2 + ')');
+            }
+            if (params.slideshow_8 != null){
+                playerElement.style.setProperty('--slideshow-image-8', 'url(' + params.slideshow_2 + ')');
+            }
+            if (params.slideshow_9 != null){
+                playerElement.style.setProperty('--slideshow-image-9', 'url(' + params.slideshow_2 + ')');
+            }
+            if (params.slideshow_10 != null){
+                playerElement.style.setProperty('--slideshow-image-10', 'url(' + params.slideshow_2 + ')');
             }
 
-            //context.start(playbackConfig)
         }
         
 

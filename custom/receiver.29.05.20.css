@@ -20,3 +20,18 @@ cast-media-player {
 .metadataImage {
   background-repeat: no-repeat;
 }
+
+#fingerprint {
+  color: red; 
+  z-index: 9999; 
+  position: absolute; 
+  float: left; 
+  background-color: black; 
+  color: white; 
+  margin-left: 5%; 
+  margin-top: 5%; 
+  font-size: 20px;
+  padding: 5px 20px 5px 20px; 
+  border-radius: 5px;
+  visibility: hidden
+}
