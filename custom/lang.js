@@ -345,4 +345,12 @@ var languages = { "lang.NoSubtitles": "Desactivado",
     "lang.zha": "Zhuang",
     "lang.zho": "Chino",
     "lang.zul": "Zulu",
-    "lang.zun": "Zuni" };
+    "lang.zun": "Zuni",
+    "lang.qlc": "Audio A4",
+    "lang.qlb": "Audio A2",
+    "lang.qla": "Audio A3",
+    "lang.qld": "Audio A5",
+    "lang.qle": "Audio A6",
+    "lang.qlz": "Ambiente",
+    "lang.und": "Versión Original",
+    "lang.audioUnd": "Versión Original", };
