@@ -353,4 +353,4 @@ var languages = { "lang.NoSubtitles": "Desactivado",
     "lang.qle": "Audio A6",
     "lang.qlz": "Ambiente",
     "lang.und": "Versión Original",
-    "lang.audioUnd": "Versión Original", };
+    "lang.audioUnd": "Versión Original"};
