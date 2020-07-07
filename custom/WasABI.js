@@ -29,6 +29,7 @@ class WasABI {
     this.markPositionInterval = 60000;
 
     this.chromecastSerialId = "";
+    this.terminalId = "";
     this.username = "";
     //this.password = "";
     this.householdId = "";
@@ -78,7 +79,8 @@ class WasABI {
                 "contentTitle": this.contentTitle,
                 "deafultAudio": this.defaultAudio,
                 "defaultSubtitles": this.defaultSubtitles,
-                "householdId": this.householdId };
+                "householdId": this.householdId,
+                "terminalId": this.terminalId };
     return info;
   }
 
@@ -132,6 +134,7 @@ class WasABI {
 
   initSessionParams(params){
     this.householdId = params.householdId;
+    this.terminalId = params.terminalId;
     this.contentId = params.contentId;
     this.channelId = params.channelId;
     this.programId = params.programId;
@@ -240,7 +243,7 @@ class WasABI {
   openSession(){
     if (!this.isPlayingTrailer()) {
 
-      var params = "&type=" + this.contentType + "&deviceId=" + this.chromecastSerialId + "&contentId=" + this.contentId;
+      var params = "&type=" + this.contentType + "&deviceId=" + this.terminalId + "&contentId=" + this.contentId;
       if (this.sessionManagerId != null){
         params += "&externalSessionId=" + this.sessionManagerId;
       }
@@ -253,7 +256,7 @@ class WasABI {
   }
 
   closeSession(){
-    var params = "&type=" + this.contentType + "&deviceId=" + this.chromecastSerialId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
+    var params = "&type=" + this.contentType + "&deviceId=" + this.terminalId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
     var url = this.sessionManagerUrl + "/" + this.closeSessionUri + "?client=json" + params;
     this.request(url, "GET", null, null);
   }

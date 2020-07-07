@@ -114,32 +114,6 @@
             }
         });
 
-        
-        /*
-        playerManager.setMessageInterceptor(
-            cast.framework.messages.MessageType.LOAD,
-            request => {
-
-                playerManager.play();
-
-                for (var prop in request.media) {
-                    if (Object.prototype.hasOwnProperty.call(request.media, prop)) {
-                        console.log("prop: " + prop + " - " + request.media[prop])
-                    }
-                }
-                
-
-                if (request.media.entity && !request.media.contentId) {
-                    return getMediaByEntity(request.media.entity).then(
-                        media => {
-                        request.media.contentId = media.url;
-                        return request;
-                        });
-            }
-            return request;
-        });
-        */
-
 
         context.addEventListener(cast.framework.system.EventType.SENDER_CONNECTED, event => {
             senderId = event.senderId;
