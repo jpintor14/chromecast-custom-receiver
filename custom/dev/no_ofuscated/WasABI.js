@@ -9,18 +9,18 @@ class WasABI {
  
   constructor() {
     this.chromecastChannel = "urn:x-cast:com.optm.anhplayer";
-    this.licenseUrl = "https://orangetv.orange.es/mob/api/rtv/v1/drm";
+    this.licenseUrl = "https://cc.orangetv.orange.es/mob/api/rtv/v1/drm";
 
     //right tv
-    this.rightTvUrl = "https://orangetv.orange.es/mob/api/rtv/v1";
+    this.rightTvUrl = "https://cc.orangetv.orange.es/mob/api/rtv/v1";
     this.loginUri = "Login";
     this.markPositionUri = "MarkPosition";
     this.markRecordingPositionUri = "MarkRecordingPosition";
 
     //compass 
-    this.compassUrl = "https://orangetv.orange.es/mob/api/reco/v1";
+    this.compassUrl = "https://cc.orangetv.orange.es/mob/api/reco/v1";
     //session manager
-    this.sessionManagerUrl = "https://orangetv.orange.es/mob/api/sm/v1";
+    this.sessionManagerUrl = "https://cc.orangetv.orange.es/mob/api/sm/v1";
     this.openSessionUri = "openSession";
     this.closeSessionUri = "closeSession";
     this.sessionManagerId = "";
