@@ -211,11 +211,17 @@ class WasABI {
         //npvr
         params = "recording_id=" + this.recordingId +"&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
-      }else if (this.isPlayingCatchup()){
+      }
+
+      /*
+      else if (this.isPlayingCatchup()){
         //catchup
         params = "program_external_id=" + this.programId + "&channel_external_id=" + this.channelId + "&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
-      }else{
+      }
+      */
+      
+      else{
         // vod / svod
         params = "video_external_id=" + this.contentId +"&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
