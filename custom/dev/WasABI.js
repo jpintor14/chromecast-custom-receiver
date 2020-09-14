@@ -217,17 +217,14 @@ class WasABI {
       else if (this.isPlayingCatchup()){
 
         //catchup
-        //trick to publish 
-        if (this.contentId == this.channelId){
-
-          //old solution - recording position
-          params = "program_external_id=" + this.programId + "&channel_external_id=" + this.channelId + "&position=" + postion;
-          url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
-        }else{
-          //new solution
-          //same to vod
+        if (this.contentId != null && this.contentId != ""){
+          //u7d
           params = "video_external_id=" + this.contentId +"&position=" + postion;
           url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
+        }else{
+          //epg 
+          params = "program_external_id=" + this.programId + "&channel_external_id=" + this.channelId + "&position=" + postion;
+          url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
         }
 
       }
