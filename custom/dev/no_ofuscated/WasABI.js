@@ -212,10 +212,19 @@ class WasABI {
         params = "recording_id=" + this.recordingId +"&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
       }else if (this.isPlayingCatchup()){
+
         //catchup
-        params = "program_external_id=" + this.programId + "&channel_external_id=" + this.channelId + "&position=" + postion;
-        url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
-      }else{
+        if ((this.contentId != null && this.contentId != "") && (this.contentId != this.channelId) /*//android old versions*/ ){
+          //u7d
+          params = "video_external_id=" + this.contentId +"&position=" + postion;
+          url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
+        }else{
+          //epg 
+          params = "program_external_id=" + this.programId + "&channel_external_id=" + this.channelId + "&position=" + postion;
+          url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
+        }
+
+      } else{
         // vod / svod
         params = "video_external_id=" + this.contentId +"&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
