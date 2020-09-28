@@ -211,10 +211,7 @@ class WasABI {
         //npvr
         params = "recording_id=" + this.recordingId +"&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
-      }
-
-
-      else if (this.isPlayingCatchup()){
+      }else if (this.isPlayingCatchup()){
 
         //catchup
         if (this.contentId != null && this.contentId != ""){
@@ -227,9 +224,7 @@ class WasABI {
           url =  this.rightTvUrl + "/" + this.markRecordingPositionUri + "?client=json&" + params;
         }
 
-      }
-      
-      else{
+      } else{
         // vod / svod
         params = "video_external_id=" + this.contentId +"&position=" + postion;
         url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
