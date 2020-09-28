@@ -214,7 +214,7 @@ class WasABI {
       }else if (this.isPlayingCatchup()){
 
         //catchup
-        if (this.contentId != null && this.contentId != ""){
+        if ((this.contentId != null && this.contentId != "") && (this.contentId != this.channelId) /*//android old versions*/ ){
           //u7d
           params = "video_external_id=" + this.contentId +"&position=" + postion;
           url =  this.rightTvUrl + "/" + this.markPositionUri + "?client=json&" + params;
