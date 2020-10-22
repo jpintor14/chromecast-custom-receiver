@@ -516,7 +516,7 @@ function checkFingerPrint(){
     
     clearTimeout(hideFingerPrintTimeout);
     clearTimeout(showFingerPrintTimeout);
-
+    changeFingerprintLayout()
     if(wasAbi.hasFingerprint()){
         showFingerprint();
     }else{
@@ -550,6 +550,12 @@ function hideFingerprint(){
     if(wasAbi.hasFingerprint()){
         scheduleShowFingerprint();
     }
+}
+
+function changeFingerprintLayout(){
+    document.getElementById("fingerprint").style.backgroundColor = wasAbi.fingerprintBackgroundColor;
+    document.getElementById("fingerprint").style.color = wasAbi.fingerprintForegroundColor;
+    document.getElementById("fingerprint").style.border = "thin solid " + wasAbi.fingerprintBorderColor
 }
 
 function scheduleHideFingerprint(){

@@ -12,7 +12,6 @@ cast-media-player {
 }
 
 #fingerprint {
-  color: red; 
   z-index: 9999; 
   position: absolute; 
   float: left; 
