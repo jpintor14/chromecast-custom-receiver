@@ -867,6 +867,7 @@ function checkFingerPrint(){
     clearTimeout(showFingerPrintTimeout);
     
     if(wasAbi.hasFingerprint()){
+        changeFingerprintLayout()
         showFingerprint();
     }else{
         hideFingerprint();
@@ -885,7 +886,6 @@ function showFingerprint(){
         if (position.vertical > 50){
             marginTop -= document.getElementById("fingerprint").offsetHeight;
         }
-        changeFingerprintLayout()
         document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
         document.getElementById("fingerprint").style.marginTop = marginTop + "px";
         document.getElementById("fingerprint").style.visibility = "visible";
