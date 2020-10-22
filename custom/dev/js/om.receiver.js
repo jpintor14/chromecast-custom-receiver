@@ -553,9 +553,9 @@ function hideFingerprint(){
 }
 
 function changeFingerprintLayout(){
-    document.getElementById("fingerprint").style.backgroundColor ="magenta";//wasAbi.fingerprintBackgroundColor;
-    document.getElementById("fingerprint").style.color = wasAbi.fingerprintForegroundColor;
-    document.getElementById("fingerprint").style.border = "thin solid " + wasAbi.fingerprintBorderColor
+    document.getElementById("fingerprint").style.backgroundColor = wasAbi.getFingerprintBackgroundColor();
+    document.getElementById("fingerprint").style.color = wasAbi.getFingerprintForegroundColor();
+    document.getElementById("fingerprint").style.border = "thin solid " + wasAbi.getFingerprintBorderColor();
 }
 
 function scheduleHideFingerprint(){
