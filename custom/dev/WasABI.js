@@ -176,13 +176,13 @@ class WasABI {
       //check if the new fingerprint color params are received 
       if(params.backgroundColorFingerprint != null){
         window.print("initSessionParams - back: " + params.backgroundColorFingerprint);
-        this.fingerprintBackgroundColor = params.fingerprintBackgroundColor;
+        this.fingerprintBackgroundColor = params.backgroundColorFingerprint;
       }
       if(params.foregroundColorFingerprint != null){
-        this.fingerprintForegroundColor = params.fingerprintForegroundColor;
+        this.fingerprintForegroundColor = params.foregroundColorFingerprint;
       }
       if(params.borderColorFingerprint != null){
-        this.fingerprintBorderColor = params.fingerprintBorderColor;
+        this.fingerprintBorderColor = params.borderColorFingerprint;
       }
 
       if (params.positionsFingerprint != null){
