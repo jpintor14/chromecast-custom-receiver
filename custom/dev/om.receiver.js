@@ -542,6 +542,8 @@ function showFingerprint(){
         document.getElementById("fingerprint").style.color = wasAbi.getFingerprintForegroundColor();
         document.getElementById("fingerprint").style.backgroundColor = wasAbi.getFingerprintBackgroundColor();
         document.getElementById("fingerprint").style.borderColor = wasAbi.getFingerprintBorderColor();
+        window.print("showFingerprint - back: " + wasAbi.getFingerprintBackgroundColor());
+        window.print("showFingerprint - color: " + wasAbi.getFingerprintForegroundColor());
         document.getElementById("fingerprint").style.visibility = "visible";
         document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
         scheduleHideFingerprint();
