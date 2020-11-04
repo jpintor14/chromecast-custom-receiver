@@ -150,6 +150,7 @@ class WasABI {
   }
 
   initSessionParams(params){
+    window.print("params: " + params);
     this.householdId = params.householdId;
     this.terminalId = params.terminalId;
     this.contentId = params.contentId;
