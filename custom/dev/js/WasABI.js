@@ -49,6 +49,9 @@ class WasABI {
     this.channelFingerprint = false;
     this.periodFingerprint = 0;
     this.durationFingerprint = 0;
+    this.backgroundColorFingerprint = "black";
+    this.foregroundColorFingerprint = "white";
+    this.borderColorFingerprint = "transparent";
     this.coordinatesFingerprint = [];
 
   }
@@ -113,9 +116,20 @@ class WasABI {
     return this.durationFingerprint;
   }
 
-
   getFingerprintPeriod(){
     return this.periodFingerprint;
+  }
+
+  getFingerprintBackgroundColor() {
+    return this.backgroundColorFingerprint;
+  }
+
+  getFingerprintForegroundColor() {
+    return this.foregroundColorFingerprint;
+  }
+
+  getFingerprintBorderColor() {
+    return this.borderColorFingerprint;
   }
 
   getRandomFingerprintPosition(){
@@ -133,6 +147,7 @@ class WasABI {
   }
 
   initSessionParams(params){
+    console.log("params: " + params);
     this.householdId = params.householdId;
     this.terminalId = params.terminalId;
     this.contentId = params.contentId;
@@ -155,6 +170,18 @@ class WasABI {
       this.durationFingerprint = params.durationFingerprint * 1000;
       this.periodFingerprint = params.periodFingerprint * 1000;
 
+      //check if the new fingerprint color params are received 
+      if(params.backgroundColorFingerprint != null){
+        console.log("params.backgroundColorFingerprint: " + params.backgroundColorFingerprint);
+        this.backgroundColorFingerprint = params.backgroundColorFingerprint;
+      }
+      if(params.foregroundColorFingerprint != null){
+        this.foregroundColorFingerprint = params.foregroundColorFingerprint;
+      }
+      if(params.borderColorFingerprint != null){
+        this.borderColorFingerprint = params.borderColorFingerprint;
+      }
+
       if (params.positionsFingerprint != null){
         this.coordinatesFingerprint = [];
 
@@ -169,6 +196,8 @@ class WasABI {
             this.coordinatesFingerprint.push(coordinate)
           }
         }
+
+
 
       }
     }else{
