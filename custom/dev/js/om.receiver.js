@@ -539,9 +539,14 @@ function showFingerprint(){
         
         document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
         document.getElementById("fingerprint").style.marginTop = marginTop + "px";
+        document.getElementById("fingerprint").style.color = wasAbi.getFingerprintForegroundColor();
+        document.getElementById("fingerprint").style.backgroundColor = wasAbi.getFingerprintBackgroundColor();
+        document.getElementById("fingerprint").style.borderColor = wasAbi.getFingerprintBorderColor();
         document.getElementById("fingerprint").style.visibility = "visible";
         document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
         scheduleHideFingerprint();
+    }else{
+        document.getElementById("fingerprint").style.visibility = "hidden";
     }
 }
 

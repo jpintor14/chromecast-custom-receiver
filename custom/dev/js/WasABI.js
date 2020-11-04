@@ -49,6 +49,9 @@ class WasABI {
     this.channelFingerprint = false;
     this.periodFingerprint = 0;
     this.durationFingerprint = 0;
+    this.backgroundColorFingerprint = "black";
+    this.foregroundColorFingerprint = "white";
+    this.borderColorFingerprint = "transparent";
     this.coordinatesFingerprint = [];
 
   }
@@ -118,6 +121,18 @@ class WasABI {
     return this.periodFingerprint;
   }
 
+  getFingerprintBackgroundColor() {
+    return this.backgroundColorFingerprint;
+  }
+
+  getFingerprintForegroundColor() {
+    return this.foregroundColorFingerprint;
+  }
+
+  getFingerprintBorderColor() {
+    return this.borderColorFingerprint;
+  }
+
   getRandomFingerprintPosition(){
     if (this.coordinatesFingerprint.length > 0){
       var randomPosition = Math.floor(Math.random() * this.coordinatesFingerprint.length); 
@@ -155,6 +170,11 @@ class WasABI {
       this.durationFingerprint = params.durationFingerprint * 1000;
       this.periodFingerprint = params.periodFingerprint * 1000;
 
+
+      this.foregroundColorFingerprint = params.foregroundColorFingerprint;
+      this.backgroundColorFingerprint = params.backgroundColorFingerprint;
+      this.borderColorFingerprint = params.borderColorFingerprint;
+
       if (params.positionsFingerprint != null){
         this.coordinatesFingerprint = [];
 
@@ -169,6 +189,8 @@ class WasABI {
             this.coordinatesFingerprint.push(coordinate)
           }
         }
+
+
 
       }
     }else{
