@@ -147,7 +147,7 @@ class WasABI {
   }
 
   initSessionParams(params){
-    window.print("params: " + params);
+    console.log("params: " + params);
     this.householdId = params.householdId;
     this.terminalId = params.terminalId;
     this.contentId = params.contentId;
@@ -172,7 +172,7 @@ class WasABI {
 
       //check if the new fingerprint color params are received 
       if(params.backgroundColorFingerprint != null){
-        window.print("initSessionParams - back: " + params.backgroundColorFingerprint);
+        console.log("params.backgroundColorFingerprint: " + params.backgroundColorFingerprint);
         this.backgroundColorFingerprint = params.backgroundColorFingerprint;
       }
       if(params.foregroundColorFingerprint != null){
