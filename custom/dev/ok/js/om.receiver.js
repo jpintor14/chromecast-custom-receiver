@@ -516,8 +516,9 @@ function checkFingerPrint(){
     
     clearTimeout(hideFingerPrintTimeout);
     clearTimeout(showFingerPrintTimeout);
-
+    
     if(wasAbi.hasFingerprint()){
+        changeFingerprintLayout()
         showFingerprint();
     }else{
         hideFingerprint();
@@ -536,12 +537,16 @@ function showFingerprint(){
         if (position.vertical > 50){
             marginTop -= document.getElementById("fingerprint").offsetHeight;
         }
-        
         document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
         document.getElementById("fingerprint").style.marginTop = marginTop + "px";
+        document.getElementById("fingerprint").style.color = wasAbi.getFingerprintForegroundColor();
+        document.getElementById("fingerprint").style.backgroundColor = wasAbi.getFingerprintBackgroundColor();
+        document.getElementById("fingerprint").style.borderColor = wasAbi.getFingerprintBorderColor();
         document.getElementById("fingerprint").style.visibility = "visible";
         document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
         scheduleHideFingerprint();
+    }else{
+        document.getElementById("fingerprint").style.visibility = "hidden";
     }
 }
 
@@ -550,6 +555,12 @@ function hideFingerprint(){
     if(wasAbi.hasFingerprint()){
         scheduleShowFingerprint();
     }
+}
+
+function changeFingerprintLayout(){
+    document.getElementById("fingerprint").style.backgroundColor = wasAbi.getFingerprintBackgroundColor();
+    document.getElementById("fingerprint").style.color = wasAbi.getFingerprintForegroundColor();
+    document.getElementById("fingerprint").style.border = "thin solid " + wasAbi.getFingerprintBorderColor();
 }
 
 function scheduleHideFingerprint(){
