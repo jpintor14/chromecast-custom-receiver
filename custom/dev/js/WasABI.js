@@ -290,9 +290,11 @@ class WasABI {
   }
 
   closeSession(){
-    var params = "&type=" + this.contentType + "&deviceId=" + this.terminalId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
-    var url = this.sessionManagerUrl + "/" + this.closeSessionUri + "?client=json" + params;
-    this.request(url, "GET", null, null);
+    if (!this.isPlayingTrailer()) {
+      var params = "&type=" + this.contentType + "&deviceId=" + this.terminalId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
+      var url = this.sessionManagerUrl + "/" + this.closeSessionUri + "?client=json" + params;
+      this.request(url, "GET", null, null);
+    }
   }
 
 
