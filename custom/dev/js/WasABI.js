@@ -53,9 +53,6 @@ class WasABI {
     this.foregroundColorFingerprint = "white";
     this.borderColorFingerprint = "transparent";
     this.coordinatesFingerprint = [];
-    this.fingerprintBackgroundColor = "";
-    this.fingerprintForegroundColor = "";
-    this.fingerprintBorderColor = "";
 
   }
 
@@ -173,14 +170,14 @@ class WasABI {
       this.periodFingerprint = params.periodFingerprint * 1000;
 
       //check if the new fingerprint color params are received 
-      if(params.fingerprintBackgroundColor != null){
-        this.fingerprintBackgroundColor = params.fingerprintBackgroundColor;
+      if(params.backgroundColorFingerprint != null){
+        this.backgroundColorFingerprint = params.backgroundColorFingerprint;
       }
-      if(params.fingerprintForegroundColor != null){
-        this.fingerprintForegroundColor = params.fingerprintForegroundColor;
+      if(params.foregroundColorFingerprint != null){
+        this.foregroundColorFingerprint = params.foregroundColorFingerprint;
       }
-      if(params.fingerprintBorderColor != null){
-        this.fingerprintBorderColor = params.fingerprintBorderColor;
+      if(params.brderColorFingerprint != null){
+        this.borderColorFingerprint = params.borderColorFingerprint;
       }
 
       if (params.positionsFingerprint != null){
