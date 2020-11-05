@@ -15565,7 +15565,7 @@
     var My = _.F("cast.framework.media.ImagePlayer");
     var Qr = _.F("cast.framework.common.libraryloader"),
         Ny = {
-            Vl: "media_player.js",
+            Vl: "js/media_player.js",
             gm: "//ajax.googleapis.com/ajax/libs/shaka-player/2.5.8/shaka-player.compiled.js",
             Pl: "//ajax.googleapis.com/ajax/libs/shaka-player/2.5.8/mux.min.js"
         };
