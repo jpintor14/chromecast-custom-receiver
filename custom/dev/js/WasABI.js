@@ -172,7 +172,6 @@ class WasABI {
 
       //check if the new fingerprint color params are received 
       if(params.backgroundColorFingerprint != null){
-        console.log("params.backgroundColorFingerprint: " + params.backgroundColorFingerprint);
         this.backgroundColorFingerprint = params.backgroundColorFingerprint;
       }
       if(params.foregroundColorFingerprint != null){
