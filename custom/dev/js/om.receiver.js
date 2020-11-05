@@ -527,23 +527,10 @@ function checkFingerPrint(){
 
 function showFingerprint(){
     if(wasAbi.hasFingerprint()) {
-        var position = wasAbi.getRandomFingerprintPosition();
-
-        var marginLeft = screen.width * (position.horizontal / 100);
-        var marginTop = screen.height * (position.vertical / 100);
-        if (position.horizontal > 50){
-            marginLeft -= document.getElementById("fingerprint").offsetWidth;
-        }
-        if (position.vertical > 50){
-            marginTop -= document.getElementById("fingerprint").offsetHeight;
-        }
-        document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
-        document.getElementById("fingerprint").style.marginTop = marginTop + "px";
-        document.getElementById("fingerprint").style.color = wasAbi.getFingerprintForegroundColor();
-        document.getElementById("fingerprint").style.backgroundColor = wasAbi.getFingerprintBackgroundColor();
-        document.getElementById("fingerprint").style.borderColor = wasAbi.getFingerprintBorderColor();
+        changeFingerprintPosition()
+        changeFingerprintLayout()
+        changeFingerprintValue()
         document.getElementById("fingerprint").style.visibility = "visible";
-        document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
         scheduleHideFingerprint();
     }else{
         document.getElementById("fingerprint").style.visibility = "hidden";
@@ -561,6 +548,25 @@ function changeFingerprintLayout(){
     document.getElementById("fingerprint").style.backgroundColor = wasAbi.getFingerprintBackgroundColor();
     document.getElementById("fingerprint").style.color = wasAbi.getFingerprintForegroundColor();
     document.getElementById("fingerprint").style.border = "thin solid " + wasAbi.getFingerprintBorderColor();
+}
+
+function changeFingerprintValue(){
+    document.getElementById("fingerprint").innerHTML = wasAbi.getHouseholdId();
+}
+
+function changeFingerprintPosition(){
+    var position = wasAbi.getRandomFingerprintPosition();
+
+    var marginLeft = screen.width * (position.horizontal / 100);
+    var marginTop = screen.height * (position.vertical / 100);
+    if (position.horizontal > 50){
+        marginLeft -= document.getElementById("fingerprint").offsetWidth;
+    }
+    if (position.vertical > 50){
+        marginTop -= document.getElementById("fingerprint").offsetHeight;
+    }
+    document.getElementById("fingerprint").style.marginLeft = marginLeft + "px";
+    document.getElementById("fingerprint").style.marginTop = marginTop + "px";
 }
 
 function scheduleHideFingerprint(){
