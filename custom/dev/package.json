@@ -21,7 +21,7 @@
     "grunt-contrib-uglify": "^5.0.0",
     "grunt-contrib-uglify-es": "git://github.com/gruntjs/grunt-contrib-uglify.git#harmony",
     "grunt-scp": "^0.1.11",
-    "javascript-obfuscator": "^2.4.1",
+    "javascript-obfuscator": "^2.9.2",
     "load-grunt-config": "^3.0.1",
     "terser-webpack-plugin": "^4.2.2"
   }

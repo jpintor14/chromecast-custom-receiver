@@ -5,7 +5,7 @@
         var uglifyFiles = [
             {
                 src: 'dist/tmp/receiver.concat.js',
-                dest: 'dist/om.receiver.min.js'
+                dest: 'dist/js/om.receiver.min.js'
             }
         ];
         return {

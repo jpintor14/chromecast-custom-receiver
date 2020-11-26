@@ -8,7 +8,9 @@
             ],
             tmp: ['dist/tmp/om.receiver.js',
 				'dist/tmp/WasABI.js',
-                'dist/tmp/receiver.concat.js']
+                'dist/tmp/receiver.concat.js',
+                'dist/tmp'
+            ]
         };
     };
 })(module);

@@ -7,8 +7,12 @@
 			packageJsonPath: path.join(process.cwd(), 'package.json'),
 			init: true,
 			data: {
-				test: false
+				test: false,
+				meta: {
+					server: grunt.file.readJSON('.server.json')
+				}
 			},
+			
 			
 		});
     };
