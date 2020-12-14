@@ -277,10 +277,20 @@ class WasABI {
   openSession(){
     if (!this.isPlayingTrailer()) {
 
-      var params = "&type=" + this.contentType + "&deviceId=" + this.terminalId + "&contentId=" + this.contentId;
+      var params = "&type=" + this.contentType + "&deviceId=" + this.terminalId;
+      if (this.isPlayingLive()){
+        params += "&contentId=" + this.channelId;
+      }else if (this.isPlayingCatchup()){
+        params += "&contentId=" + this.programId;
+      }else{
+        params += "&contentId=" + this.contentId;
+      }
+
+
       if (this.sessionManagerId != null){
         params += "&externalSessionId=" + this.sessionManagerId;
       }
+      
       var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
 
       this.request(url, "GET", null, null);
