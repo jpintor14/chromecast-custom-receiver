@@ -278,7 +278,9 @@ class WasABI {
     if (!this.isPlayingTrailer()) {
 
       var params = "&type=" + this.contentType + "&deviceId=" + this.terminalId;
-      if (this.isPlayingLive()){
+      if (this.isPlayingNpvr()){
+        params += "&contentId=" + this.recordingId;
+      }else  if (this.isPlayingLive()){
         params += "&contentId=" + this.channelId;
       }else if (this.isPlayingCatchup()){
         params += "&contentId=" + this.programId;
@@ -290,7 +292,7 @@ class WasABI {
       if (this.sessionManagerId != null){
         params += "&externalSessionId=" + this.sessionManagerId;
       }
-      
+
       var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
 
       this.request(url, "GET", null, null);
