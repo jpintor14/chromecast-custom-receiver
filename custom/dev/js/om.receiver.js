@@ -301,6 +301,12 @@ context.addCustomMessageListener(channel, function(customEvent) {
             wasAbi.login(params);
             break;
         case "sessionParams":
+
+            //force to close session manager
+            var  sessionManagerId = wasAbi.getSessionManagerId();
+            if (sessionManagerId != "" && sessionManagerId != params.sessionManagerId){
+                closeSession()
+            }
             wasAbi.initSessionParams(params);
             checkFingerPrint();
             break;

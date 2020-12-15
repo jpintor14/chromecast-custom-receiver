@@ -25,6 +25,7 @@ class WasABI {
     this.closeSessionUri = "closeSession";
     this.sessionManagerId = "";
     this.sessionManagerInterval = 60000;
+    this.sessionAlreadyOpen = false;
 
     this.markPositionInterval = 60000;
 
@@ -91,6 +92,10 @@ class WasABI {
     this.licenseUrl = url;
   }
 
+
+  getSessionManagerId() {
+    return this.sessionManagerId;
+  }
 
   getLiveContentType() {
     return "live";
@@ -285,30 +290,21 @@ class WasABI {
   openSession(){
     if (!this.isPlayingTrailer()) {
 
-
-      console.log("openSession");
-
       //stov pass type="live" to session manager 
       var type = this.contentType
       if (this.isPlayingStov()){
         type = this.getLiveContentType()
       }
 
-      console.log("openSession contentType " + type);
-
       var params = "&type=" + type + "&deviceId=" + this.terminalId;
       if (this.isPlayingNpvr()){
         params += "&contentId=" + this.recordingId;
-        console.log("openSession npvr " + this.recordingId);
       }else if (this.isPlayingLive() || this.isPlayingStov()){
         params += "&contentId=" + this.channelId;
-        console.log("openSession live " + this.channelId);
       }else if (this.isPlayingCatchup()){
         params += "&contentId=" + this.programId;
-        console.log("openSession catchup " + this.programId);
       }else{
         params += "&contentId=" + this.contentId;
-        console.log("openSession vod " + this.contentId);
       }
 
 
@@ -319,16 +315,19 @@ class WasABI {
       var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
 
 
-      console.log("openSession  finish");
-
       this.request(url, "GET", null, null);
+      this.sessionAlreadyOpen = true
 
    }
 
   }
 
   closeSession(){
-    if (!this.isPlayingTrailer()) {
+
+
+    if (!this.isPlayingTrailer() && this.sessionAlreadyOpen) {
+
+      this.sessionAlreadyOpen = false
 
       //stov pass type="live" to session manager 
       var type = this.contentType
@@ -340,16 +339,12 @@ class WasABI {
 
       if (this.isPlayingNpvr()){
         params += "&contentId=" + this.recordingId;
-        console.log("openSession npvr " + this.recordingId);
       }else if (this.isPlayingLive() || this.isPlayingStov()){
         params += "&contentId=" + this.channelId;
-        console.log("openSession live " + this.channelId);
       }else if (this.isPlayingCatchup()){
         params += "&contentId=" + this.programId;
-        console.log("openSession catchup " + this.programId);
       }else{
         params += "&contentId=" + this.contentId;
-        console.log("openSession vod " + this.contentId);
       }
 
       var url = this.sessionManagerUrl + "/" + this.closeSessionUri + "?client=json" + params;
