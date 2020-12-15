@@ -277,15 +277,22 @@ class WasABI {
   openSession(){
     if (!this.isPlayingTrailer()) {
 
+
+      console.log("openSession");
+
       var params = "&type=" + this.contentType + "&deviceId=" + this.terminalId;
       if (this.isPlayingNpvr()){
         params += "&contentId=" + this.recordingId;
-      }else  if (this.isPlayingLive()){
+        console.log("openSession npvr " + this.recordingId);
+      }else if (this.isPlayingLive()){
         params += "&contentId=" + this.channelId;
+        console.log("openSession live " + this.channelId);
       }else if (this.isPlayingCatchup()){
         params += "&contentId=" + this.programId;
+        console.log("openSession catchup " + this.programId);
       }else{
         params += "&contentId=" + this.contentId;
+        console.log("openSession vod " + this.contentId);
       }
 
 
@@ -294,6 +301,9 @@ class WasABI {
       }
 
       var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
+
+
+      console.log("openSession  finish");
 
       this.request(url, "GET", null, null);
 
