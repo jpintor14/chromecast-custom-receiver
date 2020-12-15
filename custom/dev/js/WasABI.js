@@ -288,7 +288,7 @@ class WasABI {
   }
 
   openSession(){
-    if (!this.isPlayingTrailer()) {
+    if (this.sessionManagerId != null && this.sessionManagerId != "" && !this.isPlayingTrailer()) {
 
       //stov pass type="live" to session manager 
       var type = this.contentType
@@ -307,49 +307,45 @@ class WasABI {
         params += "&contentId=" + this.contentId;
       }
 
-
-      if (this.sessionManagerId != null){
-        params += "&externalSessionId=" + this.sessionManagerId;
-      }
+      params += "&externalSessionId=" + this.sessionManagerId;
 
       var url = this.sessionManagerUrl + "/" + this.openSessionUri + "?client=json" + params;
 
 
       this.request(url, "GET", null, null);
       this.sessionAlreadyOpen = true
-
+    
    }
 
   }
 
   closeSession(){
+    if (this.sessionManagerId != null && this.sessionManagerId != "" && !this.isPlayingTrailer() && this.sessionAlreadyOpen) {
 
+        this.sessionAlreadyOpen = false
 
-    if (!this.isPlayingTrailer() && this.sessionAlreadyOpen) {
+        //stov pass type="live" to session manager 
+        var type = this.contentType
+        if (this.isPlayingStov()){
+          type = this.getLiveContentType()
+        }
 
-      this.sessionAlreadyOpen = false
+        var params = "&type=" + type + "&deviceId=" + this.terminalId + "&externalSessionId=" + this.sessionManagerId;
 
-      //stov pass type="live" to session manager 
-      var type = this.contentType
-      if (this.isPlayingStov()){
-        type = this.getLiveContentType()
+        if (this.isPlayingNpvr()){
+          params += "&contentId=" + this.recordingId;
+        }else if (this.isPlayingLive() || this.isPlayingStov()){
+          params += "&contentId=" + this.channelId;
+        }else if (this.isPlayingCatchup()){
+          params += "&contentId=" + this.programId;
+        }else{
+          params += "&contentId=" + this.contentId;
+        }
+
+        var url = this.sessionManagerUrl + "/" + this.closeSessionUri + "?client=json" + params;
+        this.request(url, "GET", null, null);
       }
-
-      var params = "&type=" + type + "&deviceId=" + this.terminalId + "&externalSessionId=" + this.sessionManagerId;
-
-      if (this.isPlayingNpvr()){
-        params += "&contentId=" + this.recordingId;
-      }else if (this.isPlayingLive() || this.isPlayingStov()){
-        params += "&contentId=" + this.channelId;
-      }else if (this.isPlayingCatchup()){
-        params += "&contentId=" + this.programId;
-      }else{
-        params += "&contentId=" + this.contentId;
-      }
-
-      var url = this.sessionManagerUrl + "/" + this.closeSessionUri + "?client=json" + params;
-      this.request(url, "GET", null, null);
-    }
+      
   }
 
 
