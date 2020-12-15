@@ -92,8 +92,16 @@ class WasABI {
   }
 
 
+  getLiveContentType() {
+    return "live";
+  }
+
   isPlayingLive() {
     return (this.contentType == "live");
+  }
+
+  isPlayingStov() {
+    return (this.contentType == "stov");
   }
 
   isPlayingCatchup() {
@@ -280,11 +288,19 @@ class WasABI {
 
       console.log("openSession");
 
-      var params = "&type=" + this.contentType + "&deviceId=" + this.terminalId;
+      //stov pass type="live" to session manager 
+      var type = this.contentType
+      if (this.isPlayingStov()){
+        type = this.getLiveContentType()
+      }
+
+      console.log("openSession contentType " + type);
+
+      var params = "&type=" + type + "&deviceId=" + this.terminalId;
       if (this.isPlayingNpvr()){
         params += "&contentId=" + this.recordingId;
         console.log("openSession npvr " + this.recordingId);
-      }else if (this.isPlayingLive()){
+      }else if (this.isPlayingLive() || this.isPlayingStov()){
         params += "&contentId=" + this.channelId;
         console.log("openSession live " + this.channelId);
       }else if (this.isPlayingCatchup()){
@@ -313,7 +329,29 @@ class WasABI {
 
   closeSession(){
     if (!this.isPlayingTrailer()) {
-      var params = "&type=" + this.contentType + "&deviceId=" + this.terminalId + "&contentId=" + this.contentId + "&externalSessionId=" + this.sessionManagerId;
+
+      //stov pass type="live" to session manager 
+      var type = this.contentType
+      if (this.isPlayingStov()){
+        type = this.getLiveContentType()
+      }
+
+      var params = "&type=" + type + "&deviceId=" + this.terminalId + "&externalSessionId=" + this.sessionManagerId;
+
+      if (this.isPlayingNpvr()){
+        params += "&contentId=" + this.recordingId;
+        console.log("openSession npvr " + this.recordingId);
+      }else if (this.isPlayingLive() || this.isPlayingStov()){
+        params += "&contentId=" + this.channelId;
+        console.log("openSession live " + this.channelId);
+      }else if (this.isPlayingCatchup()){
+        params += "&contentId=" + this.programId;
+        console.log("openSession catchup " + this.programId);
+      }else{
+        params += "&contentId=" + this.contentId;
+        console.log("openSession vod " + this.contentId);
+      }
+
       var url = this.sessionManagerUrl + "/" + this.closeSessionUri + "?client=json" + params;
       this.request(url, "GET", null, null);
     }
